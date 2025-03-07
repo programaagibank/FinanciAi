@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/FinanciaAi.iml" filepath="$PROJECT_DIR$/.idea/FinanciaAi.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/projetoF.iml" filepath="$PROJECT_DIR$/.idea/projetoF.iml" />
+>>>>>>> 0c702d2 (teste)
     </modules>
   </component>
 </project>
