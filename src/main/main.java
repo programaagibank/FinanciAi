@@ -2,6 +2,8 @@ package main;
 
 public class main {
 
-    private int id;
+    public static void main(String[] args) {
+        System.out.println("oi");
+    }
 
 }
