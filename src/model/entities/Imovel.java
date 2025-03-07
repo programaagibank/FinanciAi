@@ -1,5 +1,7 @@
 package model.entities;
 
+import model.enums.TipoImovel;
+
 public class Imovel {
 
     private int id;

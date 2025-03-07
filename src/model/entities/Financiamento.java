@@ -1,5 +1,7 @@
 package model.entities;
 
+import model.enums.TipoAmortizacao;
+
 public class Financiamento {
 
     private int id;
