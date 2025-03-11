@@ -1,4 +1,4 @@
-package main;
+package view;
 
 public class Program {
 
@@ -14,6 +14,7 @@ public class Program {
         System.out.println();
         System.out.println("           Sua solução financeira inteligente!");
         System.out.println();
+        
     }
 
 }
