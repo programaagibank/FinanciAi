@@ -10,5 +10,5 @@ import java.sql.Statement;
 
 public class ClienteDAO {
 
-
+    public String nome = "Rafa";
 }
