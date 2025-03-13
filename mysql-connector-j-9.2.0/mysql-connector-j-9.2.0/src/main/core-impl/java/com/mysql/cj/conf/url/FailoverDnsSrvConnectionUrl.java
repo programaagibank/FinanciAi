@@ -95,10 +95,10 @@ public class FailoverDnsSrvConnectionUrl extends ConnectionUrl {
      * Returns a hosts list built from the result of the DNS SRV lookup for the original host name.
      *
      * @param view
-     *            the type of the view to use in the returned list of hosts. This argument is ignored in this implementation.
+     *            the type of the com.financiai.view to use in the returned list of hosts. This argument is ignored in this implementation.
      *
      * @return
-     *         the hosts list from the result of the DNS SRV lookup, filtered for the given view.
+     *         the hosts list from the result of the DNS SRV lookup, filtered for the given com.financiai.view.
      */
     @Override
     public List<HostInfo> getHostsList(HostsListView view) {

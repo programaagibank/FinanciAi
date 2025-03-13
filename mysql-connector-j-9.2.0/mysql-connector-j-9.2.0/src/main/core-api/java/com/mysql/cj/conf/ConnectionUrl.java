@@ -645,15 +645,15 @@ public abstract class ConnectionUrl implements DatabaseUrlContainer {
     }
 
     /**
-     * Returns a list of the hosts in this connection URL, filtered for the given view.
+     * Returns a list of the hosts in this connection URL, filtered for the given com.financiai.view.
      *
      * By default returns all hosts. Subclasses should override this method in order to implement support for different views, usually by splitting the global
      * hosts into smaller sub-lists.
      *
      * @param view
-     *            the type of the view to use in the returned list of hosts. This argument is ignored in this implementation.
+     *            the type of the com.financiai.view to use in the returned list of hosts. This argument is ignored in this implementation.
      * @return
-     *         the hosts list from this connection URL, filtered for the given view.
+     *         the hosts list from this connection URL, filtered for the given com.financiai.view.
      */
     public List<HostInfo> getHostsList(HostsListView view) {
         return Collections.unmodifiableList(this.hosts);
@@ -782,7 +782,7 @@ public abstract class ConnectionUrl implements DatabaseUrlContainer {
      * @param srvHost
      *            the {@link HostInfo} from where to get the DNS SRV service name to lookup.
      * @return
-     *         the hosts list from the result of the DNS SRV lookup, filtered for the given view.
+     *         the hosts list from the result of the DNS SRV lookup, filtered for the given com.financiai.view.
      */
     public List<HostInfo> getHostsListFromDnsSrv(HostInfo srvHost) {
         String srvServiceName = srvHost.getHost();

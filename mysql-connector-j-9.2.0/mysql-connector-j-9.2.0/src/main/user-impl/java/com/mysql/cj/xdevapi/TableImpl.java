@@ -169,7 +169,7 @@ public class TableImpl implements Table {
     }
 
     /**
-     * Set flag indicating if the underlying object is a view.
+     * Set flag indicating if the underlying object is a com.financiai.view.
      *
      * @param isView
      *            true if it is a View

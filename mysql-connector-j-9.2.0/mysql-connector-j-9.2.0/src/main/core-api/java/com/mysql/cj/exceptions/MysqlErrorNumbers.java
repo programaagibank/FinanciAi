@@ -42,7 +42,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_DD_VERSION_FOUND = 10006; // [HY000] Using data dictionary with version '%d'.
     public final static int ER_DD_VERSION_INSTALLED = 10007; // [HY000] Installed data dictionary with version %d
     public final static int ER_DD_VERSION_UNSUPPORTED = 10008; // [HY000] Data Dictionary version '%d' not supported.
-    public final static int ER_LOG_SYSLOG_CANNOT_OPEN = 10010; // [HY000] Cannot open %s; check privileges, or remove syseventlog from --log-error-services!
+    public final static int ER_LOG_SYSLOG_CANNOT_OPEN = 10010; // [HY000] Cannot open %s; check privileges, or remove syseventlog from --log-error-com.financiai.services!
     public final static int ER_LOG_SLOW_CANNOT_OPEN = 10011; // [HY000]  either restart the query logging by using "SET GLOBAL SLOW_QUERY_LOG=ON" or
     public final static int ER_LOG_GENERAL_CANNOT_OPEN = 10012; // [HY000]  either restart the query logging by using "SET GLOBAL GENERAL_LOG=ON" or
     public final static int ER_LOG_CANNOT_WRITE = 10013; // [HY000] Failed to write to %s: %s
@@ -51,7 +51,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_SYSTEM_SCHEMA_NOT_FOUND = 10016; // [HY000] System schema directory does not exist.
     public final static int ER_DD_INIT_UPGRADE_FAILED = 10017; // [HY000] Error in initializing dictionary, upgrade will do a cleanup and exit
     public final static int ER_VIEW_UNKNOWN_CHARSET_OR_COLLATION = 10018; // [HY000] View '%s'.'%s': unknown charset name and/or collation name (client: '%s'...
-    public final static int ER_DD_VIEW_CANT_ALLOC_CHARSET = 10019; // [HY000] Error in allocating memory for character set name for view %s.%s.
+    public final static int ER_DD_VIEW_CANT_ALLOC_CHARSET = 10019; // [HY000] Error in allocating memory for character set name for com.financiai.view %s.%s.
     public final static int ER_NO = 1002; // [HY000] NO
     public final static int ER_DD_INIT_FAILED = 10020; // [HY000] Data Dictionary initialization failed.
     public final static int ER_DD_UPDATING_PLUGIN_MD_FAILED = 10021; // [HY000] Failed to update plugin metadata in dictionary tables.
@@ -99,7 +99,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_ADDRESSES_FOR_HOSTNAME_LIST_ITEM = 10060; // [HY000]  - %s
     public final static int ER_TRG_WITHOUT_DEFINER = 10061; // [HY000] Definer clause is missing in Trigger of Table %s. Rebuild Trigger to fix definer.
     public final static int ER_TRG_NO_CLIENT_CHARSET = 10062; // [HY000] Client character set is missing for trigger of table %s. Using default character set.
-    public final static int ER_PARSING_VIEW = 10063; // [HY000] Error in parsing view %s.%s
+    public final static int ER_PARSING_VIEW = 10063; // [HY000] Error in parsing com.financiai.view %s.%s
     public final static int ER_COMPONENTS_INFRASTRUCTURE_BOOTSTRAP = 10064; // [HY000] Failed to bootstrap components infrastructure.
     public final static int ER_COMPONENTS_INFRASTRUCTURE_SHUTDOWN = 10065; // [HY000] Failed to shutdown components infrastructure.
     public final static int ER_COMPONENTS_PERSIST_LOADER_BOOTSTRAP = 10066; // [HY000] Failed to bootstrap persistent components loader.
@@ -241,8 +241,8 @@ public final class MysqlErrorNumbers {
     public final static int ER_TRG_CANT_PARSE = 10198; // [HY000] Error in parsing Triggers from %s.TRG file.
     public final static int ER_DD_TRG_CANT_ADD = 10199; // [HY000] Error in creating DD entry for Trigger %s.%s
     public final static int ER_CHECKREAD = 1020; // [HY000] Record has changed since last read in table '%s'
-    public final static int ER_DD_CANT_RESOLVE_VIEW = 10200; // [HY000] Resolving dependency for the view '%s.%s' failed. View is no more valid to use
-    public final static int ER_DD_VIEW_WITHOUT_DEFINER = 10201; // [HY000] %s.%s has no definer (as per an old view format). Current user is used as definer....
+    public final static int ER_DD_CANT_RESOLVE_VIEW = 10200; // [HY000] Resolving dependency for the com.financiai.view '%s.%s' failed. View is no more valid to use
+    public final static int ER_DD_VIEW_WITHOUT_DEFINER = 10201; // [HY000] %s.%s has no definer (as per an old com.financiai.view format). Current user is used as definer....
     public final static int ER_PLUGIN_INIT_FAILED = 10202; // [HY000] Plugin '%s' init function returned error.
     public final static int ER_RPL_TRX_DELEGATES_INIT_FAILED = 10203; // [HY000] Initialization of transaction delegates failed. Please report a bug.
     public final static int ER_RPL_BINLOG_STORAGE_DELEGATES_INIT_FAILED = 10204; // [HY000] Initialization binlog storage delegates failed. Please report a bug.
@@ -396,7 +396,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_CANT_READ_FRM_FILE = 10348; // [HY000] Error in reading file %s
     public final static int ER_TABLE_CREATED_WITH_DIFFERENT_VERSION = 10349; // [HY000] Table '%s' was created with a different version of MySQL and cannot b...
     public final static int ER_OLD_KEYFILE = 1035; // [HY000] Old key file for table '%s'; repair it!
-    public final static int ER_VIEW_UNPARSABLE = 10350; // [HY000] Unable to read view %s
+    public final static int ER_VIEW_UNPARSABLE = 10350; // [HY000] Unable to read com.financiai.view %s
     public final static int ER_FILE_TYPE_UNKNOWN = 10351; // [HY000] File %s has unknown type in its header.
     public final static int ER_INVALID_INFO_IN_FRM = 10352; // [HY000] Incorrect information in file %s
     public final static int ER_CANT_OPEN_AND_LOCK_PRIVILEGE_TABLES = 10353; // [HY000] Can't open and lock privilege tables: %s
@@ -856,7 +856,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_RPL_FILTER_ADD_WILD_DO_TABLE_FAILED = 10950; // [HY000] Could not add wild do table rule '%s'!
     public final static int ER_RPL_FILTER_ADD_WILD_IGNORE_TABLE_FAILED = 10951; // [HY000] Could not add wild ignore table rule '%s'!
     public final static int ER_PRIVILEGE_SYSTEM_INIT_FAILED = 10952; // [HY000] The privilege system failed to initialize correctly. For complete instruction...
-    public final static int ER_CANNOT_SET_LOG_ERROR_SERVICES = 10953; // [HY000] Cannot set services "%s" requested in --log-error-services, using defaults.
+    public final static int ER_CANNOT_SET_LOG_ERROR_SERVICES = 10953; // [HY000] Cannot set com.financiai.services "%s" requested in --log-error-com.financiai.services, using defaults.
     public final static int ER_PERFSCHEMA_TABLES_INIT_FAILED = 10954; // [HY000] Performance schema tables initialization failed.
     public final static int ER_BINLOG_FILE_OPEN_FAILED = 10958; // [HY000] %s.
     public final static int ER_BINLOG_EVENT_WRITE_TO_STMT_CACHE_FAILED = 10959; // [HY000] Failed to write an incident event into stmt_cache.
@@ -881,7 +881,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_FAILED_TO_ALLOCATE_MEMORY_FOR_RESOURCE_GROUP_HASH = 10976; // [HY000] Failed to allocate memory for resource group hash.
     public final static int ER_FAILED_TO_ADD_RESOURCE_GROUP_TO_MAP = 10977; // [HY000] Failed to add resource group %s to resource group map.
     public final static int ER_RESOURCE_GROUP_IS_DISABLED = 10978; // [HY000] Resource group feature is disabled. (Server is compiled with DISABLE_PSI_THREAD).
-    public final static int ER_FAILED_TO_APPLY_RESOURCE_GROUP_CONTROLLER = 10979; // [HY000] Unable to apply resource group controller %s.
+    public final static int ER_FAILED_TO_APPLY_RESOURCE_GROUP_CONTROLLER = 10979; // [HY000] Unable to apply resource group com.financiai.controller %s.
     public final static int ER_NO_UNIQUE_LOGFILE = 1098; // [HY000] Can't generate a unique log-filename %s.(1-999)
     public final static int ER_FAILED_TO_ACQUIRE_LOCK_ON_RESOURCE_GROUP = 10980; // [HY000] Unable to acquire lock on the resource group %s. Hint to switch r...
     public final static int ER_PFS_NOTIFICATION_FUNCTION_REGISTER_FAILED = 10981; // [HY000] PFS %s notification function registration failed.
@@ -993,7 +993,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_DROP_DATABASE_FAILED_RMDIR_MANUALLY = 11078; // [HY000] Problem while dropping database. Can't remove database directory (%s)....
     public final static int ER_WRONG_PARAMETERS_TO_PROCEDURE = 1108; // [HY000] Incorrect parameters to procedure '%s'
     public final static int ER_BINLOG_MALFORMED_OR_OLD_RELAY_LOG = 11080; // [HY000] malformed or very old relay log which does not have FormatDescriptor.
-    public final static int ER_DD_UPGRADE_VIEW_COLUMN_NAME_TOO_LONG = 11081; // [HY000] Upgrade of view '%s.%s' failed. Re-create the view with the explicit ...
+    public final static int ER_DD_UPGRADE_VIEW_COLUMN_NAME_TOO_LONG = 11081; // [HY000] Upgrade of com.financiai.view '%s.%s' failed. Re-create the com.financiai.view with the explicit ...
     public final static int ER_TABLE_NEEDS_DUMP_UPGRADE = 11082; // [HY000] Table upgrade required for `%s`.`%s`. Please dump/reload table to fix it!
     public final static int ER_DD_UPGRADE_FAILED_TO_UPDATE_VER_NO_IN_TABLESPACE = 11083; // [HY000] Error in updating version number in %s tablespace.
     public final static int ER_KEYRING_MIGRATION_FAILED = 11084; // [HY000] Keyring migration failed.
@@ -1399,7 +1399,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_GRP_RPL_PRIMARY_MEMBER_LEFT_GRP = 11500; // [HY000] Primary server with address %s left the group. Electing new Primary.
     public final static int ER_GRP_RPL_MEMBER_ADDED = 11501; // [HY000] Members joined the group: %s
     public final static int ER_GRP_RPL_MEMBER_EXIT_PLUGIN_ERROR = 11502; // [HY000] There was a previous plugin error while the member joined the group. The ...
-    public final static int ER_GRP_RPL_MEMBER_CHANGE = 11503; // [HY000] Group membership changed to %s on view %s.
+    public final static int ER_GRP_RPL_MEMBER_CHANGE = 11503; // [HY000] Group membership changed to %s on com.financiai.view %s.
     public final static int ER_GRP_RPL_MEMBER_LEFT_GRP = 11504; // [HY000] Group membership changed: This member has left the group.
     public final static int ER_GRP_RPL_MEMBER_EXPELLED = 11505; // [HY000] Member was expelled from the group due to network failures, changing member status...
     public final static int ER_GRP_RPL_SESSION_OPEN_FAILED = 11506; // [HY000] Unable to open session to (re)set read only mode. Skipping.
@@ -1535,14 +1535,14 @@ public final class MysqlErrorNumbers {
     public final static int ER_GRP_RPL_FAILED_TO_START_ON_SECONDARY_WITH_ASYNC_CHANNELS = 11638; // [HY000] Can't start group replication on secondary member...
     public final static int ER_GRP_RPL_FAILED_TO_START_COMMUNICATION_ENGINE = 11639; // [HY000] Error on group communication engine start
     public final static int ER_TABLE_CANT_HANDLE_AUTO_INCREMENT = 1164; // [42000] The used table type doesn't support AUTO_INCREMENT columns
-    public final static int ER_GRP_RPL_TIMEOUT_ON_VIEW_AFTER_JOINING_GRP = 11640; // [HY000] Timeout on wait for view after joining group
+    public final static int ER_GRP_RPL_TIMEOUT_ON_VIEW_AFTER_JOINING_GRP = 11640; // [HY000] Timeout on wait for com.financiai.view after joining group
     public final static int ER_GRP_RPL_FAILED_TO_CALL_GRP_COMMUNICATION_INTERFACE = 11641; // [HY000] Error calling group communication interfaces
     public final static int ER_GRP_RPL_MEMBER_SERVER_UUID_IS_INCOMPATIBLE_WITH_GRP = 11642; // [HY000] Member server_uuid is incompatible with the group. Ser...
     public final static int ER_GRP_RPL_MEMBER_CONF_INFO = 11643; // [HY000] Member configuration: member_id: %lu; member_uuid: "%s"; single-primary mode: "%s...
     public final static int ER_GRP_RPL_FAILED_TO_CONFIRM_IF_SERVER_LEFT_GRP = 11644; // [HY000] Unable to confirm whether the server has left the group or no...
     public final static int ER_GRP_RPL_SERVER_IS_ALREADY_LEAVING = 11645; // [HY000] Skipping leave operation: concurrent attempt to leave the group is on-go...
     public final static int ER_GRP_RPL_SERVER_ALREADY_LEFT = 11646; // [HY000] Skipping leave operation: member already left the group.
-    public final static int ER_GRP_RPL_WAITING_FOR_VIEW_UPDATE = 11647; // [HY000] Going to wait for view modification
+    public final static int ER_GRP_RPL_WAITING_FOR_VIEW_UPDATE = 11647; // [HY000] Going to wait for com.financiai.view modification
     public final static int ER_GRP_RPL_TIMEOUT_RECEIVING_VIEW_CHANGE_ON_SHUTDOWN = 11648; // [HY000] While leaving the group due to a stop, shutdown or failu...
     public final static int ER_GRP_RPL_REQUESTING_NON_MEMBER_SERVER_TO_LEAVE = 11649; // [HY000] Requesting to leave the group despite of not being a member
     public final static int ER_GRP_RPL_IS_STOPPING = 11650; // [HY000] Plugin 'group_replication' is stopping.
@@ -1622,7 +1622,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_GRP_RPL_GCS_INTERFACE_ERROR = 11720; // [HY000] Error calling group communication interfaces
     public final static int ER_GRP_RPL_FORCE_MEMBER_VALUE_SET_ERROR = 11721; // [HY000] Error setting group_replication_force_members value '%s' on group com...
     public final static int ER_GRP_RPL_FORCE_MEMBER_VALUE_SET = 11722; // [HY000] The group_replication_force_members value '%s' was set in the group communi...
-    public final static int ER_GRP_RPL_FORCE_MEMBER_VALUE_TIME_OUT = 11723; // [HY000] Timeout on wait for view after setting group_replication_force_members...
+    public final static int ER_GRP_RPL_FORCE_MEMBER_VALUE_TIME_OUT = 11723; // [HY000] Timeout on wait for com.financiai.view after setting group_replication_force_members...
     public final static int ER_GRP_RPL_BROADCAST_COMMIT_MSSG_TOO_BIG = 11724; // [HY000] Broadcast of committed transactions message failed. Message is too big.
     public final static int ER_GRP_RPL_SEND_STATS_ERROR = 11725; // [HY000] Error while sending stats message
     public final static int ER_GRP_RPL_MEMBER_STATS_INFO = 11726; // [HY000] Flow control - update member stats: %s stats certifier_queue %d, applier_queue %...
@@ -3032,7 +3032,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_LCTN_NOT_FOUND = 13109; // [HY000] The lower_case_table_names setting for the data dictionary was not found. Starting the serv...
     public final static int ER_SP_UNINIT_VAR = 1311; // [01000] Referring to uninitialized variable %s
     public final static int ER_COMPONENT_FILTER_WRONG_VALUE = 13111; // [HY000] Variable '%s' can't be set to the value of '%s'
-    public final static int ER_XPLUGIN_FAILED_TO_STOP_SERVICES = 13112; // [HY000] Stopping services failed with error "%s"
+    public final static int ER_XPLUGIN_FAILED_TO_STOP_SERVICES = 13112; // [HY000] Stopping com.financiai.services failed with error "%s"
     public final static int ER_INCONSISTENT_ERROR = 13113; // [HY000] Query caused different errors on source and replica. Error on source: message (format)=...
     public final static int ER_SERVER_SOURCE_FATAL_ERROR_READING_BINLOG = 13114; // [HY000] Got fatal error %d from source when reading data from binary log:...
     public final static int ER_NETWORK_READ_EVENT_CHECKSUM_FAILURE = 13115; // [HY000] Replication event checksum verification failed while reading from netw...
@@ -3292,7 +3292,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_WARN_INVALID_DB_RESTRICTIONS = 13371; // [HY000] For user %s, ignored restrictions for privilege(s) '%s' for database '%s' as ...
     public final static int ER_GRP_RPL_INVALID_COMMUNICATION_PROTOCOL = 13372; // [HY000] '%s' is an invalid value for group_replication_communication_protoc...
     public final static int ER_GRP_RPL_STARTED_AUTO_REJOIN = 13373; // [HY000] Started auto-rejoin procedure attempt %lu of %lu
-    public final static int ER_GRP_RPL_TIMEOUT_RECEIVED_VC_ON_REJOIN = 13374; // [HY000] Timeout while waiting for a view change event during the auto-rejoin...
+    public final static int ER_GRP_RPL_TIMEOUT_RECEIVED_VC_ON_REJOIN = 13374; // [HY000] Timeout while waiting for a com.financiai.view change event during the auto-rejoin...
     public final static int ER_GRP_RPL_FINISHED_AUTO_REJOIN = 13375; // [HY000] Auto-rejoin procedure attempt %lu of %lu finished. Member was%s able to join ...
     public final static int ER_GRP_RPL_DEFAULT_TABLE_ENCRYPTION_DIFF_FROM_GRP = 13376; // [HY000] The member is configured with a default_table_encryption op...
     public final static int ER_SERVER_UPGRADE_OFF = 13377; // [HY000] Server shutting down because upgrade is required, yet prohibited by the command line op...
@@ -3308,9 +3308,9 @@ public final class MysqlErrorNumbers {
     public final static int ER_SERVER_UPGRADE_MYSQL_TABLES = 13386; // [HY000] Running queries to upgrade MySQL server.
     public final static int ER_SERVER_UPGRADE_SYSTEM_TABLES = 13387; // [HY000] Upgrading system table data.
     public final static int ER_SERVER_UPGRADE_EMPTY_SYS = 13388; // [HY000] Found empty sys database. Installing the sys schema.
-    public final static int ER_SERVER_UPGRADE_NO_SYS_VERSION = 13389; // [HY000] A sys schema exists with no sys.version view. If you have a user created sys...
+    public final static int ER_SERVER_UPGRADE_NO_SYS_VERSION = 13389; // [HY000] A sys schema exists with no sys.version com.financiai.view. If you have a user created sys...
     public final static int ER_SP_CASE_NOT_FOUND = 1339; // [20000] Case not found for CASE statement
-    public final static int ER_SERVER_UPGRADE_SYS_VERSION_EMPTY = 13390; // [HY000] A sys schema exists with a sys.version view, but it returns no results.
+    public final static int ER_SERVER_UPGRADE_SYS_VERSION_EMPTY = 13390; // [HY000] A sys schema exists with a sys.version com.financiai.view, but it returns no results.
     public final static int ER_SERVER_UPGRADE_SYS_SCHEMA_OUTDATED = 13391; // [HY000] Found outdated sys schema version %s.
     public final static int ER_SERVER_UPGRADE_SYS_SCHEMA_UP_TO_DATE = 13392; // [HY000] The sys schema is already up to date (version %s).
     public final static int ER_SERVER_UPGRADE_SYS_SCHEMA_OBJECT_COUNT = 13393; // [HY000] Found %d sys %s, but expected %d. Re-installing the sys schema.
@@ -3444,7 +3444,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_INNODB_OUT_OF_RESOURCES = 13526; // [HY000] %s
     public final static int ER_MIGRATE_TABLE_TO_DD_OOM = 13528; // [HY000] Could not allocate memory for key_info when migrating table %s.%s
     public final static int ER_RPL_RELAY_LOG_RECOVERY_INFO_AFTER_CLONE = 13529; // [HY000] Applier metadata information for channel '%s' was found after a cl...
-    public final static int ER_VIEW_WRONG_LIST = 1353; // [HY000] In definition of view, derived table or common table expression, SELECT list and column nam...
+    public final static int ER_VIEW_WRONG_LIST = 1353; // [HY000] In definition of com.financiai.view, derived table or common table expression, SELECT list and column nam...
     public final static int ER_IB_MSG_57_UNDO_SPACE_DELETE_FAIL = 13530; // [HY000] Failed to delete 5.7 undo tablespace: %s during upgrade
     public final static int ER_IB_MSG_DBLWR_1285 = 13531; // [HY000] Empty doublewrite file: %s
     public final static int ER_IB_MSG_DBLWR_1286 = 13532; // [HY000] Using '%s' for doublewrite
@@ -3528,7 +3528,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_HOSTNAME_TRUNKATED = 13607; // [HY000] The host name '%s' exceeds the maximum number of allowed characters %d and is trunkated.
     public final static int ER_IB_MSG_TRX_RECOVERY_ROLLBACK_NOT_COMPLETED = 13608; // [HY000] Rollback of non-prepared transactions not completed, due to fas...
     public final static int ER_AUTHCACHE_ROLE_EDGES_IGNORED_EMPTY_NAME = 13609; // [HY000] Found an entry in the 'role_edges' table with empty authorization ...
-    public final static int ER_TRG_ON_VIEW_OR_TEMP_TABLE = 1361; // [HY000] Trigger's '%s' is view or temporary table
+    public final static int ER_TRG_ON_VIEW_OR_TEMP_TABLE = 1361; // [HY000] Trigger's '%s' is com.financiai.view or temporary table
     public final static int ER_AUTHCACHE_ROLE_EDGES_UNKNOWN_AUTHORIZATION_ID = 13610; // [HY000] Found an entry in the 'role_edges' table with unknown author...
     public final static int ER_AUTHCACHE_DEFAULT_ROLES_IGNORED_EMPTY_NAME = 13611; // [HY000] Found an entry in the 'default_roles' table with empty authoriz...
     public final static int ER_AUTHCACHE_DEFAULT_ROLES_UNKNOWN_AUTHORIZATION_ID = 13612; // [HY000] Found an entry in the 'default_roles' table with unknown ...
@@ -3577,7 +3577,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_IB_MSG_UNDO_TRUNCATE_DELAY_BY_MDL = 13656; // [HY000] Delaying truncate of undo tablespace %s due to a metadata lock.
     public final static int ER_IB_MSG_INJECT_CRASH = 13657; // [HY000] Injected debug crash point: %s
     public final static int ER_IB_MSG_INJECT_FAILURE = 13658; // [HY000] Injected debug failure point: %s
-    public final static int ER_GRP_RPL_TIMEOUT_RECEIVED_VC_LEAVE_ON_REJOIN = 13659; // [HY000] Timeout while waiting for a view change event during the leave...
+    public final static int ER_GRP_RPL_TIMEOUT_RECEIVED_VC_LEAVE_ON_REJOIN = 13659; // [HY000] Timeout while waiting for a com.financiai.view change event during the leave...
     public final static int ER_TRUNCATED_WRONG_VALUE_FOR_FIELD = 1366; // [HY000] Incorrect %s value: '%s' for column '%s' at row %ld
     public final static int ER_RPL_ASYNC_RECONNECT_FAIL_NO_SOURCE = 13660; // [HY000] Failed to automatically re-connect to a different source, for channel '...
     public final static int ER_UDF_REGISTER_SERVICE_ERROR = 13661; // [HY000] Could not execute the installation of UDF functions. Check for other errors in ...
@@ -3587,7 +3587,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_IB_MSG_INCORRECT_SIZE = 13665; // [HY000] %s
     public final static int ER_TMPDIR_PATH_TOO_LONG = 13666; // [HY000] A tmpdir temporary path "%s" is too long (> %zu) for this OS. This would not leave en...
     public final static int ER_ERROR_LOG_DESTINATION_NOT_A_FILE = 13667; // [HY000] Error-log destination "%s" is not a file. Can not restore error log messa...
-    public final static int ER_NO_ERROR_LOG_PARSER_CONFIGURED = 13668; // [HY000] None of the log-sinks selected with --log-error-services=... provides a log...
+    public final static int ER_NO_ERROR_LOG_PARSER_CONFIGURED = 13668; // [HY000] None of the log-sinks selected with --log-error-com.financiai.services=... provides a log...
     public final static int ER_UPGRADE_NONEXISTENT_SCHEMA = 13669; // [HY000] The schema "%s" referenced by %s "%s" does not exist. Please clean up any orpha...
     public final static int ER_ILLEGAL_VALUE_FOR_TYPE = 1367; // [22007] Illegal %s '%s' value found during parsing
     public final static int ER_IB_MSG_CREATED_UNDO_SPACE = 13670; // [HY000] Created undo tablespace '%s'.
@@ -3600,7 +3600,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_INNODB_IO_WRITE_FAILED = 13677; // [HY000] Failed to write data to file: %s
     public final static int ER_LOG_COMPONENT_CANNOT_INIT = 13678; // [HY000] Log component %s failed to initialize.
     public final static int ER_RPL_ASYNC_CHANNEL_CANT_CONNECT = 13679; // [HY000] The Monitor IO thread failed to connect to the source (host:%s port:%u netw...
-    public final static int ER_VIEW_NONUPD_CHECK = 1368; // [HY000] CHECK OPTION on non-updatable view '%s.%s'
+    public final static int ER_VIEW_NONUPD_CHECK = 1368; // [HY000] CHECK OPTION on non-updatable com.financiai.view '%s.%s'
     public final static int ER_RPL_ASYNC_SENDER_ADDED = 13680; // [HY000] The source (host:%s port:%u network_namespace:%s) for channel '%s' has joined the g...
     public final static int ER_RPL_ASYNC_SENDER_REMOVED = 13681; // [HY000] The source (host:%s port:%u network_namespace:%s) for channel '%s' has left the g...
     public final static int ER_RPL_ASYNC_CHANNEL_STOPPED_QUORUM_LOST = 13682; // [HY000] The Monitor IO thread detected that the source (host:%s port:%u netw...
@@ -3625,7 +3625,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_IB_INNODB_TBSP_OUT_OF_SPACE = 13700; // [HY000] InnoDB: Size of tablespace %s is more than the maximum size allowed.
     public final static int ER_GRP_RPL_APPLIER_CHANNEL_STILL_RUNNING = 13701; // [HY000] The group_replication_applier channel is still running, most likely ...
     public final static int ER_RPL_ASYNC_RECONNECT_GTID_MODE_OFF_CHANNEL = 13702; // [HY000] Detected misconfiguration: replication channel \'%s\' was config...
-    public final static int ER_FIREWALL_SERVICES_NOT_ACQUIRED = 13703; // [HY000] Could not acquire required component services.
+    public final static int ER_FIREWALL_SERVICES_NOT_ACQUIRED = 13703; // [HY000] Could not acquire required component com.financiai.services.
     public final static int ER_FIREWALL_UDF_REGISTER_FAILED = 13704; // [HY000] Automatic registration of function(s) failed.
     public final static int ER_FIREWALL_PFS_TABLE_REGISTER_FAILED = 13705; // [HY000] Automatic registration of Performance schema table(s) failed.
     public final static int ER_IB_MSG_STATS_SAMPLING_TOO_LARGE = 13706; // [HY000] %s
@@ -3685,7 +3685,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_GRP_RPL_UPDATE_GRPGTID_VIEW_CHANGE_UUID_EXECUTED_ERROR = 13758; // [HY000] Error updating group_gtid_executed GTID set with vi...
     public final static int ER_GRP_RPL_ADD_VIEW_CHANGE_UUID_TO_GRP_SID_MAP_ERROR = 13759; // [HY000] Unable to add the group_replication_view_change_uuid sid...
     public final static int ER_FSEEK_FAIL = 1376; // [HY000] Failed on fseek()
-    public final static int ER_GRP_RPL_DONOR_VIEW_CHANGE_UUID_TRANS_INFO_ERROR = 13760; // [HY000] Unable to handle the donor's view change uuid transaction ...
+    public final static int ER_GRP_RPL_DONOR_VIEW_CHANGE_UUID_TRANS_INFO_ERROR = 13760; // [HY000] Unable to handle the donor's com.financiai.view change uuid transaction ...
     public final static int ER_WARN_GRP_RPL_VIEW_CHANGE_UUID_FAIL_GET_VARIABLE = 13761; // [HY000] Unable to retrieve group_replication_view_change_uuid duri...
     public final static int ER_WARN_ADUIT_LOG_MAX_SIZE_AND_PRUNE_SECONDS_LOG = 13762; // [HY000] Both audit_log_max_size and audit_log_prune_seconds are set ...
     public final static int ER_WARN_ADUIT_LOG_MAX_SIZE_CLOSE_TO_ROTATE_ON_SIZE_LOG = 13763; // [HY000] audit_log_rotate_on_size is not granular enough for th...
@@ -3826,7 +3826,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_IB_MSG_LOG_FILE_FORMAT_TOO_OLD = 13895; // [HY000] Found redo log file %s which has format (v%lu) and is stored inside #innodb...
     public final static int ER_IB_MSG_LOG_FILE_DIFFERENT_FORMATS = 13896; // [HY000] Found redo log files with different formats: %s has format v%lu, %s has ...
     public final static int ER_IB_MSG_LOG_PRE_8_0_30_MISSING_FILE0 = 13897; // [HY000] Missing ib_logfile0 in the directory %s.
-    public final static int ER_IB_MSG_LOG_PFS_ACQUIRE_SERVICES_FAILED = 13898; // [HY000] Failed to initialize services required to handle redo log PFS tables.
+    public final static int ER_IB_MSG_LOG_PFS_ACQUIRE_SERVICES_FAILED = 13898; // [HY000] Failed to initialize com.financiai.services required to handle redo log PFS tables.
     public final static int ER_IB_MSG_LOG_PFS_CREATE_TABLES_FAILED = 13899; // [HY000] Failed to create redo log PFS tables.
     public final static int ER_PS_MANY_PARAM = 1390; // [HY000] Prepared statement contains too many placeholders
     public final static int ER_IB_MSG_LOG_FILE_TRUNCATE = 13900; // [HY000] Truncating redo log file %s...
@@ -3861,7 +3861,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_COMPONENT_EE_DATA_SIGN_ERROR = 13927; // [HY000] Could not sign data in function '%s' using algorithm '%s' and digest type '%s...
     public final static int ER_COMPONENT_EE_OPENSSL_ERROR = 13928; // [HY000] Received OpenSSL error in function '%s' for algorithm '%s': '%s'
     public final static int ER_COMPONENT_EE_INSUFFICIENT_LENGTH = 13929; // [HY000] In function '%s' with algorithm '%s': insufficient output buffer length '...
-    public final static int ER_VIEW_MULTIUPDATE = 1393; // [HY000] Can not modify more than one base table through a join view '%s.%s'
+    public final static int ER_VIEW_MULTIUPDATE = 1393; // [HY000] Can not modify more than one base table through a join com.financiai.view '%s.%s'
     public final static int ER_SYSTEMD_NOTIFY_DEBUG = 13930; // [HY000] %s%s
     public final static int ER_TMP_SESSION_FOR_VAR = 13931; // [HY000] Setting session values for system variables only makes sense in a user session (failed...
     public final static int ER_BUILD_ID = 13932; // [HY000] BuildID[sha1]=%s
@@ -3869,7 +3869,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_IB_MSG_LOG_WRITER_WAIT_ON_CONSUMER = 13934; // [HY000] Redo log writer is waiting for %s redo log consumer which is currently ...
     public final static int ER_CONDITIONAL_DEBUG = 13935; // [HY000] %s
     public final static int ER_IB_MSG_PARSE_OLD_REDO_INDEX_VERSION = 13936; // [HY000] Recovery: Generating index information for INSTANT DDL Table in 8.0.29...
-    public final static int ER_VIEW_NO_INSERT_FIELD_LIST = 1394; // [HY000] Can not insert into join view '%s.%s' without fields list
+    public final static int ER_VIEW_NO_INSERT_FIELD_LIST = 1394; // [HY000] Can not insert into join com.financiai.view '%s.%s' without fields list
     public final static int ER_IB_MSG_CLEAR_INSTANT_DROP_COLUMN_METADATA = 13941; // [HY000] Failed to clear instant drop column metadata for table %s
     public final static int ER_COMPONENT_KEYRING_OCI_OPEN_KEY_FILE = 13942; // [HY000] Cannot open signing key file %s.
     public final static int ER_COMPONENT_KEYRING_OCI_CREATE_PRIVATE_KEY = 13943; // [HY000] Out of memory! Cannot create private key.
@@ -3879,7 +3879,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_KEYRING_OCI_PARSE_JSON = 13947; // [HY000] Error parsing JSON response %s.
     public final static int ER_KEYRING_OCI_INVALID_JSON = 13948; // [HY000] Invalid JSON response!
     public final static int ER_KEYRING_OCI_HTTP_REQUEST = 13949; // [HY000] HTTP request failed with error: '%s'
-    public final static int ER_VIEW_DELETE_MERGE_VIEW = 1395; // [HY000] Can not delete from join view '%s.%s'
+    public final static int ER_VIEW_DELETE_MERGE_VIEW = 1395; // [HY000] Can not delete from join com.financiai.view '%s.%s'
     public final static int ER_THREAD_POOL_SYSVAR_CHANGE = 13950; // [HY000] Variable thread_pool.%s was updated: %s
     public final static int ER_STACK_BACKTRACE = 13951; // [HY000] %s
     public final static int ER_IB_MSG_BUF_POOL_RESIZE_COMPLETE_CUR_CODE = 13952; // [HY000] Status code %u: Completed
@@ -4025,7 +4025,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_BINLOG_CREATE_ROUTINE_NEED_SUPER = 1419; // [HY000] You do not have the SUPER privilege and binary logging is enabled (you *mi...
     public final static int ER_STMT_HAS_NO_OPEN_CURSOR = 1421; // [HY000] The statement (%lu) has no open cursor.
     public final static int ER_COMMIT_NOT_ALLOWED_IN_SF_OR_TRG = 1422; // [HY000] Explicit or implicit commit is not allowed in stored function or trigger.
-    public final static int ER_NO_DEFAULT_FOR_VIEW_FIELD = 1423; // [HY000] Field of view '%s.%s' underlying table doesn't have a default value
+    public final static int ER_NO_DEFAULT_FOR_VIEW_FIELD = 1423; // [HY000] Field of com.financiai.view '%s.%s' underlying table doesn't have a default value
     public final static int ER_SP_NO_RECURSION = 1424; // [HY000] Recursive stored functions and triggers are not allowed.
     public final static int ER_TOO_BIG_SCALE = 1425; // [42000] Too big scale %d specified for column '%s'. Maximum is %lu.
     public final static int ER_TOO_BIG_PRECISION = 1426; // [42000] Too-big precision %d specified for '%s'. Maximum is %lu.
@@ -4048,7 +4048,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_PS_NO_RECURSION = 1444; // [HY000] The prepared statement contains a stored routine call that refers to that same statement. I...
     public final static int ER_SP_CANT_SET_AUTOCOMMIT = 1445; // [HY000] Not allowed to set autocommit from a stored function or trigger
     public final static int ER_VIEW_FRM_NO_USER = 1447; // [HY000] View '%s'.'%s' has no definer information (old table format). Current user is used as defi...
-    public final static int ER_VIEW_OTHER_USER = 1448; // [HY000] You need the SUPER privilege for creation view with '%s'@'%s' definer
+    public final static int ER_VIEW_OTHER_USER = 1448; // [HY000] You need the SUPER privilege for creation com.financiai.view with '%s'@'%s' definer
     public final static int ER_NO_SUCH_USER = 1449; // [HY000] The user specified as a definer ('%s'@'%s') does not exist
     public final static int ER_FORBID_SCHEMA_CHANGE = 1450; // [HY000] Changing schema from '%s' to '%s' is not allowed.
     public final static int ER_ROW_IS_REFERENCED_2 = 1451; // [23000] Cannot delete or update a parent row: a foreign key constraint fails%s
@@ -4061,7 +4061,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_TABLE_NEEDS_UPGRADE = 1459; // [HY000] Table upgrade required. Please do "REPAIR TABLE `%s`" or dump/reload to fix it!
     public final static int ER_SP_NO_AGGREGATE = 1460; // [42000] AGGREGATE is not supported for stored functions
     public final static int ER_MAX_PREPARED_STMT_COUNT_REACHED = 1461; // [42000] Can't create more than max_prepared_stmt_count statements (current value: %lu)
-    public final static int ER_VIEW_RECURSIVE = 1462; // [HY000] `%s`.`%s` contains view recursion
+    public final static int ER_VIEW_RECURSIVE = 1462; // [HY000] `%s`.`%s` contains com.financiai.view recursion
     public final static int ER_NON_GROUPING_FIELD_USED = 1463; // [42000] Non-grouping field '%s' is used in %s clause
     public final static int ER_TABLE_CANT_HANDLE_SPKEYS = 1464; // [HY000] The used table type doesn't support SPATIAL indexes
     public final static int ER_NO_TRIGGERS_ON_SYSTEM_SCHEMA = 1465; // [HY000] Triggers can not be created on system tables
@@ -4310,7 +4310,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_BINLOG_FATAL_ERROR = 1593; // [HY000] Fatal error: %s
     public final static int ER_BINLOG_LOGGING_IMPOSSIBLE = 1598; // [HY000] Binary logging not possible. Message: %s
     public final static int ER_VIEW_NO_CREATION_CTX = 1599; // [HY000] View `%s`.`%s` has no creation context
-    public final static int ER_VIEW_INVALID_CREATION_CTX = 1600; // [HY000] Creation context of view `%s`.`%s' is invalid
+    public final static int ER_VIEW_INVALID_CREATION_CTX = 1600; // [HY000] Creation context of com.financiai.view `%s`.`%s' is invalid
     public final static int ER_TRG_CORRUPTED_FILE = 1602; // [HY000] Corrupted TRG file for table `%s`.`%s`
     public final static int ER_TRG_NO_CREATION_CTX = 1603; // [HY000] Triggers for table `%s`.`%s` have no creation context
     public final static int ER_TRG_INVALID_CREATION_CTX = 1604; // [HY000] Trigger creation context of table `%s`.`%s` is invalid
@@ -4628,7 +4628,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_CHANGE_SOURCE_PASSWORD_LENGTH = 3056; // [HY000] The password provided for the replication user exceeds the maximum length of ...
     public final static int ER_USER_LOCK_WRONG_NAME = 3057; // [42000] Incorrect user-level lock name '%s'. The name is empty, NULL, or can not be expressed ...
     public final static int ER_USER_LOCK_DEADLOCK = 3058; // [HY000] Deadlock found when trying to get user-level lock; try rolling back transaction/releasin...
-    public final static int ER_REPLACE_INACCESSIBLE_ROWS = 3059; // [HY000] REPLACE cannot be executed as it requires deleting rows that are not in the view
+    public final static int ER_REPLACE_INACCESSIBLE_ROWS = 3059; // [HY000] REPLACE cannot be executed as it requires deleting rows that are not in the com.financiai.view
     public final static int ER_ALTER_OPERATION_NOT_SUPPORTED_REASON_GIS = 3060; // [HY000] Do not support online operation on table with GIS index
     public final static int ER_ILLEGAL_USER_VAR = 3061; // [42000] User variable name '%s' is illegal
     public final static int ER_GTID_MODE_OFF = 3062; // [HY000] Cannot %s when GTID_MODE = OFF.
@@ -4888,7 +4888,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_LATITUDE_OUT_OF_RANGE = 3617; // [22S03] Latitude %f is out of range in function %s. It must be within [%f, %f].
     public final static int ER_NOT_IMPLEMENTED_FOR_GEOGRAPHIC_SRS = 3618; // [22S00] %s(%s) has not been implemented for geographic spatial reference systems.
     public final static int ER_ILLEGAL_PRIVILEGE_LEVEL = 3619; // [HY000] Illegal privilege level specified for %s
-    public final static int ER_NO_SYSTEM_VIEW_ACCESS = 3620; // [HY000] Access to system view INFORMATION_SCHEMA.'%s' is rejected.
+    public final static int ER_NO_SYSTEM_VIEW_ACCESS = 3620; // [HY000] Access to system com.financiai.view INFORMATION_SCHEMA.'%s' is rejected.
     public final static int ER_COMPONENT_FILTER_FLABBERGASTED = 3621; // [HY000] The log-filter component "%s" got confused at "%s" ...
     public final static int ER_PART_EXPR_TOO_LONG = 3622; // [HY000] Partitioning expression is too long.
     public final static int ER_UDF_DROP_DYNAMICALLY_REGISTERED = 3623; // [HY000] DROP FUNCTION can't drop a dynamically registered user defined function
@@ -5264,7 +5264,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_INVALID_CAST = 3998; // [HY000] Cannot cast value to %s.
     public final static int ER_HYPERGRAPH_NOT_SUPPORTED_YET = 3999; // [42000] The hypergraph optimizer does not yet support '%s'
     public final static int ER_WARN_HYPERGRAPH_EXPERIMENTAL = 4000; // [HY000] The hypergraph optimizer is highly experimental and is meant for testing only....
-    public final static int ER_DA_NO_ERROR_LOG_PARSER_CONFIGURED = 4001; // [HY000] None of the log-sinks selected with --log-error-services=... provides a l...
+    public final static int ER_DA_NO_ERROR_LOG_PARSER_CONFIGURED = 4001; // [HY000] None of the log-sinks selected with --log-error-com.financiai.services=... provides a l...
     public final static int ER_DA_ERROR_LOG_TABLE_DISABLED = 4002; // [HY000] None of the log-sinks selected in @@global.log_error_services supports writing ...
     public final static int ER_DA_ERROR_LOG_MULTIPLE_FILTERS = 4003; // [HY000] @@global.log_error_services lists more than one log-filter service. This is d...
     public final static int ER_DA_CANT_OPEN_ERROR_LOG = 4004; // [HY000] Could not open file '%s' for error logging%s%s

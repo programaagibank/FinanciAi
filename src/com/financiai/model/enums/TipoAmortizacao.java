@@ -1,4 +1,4 @@
-package model.enums;
+package com.financiai.model.enums;
 
 public enum TipoAmortizacao {
 

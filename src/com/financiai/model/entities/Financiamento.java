@@ -1,6 +1,6 @@
-package model.entities;
+package com.financiai.model.entities;
 
-import model.enums.TipoAmortizacao;
+import com.financiai.model.enums.TipoAmortizacao;
 
 public class Financiamento {
 
