@@ -2416,7 +2416,7 @@ Version 6.0.6
     - Fixed Bug #39426 - executeBatch passes most recent PreparedStatement params
       to StatementInterceptor
 
-    - Support use of INFORMATION_SCHEMA.PARAMETERS when "useInformationSchema" is set "true" and the view exists
+    - Support use of INFORMATION_SCHEMA.PARAMETERS when "useInformationSchema" is set "true" and the com.financiai.view exists
       for DatabaseMetaData.getProcedureColumns() and getFunctionColumns().
 
     - When "logSlowQueries" is set to "true", and the driver has made a connection to a server that has suport
@@ -3627,7 +3627,7 @@ nn-nn-07 - Version 5.0.9
     - Moved all SQLException creation to a factory method in SQLError,
       groundwork for JDBC-4.0 SQLState class-based exceptions.
 
-    - Added service-provider entry to META-INF/services/java.sql.Driver
+    - Added service-provider entry to META-INF/com.financiai.services/java.sql.Driver
       for JDBC-4.0 support.
 
     - Return "[VAR]BINARY" for RSMD.getColumnTypeName() when that is actually

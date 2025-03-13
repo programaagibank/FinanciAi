@@ -1,6 +1,6 @@
-package model.entities;
+package com.financiai.model.entities;
 
-import model.enums.TipoImovel;
+import com.financiai.model.enums.TipoImovel;
 
 public class Imovel {
 

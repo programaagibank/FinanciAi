@@ -21,7 +21,7 @@
 package com.mysql.cj.conf;
 
 /**
- * An enumeration that identifies the type of the view intended for getting hosts lists for multi-host connections.
+ * An enumeration that identifies the type of the com.financiai.view intended for getting hosts lists for multi-host connections.
  */
 public enum HostsListView {
     ALL, SOURCES, REPLICAS;

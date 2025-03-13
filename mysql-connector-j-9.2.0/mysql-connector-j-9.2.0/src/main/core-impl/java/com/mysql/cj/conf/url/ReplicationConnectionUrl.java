@@ -117,12 +117,12 @@ public class ReplicationConnectionUrl extends ConnectionUrl {
     }
 
     /**
-     * Returns a list of the hosts in this connection URL, filtered for the given view.
+     * Returns a list of the hosts in this connection URL, filtered for the given com.financiai.view.
      *
      * @param view
-     *            the type of the view to use in the returned list of hosts.
+     *            the type of the com.financiai.view to use in the returned list of hosts.
      * @return
-     *         the hosts list from this connection URL, filtered for the given view.
+     *         the hosts list from this connection URL, filtered for the given com.financiai.view.
      */
     @Override
     public List<HostInfo> getHostsList(HostsListView view) {

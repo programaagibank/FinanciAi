@@ -83,7 +83,7 @@ public interface Table extends DatabaseObject {
     long count();
 
     /**
-     * Check if the underlying object is a view or not.
+     * Check if the underlying object is a com.financiai.view or not.
      *
      * @return true if this Table is a View
      */

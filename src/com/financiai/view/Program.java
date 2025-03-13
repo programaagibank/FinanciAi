@@ -1,6 +1,6 @@
-package view;
+package com.financiai.view;
 
-import dao.Conexao;
+import com.financiai.dao.Conexao;
 import java.sql.Connection;
 
 public class Program {

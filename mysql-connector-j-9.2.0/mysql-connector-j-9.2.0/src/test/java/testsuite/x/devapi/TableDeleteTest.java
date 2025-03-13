@@ -42,9 +42,9 @@ public class TableDeleteTest extends BaseTableTestCase {
     public void testDelete() {
         try {
             sqlUpdate("drop table if exists testDelete");
-            sqlUpdate("drop view if exists testDeleteView");
+            sqlUpdate("drop com.financiai.view if exists testDeleteView");
             sqlUpdate("create table testDelete (_id varchar(32), name varchar(20), birthday date, age int)");
-            sqlUpdate("create view testDeleteView as select _id, age from testDelete");
+            sqlUpdate("create com.financiai.view testDeleteView as select _id, age from testDelete");
 
             sqlUpdate("insert into testDelete values ('1', 'Sakila', '2000-05-27', 14)");
             sqlUpdate("insert into testDelete values ('2', 'Shakila', '2001-06-26', 13)");
@@ -64,7 +64,7 @@ public class TableDeleteTest extends BaseTableTestCase {
             assertEquals(0, table.count());
         } finally {
             sqlUpdate("drop table if exists testDelete");
-            sqlUpdate("drop view if exists testDeleteView");
+            sqlUpdate("drop com.financiai.view if exists testDeleteView");
         }
     }
 

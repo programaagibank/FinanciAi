@@ -64,9 +64,9 @@ public class TableInsertTest extends BaseTableTestCase {
     public void basicInsert() {
         try {
             sqlUpdate("drop table if exists basicInsert");
-            sqlUpdate("drop view if exists basicInsertView");
+            sqlUpdate("drop com.financiai.view if exists basicInsertView");
             sqlUpdate("create table basicInsert (_id varchar(32), name varchar(20) not null default 'unknown', birthday date, age int)");
-            sqlUpdate("create view basicInsertView as select * from basicInsert");
+            sqlUpdate("create com.financiai.view basicInsertView as select * from basicInsert");
 
             Table table = this.schema.getTable("basicInsert");
             // insert with fields and values separately
@@ -124,7 +124,7 @@ public class TableInsertTest extends BaseTableTestCase {
             assertFalse(rows.hasNext());
         } finally {
             sqlUpdate("drop table if exists basicInsert");
-            sqlUpdate("drop view if exists basicInsertView");
+            sqlUpdate("drop com.financiai.view if exists basicInsertView");
         }
     }
 

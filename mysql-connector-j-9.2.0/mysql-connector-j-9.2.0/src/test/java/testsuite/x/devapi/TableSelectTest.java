@@ -348,12 +348,12 @@ public class TableSelectTest extends BaseTableTestCase {
         try {
             sqlUpdate("drop table if exists basicTable1");
             sqlUpdate("drop table if exists basicTable2");
-            sqlUpdate("drop view if exists basicView");
+            sqlUpdate("drop com.financiai.view if exists basicView");
 
             sqlUpdate("create table basicTable1 (_id varchar(32), name varchar(20))");
             sqlUpdate("create table basicTable2 (_id varchar(32), birthday date, age int)");
             sqlUpdate(
-                    "create view basicView as select basicTable1._id, name, birthday, age from basicTable1 join basicTable2 on basicTable1._id=basicTable2._id");
+                    "create com.financiai.view basicView as select basicTable1._id, name, birthday, age from basicTable1 join basicTable2 on basicTable1._id=basicTable2._id");
 
             sqlUpdate("insert into basicTable1 values ('some long UUID', 'Sakila')");
             sqlUpdate("insert into basicTable2 values ('some long UUID', '2000-05-27', 14)");
@@ -380,7 +380,7 @@ public class TableSelectTest extends BaseTableTestCase {
         } finally {
             sqlUpdate("drop table if exists basicTable1");
             sqlUpdate("drop table if exists basicTable2");
-            sqlUpdate("drop view if exists basicView");
+            sqlUpdate("drop com.financiai.view if exists basicView");
         }
     }
 

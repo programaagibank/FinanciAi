@@ -3864,7 +3864,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
             }
         }
 
-        // create table and view in '(test)' schema
+        // create table and com.financiai.view in '(test)' schema
         createTable("testBug69290_table", "(c1 INT)");
         createView("testBug69290_view", "AS SELECT * FROM testBug69290_table WHERE c1 > 1");
 

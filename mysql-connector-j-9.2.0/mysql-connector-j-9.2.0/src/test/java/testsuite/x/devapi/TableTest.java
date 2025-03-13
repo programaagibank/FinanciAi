@@ -62,7 +62,7 @@ public class TableTest extends BaseTableTestCase {
     public void viewBasics() {
         try {
             sqlUpdate("drop table if exists tableBasics");
-            sqlUpdate("drop view if exists viewBasics");
+            sqlUpdate("drop com.financiai.view if exists viewBasics");
 
             Table table = this.schema.getTable("tableBasics");
             assertEquals(DbObjectStatus.NOT_EXISTS, table.existsInDatabase());
@@ -75,7 +75,7 @@ public class TableTest extends BaseTableTestCase {
             assertFalse(view.isView());
 
             sqlUpdate("create table tableBasics (name varchar(32), age int, role int)");
-            sqlUpdate("create view viewBasics as select name, age from tableBasics");
+            sqlUpdate("create com.financiai.view viewBasics as select name, age from tableBasics");
 
             assertEquals(DbObjectStatus.EXISTS, table.existsInDatabase());
             assertEquals(DbObjectStatus.EXISTS, view.existsInDatabase());
@@ -105,7 +105,7 @@ public class TableTest extends BaseTableTestCase {
             throw t;
         } finally {
             sqlUpdate("drop table if exists tableBasics");
-            sqlUpdate("drop view if exists viewBasics");
+            sqlUpdate("drop com.financiai.view if exists viewBasics");
         }
     }
 

@@ -1,4 +1,4 @@
-package model.entities;
+package com.financiai.model.entities;
 
 public class Parcelas {
 

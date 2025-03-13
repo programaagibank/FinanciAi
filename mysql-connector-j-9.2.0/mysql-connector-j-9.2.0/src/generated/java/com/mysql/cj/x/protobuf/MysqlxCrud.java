@@ -158,7 +158,7 @@ public final class MysqlxCrud {
   /**
    * <pre>
    * *
-   * ViewAlgorithm defines how MySQL Server processes the view
+   * ViewAlgorithm defines how MySQL Server processes the com.financiai.view
    * </pre>
    *
    * Protobuf enum {@code Mysqlx.Crud.ViewAlgorithm}
@@ -175,7 +175,7 @@ public final class MysqlxCrud {
     UNDEFINED(1),
     /**
      * <pre>
-     * * the text of a statement that refers to the view and the view
+     * * the text of a statement that refers to the com.financiai.view and the com.financiai.view
      * definition are merged 
      * </pre>
      *
@@ -184,7 +184,7 @@ public final class MysqlxCrud {
     MERGE(2),
     /**
      * <pre>
-     * * the view are retrieved into a temporary table 
+     * * the com.financiai.view are retrieved into a temporary table
      * </pre>
      *
      * <code>TEMPTABLE = 3;</code>
@@ -211,7 +211,7 @@ public final class MysqlxCrud {
     public static final int UNDEFINED_VALUE = 1;
     /**
      * <pre>
-     * * the text of a statement that refers to the view and the view
+     * * the text of a statement that refers to the com.financiai.view and the com.financiai.view
      * definition are merged 
      * </pre>
      *
@@ -220,7 +220,7 @@ public final class MysqlxCrud {
     public static final int MERGE_VALUE = 2;
     /**
      * <pre>
-     * * the view are retrieved into a temporary table 
+     * * the com.financiai.view are retrieved into a temporary table
      * </pre>
      *
      * <code>TEMPTABLE = 3;</code>
@@ -303,7 +303,7 @@ public final class MysqlxCrud {
   /**
    * <pre>
    * *
-   * ViewSqlSecurity defines the security context in which the view is going to be
+   * ViewSqlSecurity defines the security context in which the com.financiai.view is going to be
    * executed; this means that VIEW can be executed with current user permissions or
    * with permissions of the user who defined the VIEW
    * </pre>
@@ -441,7 +441,7 @@ public final class MysqlxCrud {
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
      * <pre>
-     * * the view WHERE clause is checked, but no underlying views are checked 
+     * * the com.financiai.view WHERE clause is checked, but no underlying views are checked
      * </pre>
      *
      * <code>LOCAL = 1;</code>
@@ -449,7 +449,7 @@ public final class MysqlxCrud {
     LOCAL(1),
     /**
      * <pre>
-     * * the view WHERE clause is checked, then checking recurses
+     * * the com.financiai.view WHERE clause is checked, then checking recurses
      * to underlying views 
      * </pre>
      *
@@ -469,7 +469,7 @@ public final class MysqlxCrud {
     }
     /**
      * <pre>
-     * * the view WHERE clause is checked, but no underlying views are checked 
+     * * the com.financiai.view WHERE clause is checked, but no underlying views are checked
      * </pre>
      *
      * <code>LOCAL = 1;</code>
@@ -477,7 +477,7 @@ public final class MysqlxCrud {
     public static final int LOCAL_VALUE = 1;
     /**
      * <pre>
-     * * the view WHERE clause is checked, then checking recurses
+     * * the com.financiai.view WHERE clause is checked, then checking recurses
      * to underlying views 
      * </pre>
      *
@@ -7052,7 +7052,7 @@ public final class MysqlxCrud {
 
     /**
      * <pre>
-     * * data model that the operations refer to 
+     * * data com.financiai.model that the operations refer to
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.DataModel data_model = 3;</code>
@@ -7061,7 +7061,7 @@ public final class MysqlxCrud {
     boolean hasDataModel();
     /**
      * <pre>
-     * * data model that the operations refer to 
+     * * data com.financiai.model that the operations refer to
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.DataModel data_model = 3;</code>
@@ -7742,7 +7742,7 @@ public final class MysqlxCrud {
     private int dataModel_ = 1;
     /**
      * <pre>
-     * * data model that the operations refer to 
+     * * data com.financiai.model that the operations refer to
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.DataModel data_model = 3;</code>
@@ -7753,7 +7753,7 @@ public final class MysqlxCrud {
     }
     /**
      * <pre>
-     * * data model that the operations refer to 
+     * * data com.financiai.model that the operations refer to
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.DataModel data_model = 3;</code>
@@ -9344,7 +9344,7 @@ public final class MysqlxCrud {
       private int dataModel_ = 1;
       /**
        * <pre>
-       * * data model that the operations refer to 
+       * * data com.financiai.model that the operations refer to
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.DataModel data_model = 3;</code>
@@ -9355,7 +9355,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * data model that the operations refer to 
+       * * data com.financiai.model that the operations refer to
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.DataModel data_model = 3;</code>
@@ -9368,7 +9368,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * data model that the operations refer to 
+       * * data com.financiai.model that the operations refer to
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.DataModel data_model = 3;</code>
@@ -9386,7 +9386,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * data model that the operations refer to 
+       * * data com.financiai.model that the operations refer to
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.DataModel data_model = 3;</code>
@@ -11493,7 +11493,7 @@ public final class MysqlxCrud {
 
     /**
      * <pre>
-     * * data model that the operations refer to 
+     * * data com.financiai.model that the operations refer to
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.DataModel data_model = 2;</code>
@@ -11502,7 +11502,7 @@ public final class MysqlxCrud {
     boolean hasDataModel();
     /**
      * <pre>
-     * * data model that the operations refer to 
+     * * data com.financiai.model that the operations refer to
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.DataModel data_model = 2;</code>
@@ -12523,7 +12523,7 @@ public final class MysqlxCrud {
     private int dataModel_ = 1;
     /**
      * <pre>
-     * * data model that the operations refer to 
+     * * data com.financiai.model that the operations refer to
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.DataModel data_model = 2;</code>
@@ -12534,7 +12534,7 @@ public final class MysqlxCrud {
     }
     /**
      * <pre>
-     * * data model that the operations refer to 
+     * * data com.financiai.model that the operations refer to
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.DataModel data_model = 2;</code>
@@ -13572,7 +13572,7 @@ public final class MysqlxCrud {
       private int dataModel_ = 1;
       /**
        * <pre>
-       * * data model that the operations refer to 
+       * * data com.financiai.model that the operations refer to
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.DataModel data_model = 2;</code>
@@ -13583,7 +13583,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * data model that the operations refer to 
+       * * data com.financiai.model that the operations refer to
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.DataModel data_model = 2;</code>
@@ -13596,7 +13596,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * data model that the operations refer to 
+       * * data com.financiai.model that the operations refer to
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.DataModel data_model = 2;</code>
@@ -13614,7 +13614,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * data model that the operations refer to 
+       * * data com.financiai.model that the operations refer to
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.DataModel data_model = 2;</code>
@@ -17909,7 +17909,7 @@ public final class MysqlxCrud {
 
     /**
      * <pre>
-     * * data model that the operations refer to 
+     * * data com.financiai.model that the operations refer to
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.DataModel data_model = 2;</code>
@@ -17918,7 +17918,7 @@ public final class MysqlxCrud {
     boolean hasDataModel();
     /**
      * <pre>
-     * * data model that the operations refer to 
+     * * data com.financiai.model that the operations refer to
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.DataModel data_model = 2;</code>
@@ -18191,7 +18191,7 @@ public final class MysqlxCrud {
     private int dataModel_ = 1;
     /**
      * <pre>
-     * * data model that the operations refer to 
+     * * data com.financiai.model that the operations refer to
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.DataModel data_model = 2;</code>
@@ -18202,7 +18202,7 @@ public final class MysqlxCrud {
     }
     /**
      * <pre>
-     * * data model that the operations refer to 
+     * * data com.financiai.model that the operations refer to
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.DataModel data_model = 2;</code>
@@ -19297,7 +19297,7 @@ public final class MysqlxCrud {
       private int dataModel_ = 1;
       /**
        * <pre>
-       * * data model that the operations refer to 
+       * * data com.financiai.model that the operations refer to
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.DataModel data_model = 2;</code>
@@ -19308,7 +19308,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * data model that the operations refer to 
+       * * data com.financiai.model that the operations refer to
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.DataModel data_model = 2;</code>
@@ -19321,7 +19321,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * data model that the operations refer to 
+       * * data com.financiai.model that the operations refer to
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.DataModel data_model = 2;</code>
@@ -19339,7 +19339,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * data model that the operations refer to 
+       * * data com.financiai.model that the operations refer to
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.DataModel data_model = 2;</code>
@@ -20581,7 +20581,7 @@ public final class MysqlxCrud {
 
     /**
      * <pre>
-     * * defines how MySQL Server processes the view 
+     * * defines how MySQL Server processes the com.financiai.view
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.ViewAlgorithm algorithm = 3 [default = UNDEFINED];</code>
@@ -20590,7 +20590,7 @@ public final class MysqlxCrud {
     boolean hasAlgorithm();
     /**
      * <pre>
-     * * defines how MySQL Server processes the view 
+     * * defines how MySQL Server processes the com.financiai.view
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.ViewAlgorithm algorithm = 3 [default = UNDEFINED];</code>
@@ -20600,7 +20600,7 @@ public final class MysqlxCrud {
 
     /**
      * <pre>
-     * * defines the security context in which the view is going be executed 
+     * * defines the security context in which the com.financiai.view is going be executed
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.ViewSqlSecurity security = 4 [default = DEFINER];</code>
@@ -20609,7 +20609,7 @@ public final class MysqlxCrud {
     boolean hasSecurity();
     /**
      * <pre>
-     * * defines the security context in which the view is going be executed 
+     * * defines the security context in which the com.financiai.view is going be executed
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.ViewSqlSecurity security = 4 [default = DEFINER];</code>
@@ -20709,7 +20709,7 @@ public final class MysqlxCrud {
 
     /**
      * <pre>
-     * * if true then suppress error when created view already exists;
+     * * if true then suppress error when created com.financiai.view already exists;
      * just replace it 
      * </pre>
      *
@@ -20719,7 +20719,7 @@ public final class MysqlxCrud {
     boolean hasReplaceExisting();
     /**
      * <pre>
-     * * if true then suppress error when created view already exists;
+     * * if true then suppress error when created com.financiai.view already exists;
      * just replace it 
      * </pre>
      *
@@ -20731,7 +20731,7 @@ public final class MysqlxCrud {
   /**
    * <pre>
    * *
-   * CreateView create view based on indicated &#64;ref Mysqlx::Crud::Find message
+   * CreateView create com.financiai.view based on indicated &#64;ref Mysqlx::Crud::Find message
    * </pre>
    *
    * Protobuf type {@code Mysqlx.Crud.CreateView}
@@ -20883,7 +20883,7 @@ public final class MysqlxCrud {
     private int algorithm_ = 1;
     /**
      * <pre>
-     * * defines how MySQL Server processes the view 
+     * * defines how MySQL Server processes the com.financiai.view
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.ViewAlgorithm algorithm = 3 [default = UNDEFINED];</code>
@@ -20894,7 +20894,7 @@ public final class MysqlxCrud {
     }
     /**
      * <pre>
-     * * defines how MySQL Server processes the view 
+     * * defines how MySQL Server processes the com.financiai.view
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.ViewAlgorithm algorithm = 3 [default = UNDEFINED];</code>
@@ -20909,7 +20909,7 @@ public final class MysqlxCrud {
     private int security_ = 2;
     /**
      * <pre>
-     * * defines the security context in which the view is going be executed 
+     * * defines the security context in which the com.financiai.view is going be executed
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.ViewSqlSecurity security = 4 [default = DEFINER];</code>
@@ -20920,7 +20920,7 @@ public final class MysqlxCrud {
     }
     /**
      * <pre>
-     * * defines the security context in which the view is going be executed 
+     * * defines the security context in which the com.financiai.view is going be executed
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.ViewSqlSecurity security = 4 [default = DEFINER];</code>
@@ -21055,7 +21055,7 @@ public final class MysqlxCrud {
     private boolean replaceExisting_ = false;
     /**
      * <pre>
-     * * if true then suppress error when created view already exists;
+     * * if true then suppress error when created com.financiai.view already exists;
      * just replace it 
      * </pre>
      *
@@ -21068,7 +21068,7 @@ public final class MysqlxCrud {
     }
     /**
      * <pre>
-     * * if true then suppress error when created view already exists;
+     * * if true then suppress error when created com.financiai.view already exists;
      * just replace it 
      * </pre>
      *
@@ -21371,7 +21371,7 @@ public final class MysqlxCrud {
     /**
      * <pre>
      * *
-     * CreateView create view based on indicated &#64;ref Mysqlx::Crud::Find message
+     * CreateView create com.financiai.view based on indicated &#64;ref Mysqlx::Crud::Find message
      * </pre>
      *
      * Protobuf type {@code Mysqlx.Crud.CreateView}
@@ -21940,7 +21940,7 @@ public final class MysqlxCrud {
       private int algorithm_ = 1;
       /**
        * <pre>
-       * * defines how MySQL Server processes the view 
+       * * defines how MySQL Server processes the com.financiai.view
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.ViewAlgorithm algorithm = 3 [default = UNDEFINED];</code>
@@ -21951,7 +21951,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * defines how MySQL Server processes the view 
+       * * defines how MySQL Server processes the com.financiai.view
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.ViewAlgorithm algorithm = 3 [default = UNDEFINED];</code>
@@ -21964,7 +21964,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * defines how MySQL Server processes the view 
+       * * defines how MySQL Server processes the com.financiai.view
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.ViewAlgorithm algorithm = 3 [default = UNDEFINED];</code>
@@ -21982,7 +21982,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * defines how MySQL Server processes the view 
+       * * defines how MySQL Server processes the com.financiai.view
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.ViewAlgorithm algorithm = 3 [default = UNDEFINED];</code>
@@ -21998,7 +21998,7 @@ public final class MysqlxCrud {
       private int security_ = 2;
       /**
        * <pre>
-       * * defines the security context in which the view is going be executed 
+       * * defines the security context in which the com.financiai.view is going be executed
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.ViewSqlSecurity security = 4 [default = DEFINER];</code>
@@ -22009,7 +22009,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * defines the security context in which the view is going be executed 
+       * * defines the security context in which the com.financiai.view is going be executed
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.ViewSqlSecurity security = 4 [default = DEFINER];</code>
@@ -22022,7 +22022,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * defines the security context in which the view is going be executed 
+       * * defines the security context in which the com.financiai.view is going be executed
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.ViewSqlSecurity security = 4 [default = DEFINER];</code>
@@ -22040,7 +22040,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * defines the security context in which the view is going be executed 
+       * * defines the security context in which the com.financiai.view is going be executed
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.ViewSqlSecurity security = 4 [default = DEFINER];</code>
@@ -22426,7 +22426,7 @@ public final class MysqlxCrud {
       private boolean replaceExisting_ ;
       /**
        * <pre>
-       * * if true then suppress error when created view already exists;
+       * * if true then suppress error when created com.financiai.view already exists;
        * just replace it 
        * </pre>
        *
@@ -22439,7 +22439,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * if true then suppress error when created view already exists;
+       * * if true then suppress error when created com.financiai.view already exists;
        * just replace it 
        * </pre>
        *
@@ -22452,7 +22452,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * if true then suppress error when created view already exists;
+       * * if true then suppress error when created com.financiai.view already exists;
        * just replace it 
        * </pre>
        *
@@ -22469,7 +22469,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * if true then suppress error when created view already exists;
+       * * if true then suppress error when created com.financiai.view already exists;
        * just replace it 
        * </pre>
        *
@@ -22599,7 +22599,7 @@ public final class MysqlxCrud {
 
     /**
      * <pre>
-     * * defined how MySQL Server processes the view 
+     * * defined how MySQL Server processes the com.financiai.view
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.ViewAlgorithm algorithm = 3;</code>
@@ -22608,7 +22608,7 @@ public final class MysqlxCrud {
     boolean hasAlgorithm();
     /**
      * <pre>
-     * * defined how MySQL Server processes the view 
+     * * defined how MySQL Server processes the com.financiai.view
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.ViewAlgorithm algorithm = 3;</code>
@@ -22618,7 +22618,7 @@ public final class MysqlxCrud {
 
     /**
      * <pre>
-     * * defines the security context in which the view is going be executed 
+     * * defines the security context in which the com.financiai.view is going be executed
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.ViewSqlSecurity security = 4;</code>
@@ -22627,7 +22627,7 @@ public final class MysqlxCrud {
     boolean hasSecurity();
     /**
      * <pre>
-     * * defines the security context in which the view is going be executed 
+     * * defines the security context in which the com.financiai.view is going be executed
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.ViewSqlSecurity security = 4;</code>
@@ -22728,7 +22728,7 @@ public final class MysqlxCrud {
   /**
    * <pre>
    * *
-   * ModifyView modify existing view based on indicated
+   * ModifyView modify existing com.financiai.view based on indicated
    * &#64;ref Mysqlx::Crud::Find message
    * </pre>
    *
@@ -22881,7 +22881,7 @@ public final class MysqlxCrud {
     private int algorithm_ = 1;
     /**
      * <pre>
-     * * defined how MySQL Server processes the view 
+     * * defined how MySQL Server processes the com.financiai.view
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.ViewAlgorithm algorithm = 3;</code>
@@ -22892,7 +22892,7 @@ public final class MysqlxCrud {
     }
     /**
      * <pre>
-     * * defined how MySQL Server processes the view 
+     * * defined how MySQL Server processes the com.financiai.view
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.ViewAlgorithm algorithm = 3;</code>
@@ -22907,7 +22907,7 @@ public final class MysqlxCrud {
     private int security_ = 1;
     /**
      * <pre>
-     * * defines the security context in which the view is going be executed 
+     * * defines the security context in which the com.financiai.view is going be executed
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.ViewSqlSecurity security = 4;</code>
@@ -22918,7 +22918,7 @@ public final class MysqlxCrud {
     }
     /**
      * <pre>
-     * * defines the security context in which the view is going be executed 
+     * * defines the security context in which the com.financiai.view is going be executed
      * </pre>
      *
      * <code>optional .Mysqlx.Crud.ViewSqlSecurity security = 4;</code>
@@ -23321,7 +23321,7 @@ public final class MysqlxCrud {
     /**
      * <pre>
      * *
-     * ModifyView modify existing view based on indicated
+     * ModifyView modify existing com.financiai.view based on indicated
      * &#64;ref Mysqlx::Crud::Find message
      * </pre>
      *
@@ -23877,7 +23877,7 @@ public final class MysqlxCrud {
       private int algorithm_ = 1;
       /**
        * <pre>
-       * * defined how MySQL Server processes the view 
+       * * defined how MySQL Server processes the com.financiai.view
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.ViewAlgorithm algorithm = 3;</code>
@@ -23888,7 +23888,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * defined how MySQL Server processes the view 
+       * * defined how MySQL Server processes the com.financiai.view
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.ViewAlgorithm algorithm = 3;</code>
@@ -23901,7 +23901,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * defined how MySQL Server processes the view 
+       * * defined how MySQL Server processes the com.financiai.view
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.ViewAlgorithm algorithm = 3;</code>
@@ -23919,7 +23919,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * defined how MySQL Server processes the view 
+       * * defined how MySQL Server processes the com.financiai.view
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.ViewAlgorithm algorithm = 3;</code>
@@ -23935,7 +23935,7 @@ public final class MysqlxCrud {
       private int security_ = 1;
       /**
        * <pre>
-       * * defines the security context in which the view is going be executed 
+       * * defines the security context in which the com.financiai.view is going be executed
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.ViewSqlSecurity security = 4;</code>
@@ -23946,7 +23946,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * defines the security context in which the view is going be executed 
+       * * defines the security context in which the com.financiai.view is going be executed
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.ViewSqlSecurity security = 4;</code>
@@ -23959,7 +23959,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * defines the security context in which the view is going be executed 
+       * * defines the security context in which the com.financiai.view is going be executed
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.ViewSqlSecurity security = 4;</code>
@@ -23977,7 +23977,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * defines the security context in which the view is going be executed 
+       * * defines the security context in which the com.financiai.view is going be executed
        * </pre>
        *
        * <code>optional .Mysqlx.Crud.ViewSqlSecurity security = 4;</code>
@@ -24444,7 +24444,7 @@ public final class MysqlxCrud {
 
     /**
      * <pre>
-     * * if true then suppress error when deleted view does not exists 
+     * * if true then suppress error when deleted com.financiai.view does not exists
      * </pre>
      *
      * <code>optional bool if_exists = 2 [default = false];</code>
@@ -24453,7 +24453,7 @@ public final class MysqlxCrud {
     boolean hasIfExists();
     /**
      * <pre>
-     * * if true then suppress error when deleted view does not exists 
+     * * if true then suppress error when deleted com.financiai.view does not exists
      * </pre>
      *
      * <code>optional bool if_exists = 2 [default = false];</code>
@@ -24464,7 +24464,7 @@ public final class MysqlxCrud {
   /**
    * <pre>
    * *
-   * DropView removing existing view
+   * DropView removing existing com.financiai.view
    * </pre>
    *
    * Protobuf type {@code Mysqlx.Crud.DropView}
@@ -24546,7 +24546,7 @@ public final class MysqlxCrud {
     private boolean ifExists_ = false;
     /**
      * <pre>
-     * * if true then suppress error when deleted view does not exists 
+     * * if true then suppress error when deleted com.financiai.view does not exists
      * </pre>
      *
      * <code>optional bool if_exists = 2 [default = false];</code>
@@ -24558,7 +24558,7 @@ public final class MysqlxCrud {
     }
     /**
      * <pre>
-     * * if true then suppress error when deleted view does not exists 
+     * * if true then suppress error when deleted com.financiai.view does not exists
      * </pre>
      *
      * <code>optional bool if_exists = 2 [default = false];</code>
@@ -24759,7 +24759,7 @@ public final class MysqlxCrud {
     /**
      * <pre>
      * *
-     * DropView removing existing view
+     * DropView removing existing com.financiai.view
      * </pre>
      *
      * Protobuf type {@code Mysqlx.Crud.DropView}
@@ -25093,7 +25093,7 @@ public final class MysqlxCrud {
       private boolean ifExists_ ;
       /**
        * <pre>
-       * * if true then suppress error when deleted view does not exists 
+       * * if true then suppress error when deleted com.financiai.view does not exists
        * </pre>
        *
        * <code>optional bool if_exists = 2 [default = false];</code>
@@ -25105,7 +25105,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * if true then suppress error when deleted view does not exists 
+       * * if true then suppress error when deleted com.financiai.view does not exists
        * </pre>
        *
        * <code>optional bool if_exists = 2 [default = false];</code>
@@ -25117,7 +25117,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * if true then suppress error when deleted view does not exists 
+       * * if true then suppress error when deleted com.financiai.view does not exists
        * </pre>
        *
        * <code>optional bool if_exists = 2 [default = false];</code>
@@ -25133,7 +25133,7 @@ public final class MysqlxCrud {
       }
       /**
        * <pre>
-       * * if true then suppress error when deleted view does not exists 
+       * * if true then suppress error when deleted com.financiai.view does not exists
        * </pre>
        *
        * <code>optional bool if_exists = 2 [default = false];</code>

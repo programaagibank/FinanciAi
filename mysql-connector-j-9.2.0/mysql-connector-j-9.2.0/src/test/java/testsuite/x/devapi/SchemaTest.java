@@ -182,13 +182,13 @@ public class SchemaTest extends DevApiBaseTestCase {
         String viewName = "test_list_tables_view";
         try {
             dropCollection(collName);
-            sqlUpdate("drop view if exists " + viewName);
+            sqlUpdate("drop com.financiai.view if exists " + viewName);
             sqlUpdate("drop table if exists " + tableName);
 
             Collection coll = this.schema.createCollection(collName);
 
             sqlUpdate("create table " + tableName + "(name varchar(32), age int, role int)");
-            sqlUpdate("create view " + viewName + " as select name, age from " + tableName);
+            sqlUpdate("create com.financiai.view " + viewName + " as select name, age from " + tableName);
 
             Table table = this.schema.getTable(tableName);
             Table view = this.schema.getTable(viewName);
@@ -207,7 +207,7 @@ public class SchemaTest extends DevApiBaseTestCase {
 
         } finally {
             dropCollection(collName);
-            sqlUpdate("drop view if exists " + viewName);
+            sqlUpdate("drop com.financiai.view if exists " + viewName);
             sqlUpdate("drop table if exists " + tableName);
         }
     }

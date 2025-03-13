@@ -4258,7 +4258,7 @@ public final class MysqlxNotice {
 
     /**
      * <pre>
-     * * view identifier 
+     * * com.financiai.view identifier
      * </pre>
      *
      * <code>optional string view_id = 2;</code>
@@ -4267,7 +4267,7 @@ public final class MysqlxNotice {
     boolean hasViewId();
     /**
      * <pre>
-     * * view identifier 
+     * * com.financiai.view identifier
      * </pre>
      *
      * <code>optional string view_id = 2;</code>
@@ -4276,7 +4276,7 @@ public final class MysqlxNotice {
     java.lang.String getViewId();
     /**
      * <pre>
-     * * view identifier 
+     * * com.financiai.view identifier
      * </pre>
      *
      * <code>optional string view_id = 2;</code>
@@ -4489,7 +4489,7 @@ public final class MysqlxNotice {
     private volatile java.lang.Object viewId_ = "";
     /**
      * <pre>
-     * * view identifier 
+     * * com.financiai.view identifier
      * </pre>
      *
      * <code>optional string view_id = 2;</code>
@@ -4501,7 +4501,7 @@ public final class MysqlxNotice {
     }
     /**
      * <pre>
-     * * view identifier 
+     * * com.financiai.view identifier
      * </pre>
      *
      * <code>optional string view_id = 2;</code>
@@ -4524,7 +4524,7 @@ public final class MysqlxNotice {
     }
     /**
      * <pre>
-     * * view identifier 
+     * * com.financiai.view identifier
      * </pre>
      *
      * <code>optional string view_id = 2;</code>
@@ -4952,7 +4952,7 @@ public final class MysqlxNotice {
       private java.lang.Object viewId_ = "";
       /**
        * <pre>
-       * * view identifier 
+       * * com.financiai.view identifier
        * </pre>
        *
        * <code>optional string view_id = 2;</code>
@@ -4963,7 +4963,7 @@ public final class MysqlxNotice {
       }
       /**
        * <pre>
-       * * view identifier 
+       * * com.financiai.view identifier
        * </pre>
        *
        * <code>optional string view_id = 2;</code>
@@ -4985,7 +4985,7 @@ public final class MysqlxNotice {
       }
       /**
        * <pre>
-       * * view identifier 
+       * * com.financiai.view identifier
        * </pre>
        *
        * <code>optional string view_id = 2;</code>
@@ -5006,7 +5006,7 @@ public final class MysqlxNotice {
       }
       /**
        * <pre>
-       * * view identifier 
+       * * com.financiai.view identifier
        * </pre>
        *
        * <code>optional string view_id = 2;</code>
@@ -5023,7 +5023,7 @@ public final class MysqlxNotice {
       }
       /**
        * <pre>
-       * * view identifier 
+       * * com.financiai.view identifier
        * </pre>
        *
        * <code>optional string view_id = 2;</code>
@@ -5037,7 +5037,7 @@ public final class MysqlxNotice {
       }
       /**
        * <pre>
-       * * view identifier 
+       * * com.financiai.view identifier
        * </pre>
        *
        * <code>optional string view_id = 2;</code>

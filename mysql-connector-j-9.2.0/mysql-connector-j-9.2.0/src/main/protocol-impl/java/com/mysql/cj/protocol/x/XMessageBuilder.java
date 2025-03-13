@@ -146,7 +146,7 @@ public class XMessageBuilder implements MessageBuilder<XMessage> {
     }
 
     /**
-     * Initialize a {@link com.mysql.cj.x.protobuf.MysqlxCrud.Insert.Builder} for table data model with common data for prepared and non-prepared executions.
+     * Initialize a {@link com.mysql.cj.x.protobuf.MysqlxCrud.Insert.Builder} for table data com.financiai.model with common data for prepared and non-prepared executions.
      *
      * @param schemaName
      *            the schema name
@@ -186,7 +186,7 @@ public class XMessageBuilder implements MessageBuilder<XMessage> {
     }
 
     /**
-     * Initialize an {@link com.mysql.cj.x.protobuf.MysqlxCrud.Update.Builder} for collection data model with common data for prepared and non-prepared
+     * Initialize an {@link com.mysql.cj.x.protobuf.MysqlxCrud.Update.Builder} for collection data com.financiai.model with common data for prepared and non-prepared
      * executions.
      *
      * @param filterParams
@@ -248,7 +248,7 @@ public class XMessageBuilder implements MessageBuilder<XMessage> {
     }
 
     /**
-     * Initialize an {@link com.mysql.cj.x.protobuf.MysqlxCrud.Update.Builder} for table data model with common data for prepared and non-prepared executions.
+     * Initialize an {@link com.mysql.cj.x.protobuf.MysqlxCrud.Update.Builder} for table data com.financiai.model with common data for prepared and non-prepared executions.
      *
      * @param filterParams
      *            the filter parameters
@@ -304,7 +304,7 @@ public class XMessageBuilder implements MessageBuilder<XMessage> {
     }
 
     /**
-     * Initialize a {@link com.mysql.cj.x.protobuf.MysqlxCrud.Find.Builder} for collection data model with common data for prepared and non-prepared executions.
+     * Initialize a {@link com.mysql.cj.x.protobuf.MysqlxCrud.Find.Builder} for collection data com.financiai.model with common data for prepared and non-prepared executions.
      *
      * @param filterParams
      *            the filter parameters

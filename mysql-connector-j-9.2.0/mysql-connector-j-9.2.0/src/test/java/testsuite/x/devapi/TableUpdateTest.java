@@ -45,9 +45,9 @@ public class TableUpdateTest extends BaseTableTestCase {
     public void testUpdates() {
         try {
             sqlUpdate("drop table if exists updates");
-            sqlUpdate("drop view if exists updatesView");
+            sqlUpdate("drop com.financiai.view if exists updatesView");
             sqlUpdate("create table updates (_id varchar(32), name varchar(20), birthday date, age int)");
-            sqlUpdate("create view updatesView as select _id, name, age from updates");
+            sqlUpdate("create com.financiai.view updatesView as select _id, name, age from updates");
 
             sqlUpdate("insert into updates values ('1', 'Sakila', '2000-05-27', 14)");
             sqlUpdate("insert into updates values ('2', 'Shakila', '2001-06-26', 13)");
@@ -71,7 +71,7 @@ public class TableUpdateTest extends BaseTableTestCase {
             assertFalse(rows.hasNext());
         } finally {
             sqlUpdate("drop table if exists updates");
-            sqlUpdate("drop view if exists updatesView");
+            sqlUpdate("drop com.financiai.view if exists updatesView");
         }
     }
 
