@@ -1,6 +1,8 @@
 package com.financiai.view;
 
 import com.financiai.dao.Conexao;
+import com.financiai.services.Price;
+
 import java.sql.Connection;
 
 public class Program {
@@ -18,6 +20,7 @@ public class Program {
 
         // Chamando o método para exibir o logo
         exibirLogo();
+
     }
 
     public static void exibirLogo() {
