@@ -1,9 +1,13 @@
 package com.financiai.view;
 
 import com.financiai.dao.Conexao;
+import com.financiai.model.enums.TipoAmortizacao;
+import com.financiai.model.enums.TipoImovel;
 import com.financiai.services.Price;
 
 import java.sql.Connection;
+
+import static com.financiai.controller.FinanciamentoController.calcularFinanciamento;
 
 public class Program {
     public static void main(String[] args) {
@@ -20,6 +24,15 @@ public class Program {
 
         // Chamando o método para exibir o logo
         exibirLogo();
+
+        double rendaMensal = 5000.00;
+        double valorImovel = 300000.00;
+        double valorEntrada = 60000.00;
+        double taxaJurosAnual = 6.5;
+        int prazo = 240;
+        TipoAmortizacao amort = TipoAmortizacao.PRICE;
+
+        calcularFinanciamento(rendaMensal, valorImovel, valorEntrada, taxaJurosAnual, prazo, amort);
 
     }
 
