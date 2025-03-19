@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group 'com.seuprojeto'
@@ -9,6 +10,12 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    testImplementation 'junit:junit:4.13'
+application {
+    mainClass = 'com.financiai.view.Program'
 }
+
+dependencies {
+    testImplementation 'junit:junit:4.13.1'
+    implementation 'mysql:mysql-connector-java:8.0.33'
+}
+
