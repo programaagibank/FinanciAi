@@ -7,20 +7,11 @@ public class Cliente {
 
     public Cliente(){}
 
-    public Cliente(int id, String nome, double rendaMensal){
+    public Cliente(String nome, double rendaMensal){
 
-        this.id = id;
         this.nome = nome;
         this.rendaMensal = rendaMensal;
 
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNome() {
