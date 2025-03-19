@@ -37,7 +37,7 @@ public class Program {
         TipoImovel imovelType  = TipoImovel.CASA;
 
         Imovel imovel = new Imovel(imovelType, valorImovel);
-        Cliente cliente = new Cliente("Marcus", rendaMensal);
+        Cliente cliente = new Cliente("Marcus", "12345678900", rendaMensal);
         Financiamento financiamento = new Financiamento(prazo, taxaJurosAnual, amortizacao, valorEntrada, valorImovel-valorEntrada);
 
         calcularFinanciamento(cliente.getRendaMensal(), imovel.getValorImovel(), financiamento.getValorEntrada(),
