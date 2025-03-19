@@ -4,25 +4,16 @@ import com.financiai.model.enums.TipoImovel;
 
 public class Imovel {
 
-    private int id;
     private TipoImovel tipoImovel;
     private Double valorImovel;
 
     public Imovel(){}
 
-    public Imovel(int id, TipoImovel tipoImovel, Double valorImovel) {
-        this.id = id;
+    public Imovel(TipoImovel tipoImovel, Double valorImovel) {
         this.tipoImovel = tipoImovel;
         this.valorImovel = valorImovel;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public TipoImovel getTipoImovel() {
         return tipoImovel;

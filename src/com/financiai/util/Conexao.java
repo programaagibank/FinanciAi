@@ -1,4 +1,4 @@
-package com.financiai.dao;
+package com.financiai.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
