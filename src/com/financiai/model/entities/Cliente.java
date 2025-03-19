@@ -1,17 +1,26 @@
 package com.financiai.model.entities;
 
 public class Cliente {
-    private int id;
+
     private String nome;
     private Double rendaMensal;
+    private String cpf;
 
     public Cliente(){}
 
-    public Cliente(String nome, double rendaMensal){
+    public Cliente(String nome, String cpf, double rendaMensal){
 
         this.nome = nome;
         this.rendaMensal = rendaMensal;
 
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getNome() {
