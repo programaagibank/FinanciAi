@@ -13,7 +13,7 @@ import java.sql.Connection;
 import static com.financiai.controller.FinanciamentoController.calcularFinanciamento;
 
 public class Program {
-    public static void main(MysqlxDatatypes.Scalar.String[] args) {
+    public static void main(String[] args) {
         System.out.println("Testando conexão com o banco de dados...");
         try (Connection conexao = Conexao.conectar()) {
             if (conexao != null) {
