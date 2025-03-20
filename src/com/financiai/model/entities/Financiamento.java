@@ -13,7 +13,7 @@ public class Financiamento {
     private int financiamentoId; // Adicionado para usar na classe FinanciamentoDAO
 
     // Construtor com todos os atributos, incluindo o financiamentoId
-    public Financiamento(int prazo, Double taxaJuros, TipoAmortizacao tipoAmortizacao, double valorEntrada, double valorFinanciado, int financiamentoId) {
+    public Financiamento(int prazo, Double taxaJuros, TipoAmortizacao tipoAmortizacao, double entrada, double valorEntrada, double valorFinanciado) {
         this.prazo = prazo;
         this.taxaJuros = taxaJuros;
         this.tipoAmortizacao = tipoAmortizacao;

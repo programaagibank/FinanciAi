@@ -3,14 +3,14 @@ package com.financiai.services;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
+/*
  * Calcula as parcelas de um financiamento utilizando o método Price.
  * @param valorFinanciamento Valor total do financiamento.
  * @param taxaJuros Taxa de juros mensal.
  * @param prazo Número de parcelas.
  * @return Lista de parcelas calculadas.
  * @throws IllegalArgumentException Se os valores de entrada forem inválidos.
- * **/
+ * */
 
 
 public class Price implements Amortizacao{

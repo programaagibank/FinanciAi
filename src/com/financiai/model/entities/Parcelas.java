@@ -8,7 +8,7 @@ public class Parcelas {
     private Double valorAmortizacao; 
 
     // Construtor com todos os atributos
-    public Parcelas(int id, int numeroParcela, Double valorParcela, Double valorAmortizacao) {
+    public Parcelas(int id, Double valorParcela) {
         this.id = id;
         this.numeroParcela = numeroParcela;
         this.valorParcela = valorParcela;

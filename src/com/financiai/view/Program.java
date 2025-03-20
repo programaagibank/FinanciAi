@@ -6,7 +6,6 @@ import com.financiai.model.entities.Financiamento;
 import com.financiai.model.entities.Imovel;
 import com.financiai.model.enums.TipoAmortizacao;
 import com.financiai.model.enums.TipoImovel;
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 
 import java.sql.Connection;
 
@@ -39,7 +38,7 @@ public class Program {
 
         Imovel imovel = new Imovel(imovelType, valorImovel);
         Cliente cliente = new Cliente("Marcus", "12345678900", rendaMensal);
-        Financiamento financiamento = new Financiamento(prazo, taxaJurosAnual, amortizacao, valorEntrada, valorImovel-valorEntrada);
+        Financiamento financiamento = new Financiamento(prazo, taxaJurosAnual, amortizacao, valorEntrada, valorEntrada, valorImovel-valorEntrada);
 
         calcularFinanciamento(cliente.getRendaMensal(), imovel.getValorImovel(), financiamento.getValorEntrada(),
                               financiamento.getTaxaJuros(), financiamento.getPrazo(), amortizacao);
