@@ -7,15 +7,26 @@ import com.financiai.services.SAC;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Calcula o Financiamento como um todo, utilizando métodos.
+ * @param rendaMensal renda mensal do cliente.
+ * @param valorImovel quanto custa o imóvel da simulação.
+ * @param velorEntrada quanto o cliente dará de entrada.
+ * @param taxaJurosanual a taxa que será aplicada no financiamento.
+ * @param prazo quantidade total de meses para o financiamento.
+ * @enum  amortizacao, tipo da amortização escolhida.
+ * @return encerra o método caso atenda a condição
+ * **/
+
 public class FinanciamentoController {
 
-
+    private static final double LIMITE_PARCELA_RENDA = 0.3;
 
     public static void calcularFinanciamento(double rendaMensal, double valorImovel, double valorEntrada,
                                              double taxaJurosAnual, int prazo, TipoAmortizacao amortizacao) {
         double valorFinanciamento = valorImovel - valorEntrada;
         double taxaJurosMensal = taxaJurosAnual / 12 / 100 ;
-        double limiteParcela = rendaMensal * 0.3;
+        double limiteParcela = rendaMensal * LIMITE_PARCELA_RENDA;
 
         if(amortizacao == TipoAmortizacao.PRICE){
 

@@ -2,9 +2,23 @@ package com.financiai.services;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Calcula as parcelas de um financiamento utilizando o método SAC.
+ * @param valorFinanciamento Valor total do financiamento.
+ * @param taxaJuros Taxa de juros mensal.
+ * @param prazo Número de parcelas.
+ * @return Lista de parcelas calculadas.
+ * @throws IllegalArgumentException Se os valores de entrada forem inválidos.
+ * **/
+
 public class SAC implements Amortizacao{
     @Override
     public List<Double> calculaParcela(Double valorFinanciamento, Double taxaJuros, int prazo) {
+
+        if (valorFinanciamento <= 0 || taxaJuros <= 0 || prazo <= 0) {
+            throw new IllegalArgumentException("Valores de financiamento, taxa de juros e prazo devem ser positivos.");
+        }
+
         List<Double> parcelaSAC = new ArrayList<>();
         double saldoDevedor = valorFinanciamento;
         double valorAmortizacao = valorFinanciamento / prazo;
