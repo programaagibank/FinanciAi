@@ -6,13 +6,14 @@ import com.financiai.model.entities.Financiamento;
 import com.financiai.model.entities.Imovel;
 import com.financiai.model.enums.TipoAmortizacao;
 import com.financiai.model.enums.TipoImovel;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 
 import java.sql.Connection;
 
 import static com.financiai.controller.FinanciamentoController.calcularFinanciamento;
 
 public class Program {
-    public static void main(String[] args) {
+    public static void main(MysqlxDatatypes.Scalar.String[] args) {
         System.out.println("Testando conexão com o banco de dados...");
         try (Connection conexao = Conexao.conectar()) {
             if (conexao != null) {
