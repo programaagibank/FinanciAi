@@ -13,7 +13,7 @@ import static com.financiai.controller.FinanciamentoController.calcularFinanciam
 
 public class Program {
     public static void main(String[] args) {
-        System.out.println("Testando conexão com o banco de dados....");
+        System.out.println("Testando conexão com o banco de dados...");
         try (Connection conexao = Conexao.conectar()) {
             if (conexao != null) {
                 System.out.println("Conexão estabelecida com sucesso!");
