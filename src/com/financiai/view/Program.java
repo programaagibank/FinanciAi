@@ -9,7 +9,7 @@ import com.financiai.model.enums.TipoImovel;
 
 import java.sql.Connection;
 
-import static com.financiai.controller.FinanciamentoController.calcularFinanciamento;
+
 
 public class Program {
     public static void main(String[] args) {
@@ -38,10 +38,9 @@ public class Program {
 
         Imovel imovel = new Imovel(imovelType, valorImovel);
         Cliente cliente = new Cliente("Marcus", "12345678900", rendaMensal);
-        Financiamento financiamento = new Financiamento(prazo, taxaJurosAnual, amortizacao, valorEntrada, valorEntrada, valorImovel-valorEntrada);
+        Financiamento financiamento = new Financiamento(prazo, taxaJurosAnual, amortizacao, valorEntrada, valorEntrada);
 
-        calcularFinanciamento(cliente.getRendaMensal(), imovel.getValorImovel(), financiamento.getValorEntrada(),
-                              financiamento.getTaxaJuros(), financiamento.getPrazo(), amortizacao);
+        calcularFinanciamento(cliente.getRendaMensal(), imovel.getValorImovel(), financiamento.getValorEntrada(), financiamento.getTaxaJuros(), financiamento.getPrazo(), amortizacao);
 
     }
 

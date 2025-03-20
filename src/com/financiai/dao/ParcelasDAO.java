@@ -1,4 +1,5 @@
 package com.financiai.dao;
+
 import com.financiai.model.entities.Parcelas;
 import com.financiai.util.Conexao;
 
@@ -23,7 +24,9 @@ public class ParcelasDAO {
         String criaTabela = "CREATE TABLE IF NOT EXISTS parcelas (" +
                 "id INT PRIMARY KEY AUTO_INCREMENT, " +
                 "numero_parcela INT NOT NULL, " +
-                "valor_parcela DOUBLE NOT NULL)";
+                "valor_parcela DOUBLE NOT NULL, " +
+                "valor_amortizacao DOUBLE NOT NULL, " + // Adicionado o campo valor_amortizacao
+                "financiamento_id INT NOT NULL)"; // Adicionado o campo financiamento_id
 
         try (Statement stmt = conexao.createStatement();
              ResultSet rs = stmt.executeQuery(verificaTabela)) {
@@ -40,10 +43,11 @@ public class ParcelasDAO {
     }
 
     // Método para verificar se uma parcela já existe
-    private boolean parcelaExiste(int numeroParcela) {
-        String sql = "SELECT COUNT(*) FROM parcelas WHERE numero_parcela = ?";
+    private boolean parcelaExiste(int numeroParcela, int financiamentoId) {
+        String sql = "SELECT COUNT(*) FROM parcelas WHERE numero_parcela = ? AND financiamento_id = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, numeroParcela);
+            stmt.setInt(2, financiamentoId);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return rs.getInt(1) > 0;
@@ -64,18 +68,26 @@ public class ParcelasDAO {
 
     // Método para adicionar uma nova parcela
     public void adicionarParcela(Parcelas parcela) {
-        if (parcelaExiste(parcela.getNumeroParcela())) {
-            System.out.println("Parcela " + parcela.getNumeroParcela() + " já existe no banco de dados.");
+        if (parcelaExiste(parcela.getNumeroParcela(), parcela.getFinanciamentoId())) {
+            System.out.println("Parcela " + parcela.getNumeroParcela() + " já existe no banco de dados para o financiamento ID " + parcela.getFinanciamentoId() + ".");
             return;
         }
 
-        // Formata o valor antes de salvar
-        double valorParcelaFormatado = formatarValor(parcela.getValorParcela());
+        // Validação do valor da parcela e da amortização
+        if (parcela.getValorParcela() <= 0 || parcela.getValorAmortizacao() <= 0) {
+            throw new IllegalArgumentException("O valor da parcela e da amortização devem ser positivos.");
+        }
 
-        String sql = "INSERT INTO parcelas (numero_parcela, valor_parcela) VALUES (?, ?)";
+        // Formata os valores antes de salvar
+        double valorParcelaFormatado = formatarValor(parcela.getValorParcela());
+        double valorAmortizacaoFormatado = formatarValor(parcela.getValorAmortizacao());
+
+        String sql = "INSERT INTO parcelas (numero_parcela, valor_parcela, valor_amortizacao, financiamento_id) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, parcela.getNumeroParcela());
-            stmt.setDouble(2, valorParcelaFormatado); // Valor formatado
+            stmt.setDouble(2, valorParcelaFormatado);
+            stmt.setDouble(3, valorAmortizacaoFormatado);
+            stmt.setInt(4, parcela.getFinanciamentoId());
             stmt.executeUpdate();
 
             // Recupera o ID gerado automaticamente
@@ -88,6 +100,25 @@ public class ParcelasDAO {
             System.out.println("Parcela adicionada com sucesso!");
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao adicionar parcela: " + e.getMessage(), e);
+        } finally {
+            fecharConexao();
+        }
+    }
+
+    // Método para adicionar parcelas limitadas (primeiras e últimas)
+    public void adicionarParcelasLimitadas(List<Parcelas> parcelas, int limite) {
+        if (parcelas == null || parcelas.isEmpty()) {
+            throw new IllegalArgumentException("A lista de parcelas não pode ser nula ou vazia.");
+        }
+
+        // Adiciona as primeiras 'limite' parcelas
+        for (int i = 0; i < Math.min(limite, parcelas.size()); i++) {
+            adicionarParcela(parcelas.get(i));
+        }
+
+        // Adiciona as últimas 'limite' parcelas
+        for (int i = Math.max(parcelas.size() - limite, 0); i < parcelas.size(); i++) {
+            adicionarParcela(parcelas.get(i));
         }
     }
 
@@ -100,12 +131,16 @@ public class ParcelasDAO {
             while (rs.next()) {
                 Parcelas parcela = new Parcelas(
                         rs.getInt("numero_parcela"),
-                        rs.getDouble("valor_parcela")
+                        rs.getDouble("valor_parcela"),
+                        rs.getDouble("valor_amortizacao"),
+                        rs.getInt("financiamento_id")
                 );
                 parcelas.add(parcela);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao listar parcelas: " + e.getMessage(), e);
+        } finally {
+            fecharConexao();
         }
         return parcelas;
     }

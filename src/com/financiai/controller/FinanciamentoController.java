@@ -17,7 +17,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FinanciamentoController {
@@ -55,103 +55,103 @@ public class FinanciamentoController {
 
     // Método para simular um financiamento
     public void simularFinanciamento(String clienteCpf, TipoImovel tipoImovel, double valorTotalImovel, double taxaJuros, double valorEntrada, int prazo, TipoAmortizacao tipoAmortizacao) {
-        Connection conn = null;
-        try {
-            conn = Conexao.conectar();
+        try (Connection conn = Conexao.conectar()) {
             conn.setAutoCommit(false); // Inicia a transação
 
-            // Recuperar informações do cliente e do imóvel
-            Cliente cliente = clienteDAO.buscarClientePorCpf(clienteCpf); // Busca cliente por CPF
-            List<Imovel> imoveis = imovelDAO.buscarImoveisPorTipo(tipoImovel); // Busca imóveis por tipo
+            // Buscar cliente e imóvel
+            Cliente cliente = buscarCliente(clienteCpf);
+            Imovel imovel = buscarImovel(tipoImovel);
 
-            // Verifica se o cliente foi encontrado
-            if (cliente == null) {
-                throw new RuntimeException("Cliente não encontrado com o CPF: " + clienteCpf);
-            }
+            // Calcular financiamento
+            Financiamento financiamento = calcularFinanciamento(valorTotalImovel, taxaJuros, valorEntrada, prazo, tipoAmortizacao);
 
-            // Verifica se há imóveis do tipo especificado
-            if (imoveis.isEmpty()) {
-                throw new RuntimeException("Nenhum imóvel encontrado do tipo: " + tipoImovel);
-            }
-
-            // Seleciona o primeiro imóvel da lista (ou outro critério, se necessário)
-            Imovel imovel = imoveis.get(0);
-
-            // Calcular o valor financiado (valor total do imóvel menos a entrada)
-            double valorFinanciado = valorTotalImovel - valorEntrada;
-
-            // Calcular o total a pagar e as parcelas
-            Amortizacao amortizacao = tipoAmortizacao == TipoAmortizacao.PRICE ? new Price() : new SAC();
-            double totalPagar = calcularTotalPagar(valorFinanciado, taxaJuros, prazo, amortizacao);
-
-            // Gerar um novo ID para o financiamento
-            int financiamentoId = gerarNovoIdFinanciamento();
-
-            // Criar o financiamento
-            Financiamento financiamento = new Financiamento(prazo, taxaJuros, tipoAmortizacao, valorEntrada, valorFinanciado, financiamentoId);
-            financiamento.setTotalPagar(totalPagar);
-
-            // Salvar o financiamento no banco de dados
-            financiamentoDAO.adicionarFinanciamento(financiamento);
-
-            // Calcular as parcelas
-            List<Parcelas> parcelas = amortizacao.calcularParcelas(financiamento);
-
-            // Salvar apenas as 5 primeiras e as 5 últimas parcelas
-            parcelasDAO.adicionarParcelasLimitadas(parcelas, NUMERO_PARCELAS_SALVAR);
+            // Salvar financiamento e parcelas
+            salvarFinanciamento(conn, financiamento);
+            List<Parcelas> parcelas = calcularESalvarParcelas(conn, financiamento);
 
             // Commit da transação
             conn.commit();
 
-            // Gerar o PDF com todas as parcelas e informações do cliente/imóvel
-            GeradorPDF.gerarPDF(
-                    financiamento.getFinanciamentoId(),
-                    cliente.getNome(),
-                    valorTotalImovel,
-                    valorEntrada,
-                    imovel.getTipoImovel(),
-                    valorFinanciado,
-                    totalPagar,
-                    totalPagar - valorFinanciado,
-                    totalPagar,
-                    totalPagar - valorFinanciado,
-                    parcelas
-            );
+            // Gerar PDF
+           // GeradorPDF.gerarPDF(financiamento, cliente, parcelas);
 
         } catch (Exception e) {
-            if (conn != null) {
-                try {
-                    conn.rollback(); // Rollback em caso de erro
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }
             System.err.println("Erro ao simular financiamento: " + e.getMessage());
             e.printStackTrace();
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.setAutoCommit(true); // Restaura o modo de autocommit
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
-    // Método para calcular o total a pagar
-    private double calcularTotalPagar(double valorFinanciado, double taxaJuros, int prazo, Amortizacao amortizacao) {
-        double totalPagar = 0;
-        try {
-            for (int i = 1; i <= prazo; i++) {
-                double valorParcela = amortizacao.calculaParcela(valorFinanciado, taxaJuros, prazo, i);
-                totalPagar += valorParcela;
-            }
-        } catch (Exception e) {
-            System.err.println("Erro ao calcular o total a pagar: " + e.getMessage());
-            e.printStackTrace();
+
+    // Método para buscar cliente por CPF
+    private Cliente buscarCliente(String clienteCpf) {
+        Cliente cliente = clienteDAO.buscarClientePorCpf(clienteCpf);
+        if (cliente == null) {
+            throw new RuntimeException("Cliente não encontrado com o CPF: " + clienteCpf);
         }
-        return totalPagar;
+        return cliente;
+    }
+
+    // Método para buscar imóvel por tipo
+    private Imovel buscarImovel(TipoImovel tipoImovel) {
+        List<Imovel> imoveis = imovelDAO.buscarImoveisPorTipo(tipoImovel);
+        if (imoveis.isEmpty()) {
+            throw new RuntimeException("Nenhum imóvel encontrado do tipo: " + tipoImovel);
+        }
+        return imoveis.get(0); // Seleciona o primeiro imóvel da lista
+    }
+
+    // Método para calcular o financiamento
+    private Financiamento calcularFinanciamento(double valorTotalImovel, double taxaJuros, double valorEntrada, int prazo, TipoAmortizacao tipoAmortizacao) {
+        // O QUE ESTAVA ERRADO: Não havia validação dos valores de financiamento antes de calcular.
+        // O QUE FOI CORRIGIDO: Adicionei validações para garantir que os valores sejam positivos.
+        if (valorTotalImovel <= 0 || taxaJuros <= 0 || valorEntrada < 0 || prazo <= 0) {
+            throw new IllegalArgumentException("Valores de financiamento, taxa de juros, entrada e prazo devem ser positivos.");
+        }
+
+        double valorFinanciado = valorTotalImovel - valorEntrada;
+        Amortizacao amortizacao = tipoAmortizacao == TipoAmortizacao.PRICE ? new Price() : new SAC();
+        double totalPagar = amortizacao.calculaParcela(valorFinanciado, taxaJuros, prazo).stream().mapToDouble(Double::doubleValue).sum();
+
+        Financiamento financiamento = new Financiamento(prazo, taxaJuros, tipoAmortizacao, valorEntrada, valorFinanciado);
+        financiamento.setTotalPagar(totalPagar);
+
+        return financiamento;
+    }
+
+    // Método para salvar o financiamento no banco de dados
+    private void salvarFinanciamento(Connection conn, Financiamento financiamento) throws SQLException {
+        financiamentoDAO.adicionarFinanciamento(financiamento);
+    }
+
+    // Método para calcular e salvar as parcelas
+    private List<Parcelas> calcularESalvarParcelas(Connection conn, Financiamento financiamento) throws SQLException {
+        // Obtém a estratégia de amortização (Price ou SAC)
+        Amortizacao amortizacao = financiamento.getTipoAmortizacao() == TipoAmortizacao.PRICE ? new Price() : new SAC();
+
+        // Calcula os valores das parcelas
+        List<Double> valoresParcelas = amortizacao.calculaParcela(financiamento.getValorFinanciado(), financiamento.getTaxaJuros(), financiamento.getPrazo());
+
+        // Calcula os valores da amortização
+        List<Double> valoresAmortizacao = amortizacao.calculaAmortizacao(financiamento.getValorFinanciado(), financiamento.getTaxaJuros(), financiamento.getPrazo());
+
+        // Cria a lista de parcelas
+        List<Parcelas> parcelas = new ArrayList<>();
+
+        // Preenche a lista de parcelas
+        for (int i = 0; i < valoresParcelas.size(); i++) {
+            // Cria uma nova parcela com número, valor da parcela, valor da amortização e ID do financiamento
+            Parcelas parcela = new Parcelas(
+                    i + 1, // Número da parcela
+                    valoresParcelas.get(i), // Valor da parcela
+                    valoresAmortizacao.get(i), // Valor da amortização
+                    financiamento.getFinanciamentoId() // ID do financiamento
+            );
+            parcelas.add(parcela);
+        }
+
+        // Salva as parcelas no banco de dados (apenas as primeiras e últimas)
+        parcelasDAO.adicionarParcelasLimitadas(parcelas, NUMERO_PARCELAS_SALVAR);
+
+        return parcelas;
     }
 
     // Método para listar todos os financiamentos

@@ -78,6 +78,12 @@ public class FinanciamentoDAO {
             return;
         }
 
+        // O QUE ESTAVA ERRADO: Não havia validação dos valores de financiamento antes de inserir no banco de dados.
+        // O QUE FOI CORRIGIDO: Adicionei validações para garantir que os valores sejam positivos.
+        if (financiamento.getValorFinanciado() <= 0 || financiamento.getTaxaJuros() <= 0 || financiamento.getValorEntrada() < 0 || financiamento.getPrazo() <= 0) {
+            throw new IllegalArgumentException("Valores de financiamento, taxa de juros, entrada e prazo devem ser positivos.");
+        }
+
         String sql = "INSERT INTO financiamentos (valor_financiado, taxa_juros, valor_entrada, prazo, tipo_amortizacao, total_pagar) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setDouble(1, financiamento.getValorFinanciado());
@@ -98,6 +104,10 @@ public class FinanciamentoDAO {
             System.out.println("Financiamento adicionado com sucesso!");
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao adicionar financiamento: " + e.getMessage(), e);
+        } finally {
+            // O QUE ESTAVA ERRADO: O método fecharConexao() não era chamado após as operações no banco de dados.
+            // O QUE FOI CORRIGIDO: Adicionei o fechamento da conexão no bloco finally para garantir que a conexão seja fechada.
+            fecharConexao();
         }
     }
 
@@ -112,7 +122,7 @@ public class FinanciamentoDAO {
                         rs.getInt("prazo"),
                         rs.getDouble("taxa_juros"),
                         TipoAmortizacao.valueOf(rs.getString("tipo_amortizacao")),
-                        valorEntrada, rs.getDouble("valor_entrada"),
+                        rs.getDouble("valor_entrada"),
                         rs.getDouble("valor_financiado")
                 );
                 financiamento.setTotalPagar(rs.getDouble("total_pagar"));
@@ -120,6 +130,10 @@ public class FinanciamentoDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao listar financiamentos: " + e.getMessage(), e);
+        } finally {
+            // O QUE ESTAVA ERRADO: O método fecharConexao() não era chamado após as operações no banco de dados.
+            // O QUE FOI CORRIGIDO: Adicionei o fechamento da conexão no bloco finally para garantir que a conexão seja fechada.
+            fecharConexao();
         }
         return financiamentos;
     }
@@ -135,7 +149,7 @@ public class FinanciamentoDAO {
                             rs.getInt("prazo"),
                             rs.getDouble("taxa_juros"),
                             TipoAmortizacao.valueOf(rs.getString("tipo_amortizacao")),
-                            valorEntrada, rs.getDouble("valor_entrada"),
+                            rs.getDouble("valor_entrada"),
                             rs.getDouble("valor_financiado")
                     );
                     financiamento.setTotalPagar(rs.getDouble("total_pagar"));
@@ -144,6 +158,10 @@ public class FinanciamentoDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao buscar financiamento por ID: " + e.getMessage(), e);
+        } finally {
+            // O QUE ESTAVA ERRADO: O método fecharConexao() não era chamado após as operações no banco de dados.
+            // O QUE FOI CORRIGIDO: Adicionei o fechamento da conexão no bloco finally para garantir que a conexão seja fechada.
+            fecharConexao();
         }
         return null; // Retorna null se o financiamento não for encontrado
     }

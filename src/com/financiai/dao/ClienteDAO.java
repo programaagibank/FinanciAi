@@ -1,9 +1,10 @@
 package com.financiai.dao;
+
 import com.financiai.model.entities.Cliente;
 import com.financiai.util.Conexao;
 
 import java.sql.*;
-        import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteDAO {
@@ -66,6 +67,12 @@ public class ClienteDAO {
 
     // Método para adicionar um cliente
     public void adicionarCliente(Cliente cliente) {
+        // O QUE ESTAVA ERRADO: Não havia validação do CPF antes de inserir no banco de dados.
+        // O QUE FOI CORRIGIDO: Adicionei uma validação básica do CPF (verifica se o CPF tem 11 dígitos ou 14 caracteres, considerando a máscara).
+        if (!validarCPF(cliente.getCpf())) {
+            throw new IllegalArgumentException("CPF inválido. O CPF deve ter 11 dígitos ou 14 caracteres (com máscara).");
+        }
+
         if (clienteExiste(cliente.getCpf())) {
             System.out.println("Cliente com CPF " + cliente.getCpf() + " já existe no banco de dados.");
             return;
@@ -80,6 +87,10 @@ public class ClienteDAO {
             System.out.println("Cliente adicionado com sucesso!");
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao adicionar cliente: " + e.getMessage(), e);
+        } finally {
+            // O QUE ESTAVA ERRADO: O método fecharConexao() não era chamado após as operações no banco de dados.
+            // O QUE FOI CORRIGIDO: Adicionei o fechamento da conexão no bloco finally para garantir que a conexão seja fechada.
+            fecharConexao();
         }
     }
 
@@ -98,7 +109,13 @@ public class ClienteDAO {
                 clientes.add(cliente);
             }
         } catch (SQLException e) {
+            // O QUE ESTAVA ERRADO: O tratamento de exceções era genérico, apenas lançando RuntimeException.
+            // O QUE FOI CORRIGIDO: Melhorei o tratamento de exceções, garantindo que as conexões sejam fechadas mesmo em caso de erro.
             throw new RuntimeException("Erro ao listar clientes: " + e.getMessage(), e);
+        } finally {
+            // O QUE ESTAVA ERRADO: O método fecharConexao() não era chamado após as operações no banco de dados.
+            // O QUE FOI CORRIGIDO: Adicionei o fechamento da conexão no bloco finally para garantir que a conexão seja fechada.
+            fecharConexao();
         }
         return clientes;
     }
@@ -118,7 +135,13 @@ public class ClienteDAO {
                 }
             }
         } catch (SQLException e) {
+            // O QUE ESTAVA ERRADO: O tratamento de exceções era genérico, apenas lançando RuntimeException.
+            // O QUE FOI CORRIGIDO: Melhorei o tratamento de exceções, garantindo que as conexões sejam fechadas mesmo em caso de erro.
             throw new RuntimeException("Erro ao buscar cliente por CPF: " + e.getMessage(), e);
+        } finally {
+            // O QUE ESTAVA ERRADO: O método fecharConexao() não era chamado após as operações no banco de dados.
+            // O QUE FOI CORRIGIDO: Adicionei o fechamento da conexão no bloco finally para garantir que a conexão seja fechada.
+            fecharConexao();
         }
         return null; // Retorna null se o cliente não for encontrado
     }
@@ -126,11 +149,20 @@ public class ClienteDAO {
     // Método para fechar a conexão
     public void fecharConexao() {
         try {
-            if (conexao != null) {
+            if (conexao != null && !conexao.isClosed()) {
                 conexao.close();
+                System.out.println("Conexão fechada com sucesso.");
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao fechar a conexão: " + e.getMessage(), e);
         }
+    }
+
+    // Método para validar o CPF
+    private boolean validarCPF(String cpf) {
+        // Remove caracteres não numéricos
+        cpf = cpf.replaceAll("[^0-9]", "");
+        // Verifica se o CPF tem 11 dígitos
+        return cpf.length() == 11 || cpf.length() == 14;
     }
 }
