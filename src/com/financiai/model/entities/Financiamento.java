@@ -4,25 +4,25 @@ import com.financiai.model.enums.TipoAmortizacao;
 
 public class Financiamento {
 
-
-
     private Double taxaJuros;
     private double valorFinanciado;
     private double valorEntrada;
     private int prazo;
     private TipoAmortizacao tipoAmortizacao;
     private double totalPagar;
+    private int financiamentoId; // adicionado para usar na classe finaciamento dao
 
-    public Financiamento(int prazo, Double taxaJuros, TipoAmortizacao tipoAmortizacao, double valorEntrada, double valorFinanciado) {
-
+    // Construtor com todos os atributos, incluindo o financiamentoId
+    public Financiamento(int prazo, Double taxaJuros, TipoAmortizacao tipoAmortizacao, double valorEntrada, double valorFinanciado, int financiamentoId) {
         this.prazo = prazo;
         this.taxaJuros = taxaJuros;
         this.tipoAmortizacao = tipoAmortizacao;
         this.valorEntrada = valorEntrada;
         this.valorFinanciado = valorFinanciado;
+        this.financiamentoId = financiamentoId; // adicionado para usar na classe finaciamento dao
     }
 
-
+    // Getters e Setters
 
     public int getPrazo() {
         return prazo;
@@ -72,5 +72,11 @@ public class Financiamento {
         this.valorFinanciado = valorFinanciado;
     }
 
+    public int getFinanciamentoId() {
+        return financiamentoId; // // adicionado para usar na classe finaciamento dao
+    }
 
+    public void setFinanciamentoId(int financiamentoId) {
+        this.financiamentoId = financiamentoId; // adicionado para usar na classe finaciamento dao
+    }
 }
