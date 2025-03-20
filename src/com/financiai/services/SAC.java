@@ -13,7 +13,7 @@ public class SAC implements Amortizacao{
             double parcela = valorAmortizacao + (saldoDevedor * taxaJuros);
             parcelaSAC.add(parcela);
 
-            saldoDevedor -= parcela + valorAmortizacao;
+            saldoDevedor -= valorAmortizacao;
 
         }
         return parcelaSAC;

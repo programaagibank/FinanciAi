@@ -43,6 +43,24 @@ public class FinanciamentoController {
             SAC sac = new SAC();
             List<Double> parcelasSac = sac.calculaParcela(valorFinanciamento, taxaJurosMensal, prazo);
             List<Double> amortizacaoSac = sac.calculaAmortizacao(valorFinanciamento, taxaJurosMensal, prazo);
+
+            if (parcelasSac.getFirst() > limiteParcela || amortizacaoSac.getFirst() > limiteParcela) {
+                System.out.println("Financiamento não aprovado. A primeira parcela ou amortização excede 30% da renda mensal.");
+                return;
+            }
+
+            System.out.println("Parcela | Valor | Amortização | Juros");
+            for (int i = 0; i < 5; i++) {
+                double juros = parcelasSac.get(i) - amortizacaoSac.get(i);
+                System.out.printf("%d | %.2f | %.2f | %.2f\n", i + 1, parcelasSac.get(i), amortizacaoSac.get(i), juros);
+            }
+            System.out.println("...");
+            for (int i = prazo - 5; i < prazo; i++) {
+                double juros = parcelasSac.get(i) - amortizacaoSac.get(i);
+                System.out.printf("%d | %.2f | %.2f | %.2f\n", i + 1, parcelasSac.get(i), amortizacaoSac.get(i), juros);
+
+
+            }
         }
     }
 
