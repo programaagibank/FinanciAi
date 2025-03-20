@@ -29,5 +29,4 @@ public class SAC implements Amortizacao{
         }
         return amortizacao;
     }
-
 }
