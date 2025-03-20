@@ -10,7 +10,7 @@ public class Financiamento {
     private int prazo;
     private TipoAmortizacao tipoAmortizacao;
     private double totalPagar;
-    private int financiamentoId; // adicionado para usar na classe finaciamento dao
+    private int financiamentoId; // Adicionado para usar na classe FinanciamentoDAO
 
     // Construtor com todos os atributos, incluindo o financiamentoId
     public Financiamento(int prazo, Double taxaJuros, TipoAmortizacao tipoAmortizacao, double valorEntrada, double valorFinanciado, int financiamentoId) {
@@ -19,7 +19,7 @@ public class Financiamento {
         this.tipoAmortizacao = tipoAmortizacao;
         this.valorEntrada = valorEntrada;
         this.valorFinanciado = valorFinanciado;
-        this.financiamentoId = financiamentoId; // adicionado para usar na classe finaciamento dao
+        this.financiamentoId = financiamentoId; // Adicionado para usar na classe FinanciamentoDAO
     }
 
     // Getters e Setters
@@ -73,10 +73,12 @@ public class Financiamento {
     }
 
     public int getFinanciamentoId() {
-        return financiamentoId; // // adicionado para usar na classe finaciamento dao
+        return financiamentoId; // Adicionado para usar na classe FinanciamentoDAO
     }
 
     public void setFinanciamentoId(int financiamentoId) {
-        this.financiamentoId = financiamentoId; // adicionado para usar na classe finaciamento dao
+        this.financiamentoId = financiamentoId; // Adicionado para usar na classe FinanciamentoDAO
     }
+
+
 }
