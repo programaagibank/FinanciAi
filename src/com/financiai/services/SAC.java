@@ -9,10 +9,8 @@ import java.util.List;
 public class SAC implements Amortizacao {
 
     @Override
-    public List<Double> calculaParcela(double valorFinanciamento, double taxaJuros, int prazo) {
-        // O QUE ESTAVA ERRADO: Não havia validação para a taxa de juros.
-        // O QUE FOI CORRIGIDO: Adicionei validação para garantir que a taxa de juros seja positiva.
-        if (valorFinanciamento <= 0 || taxaJuros <= 0 || prazo <= 0) {
+    public List<Double> calculaParcela(double valorFinanciamento, double taxaJurosMensal, int prazo) {
+        if (valorFinanciamento <= 0 || taxaJurosMensal <= 0 || prazo <= 0) {
             throw new IllegalArgumentException("Valores de financiamento, taxa de juros e prazo devem ser positivos.");
         }
 
@@ -20,7 +18,7 @@ public class SAC implements Amortizacao {
         double saldoDevedor = valorFinanciamento;
         double valorAmortizacao = valorFinanciamento / prazo;
         for (int i = 0; i < prazo; i++) {
-            double parcela = valorAmortizacao + (saldoDevedor * taxaJuros);
+            double parcela = valorAmortizacao + (saldoDevedor * taxaJurosMensal);
             parcelaSAC.add(parcela);
             saldoDevedor -= valorAmortizacao;
         }

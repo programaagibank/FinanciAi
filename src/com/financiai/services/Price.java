@@ -9,15 +9,13 @@ import java.util.List;
 public class Price implements Amortizacao {
 
     @Override
-    public List<Double> calculaParcela(double valorFinanciamento, double taxaJuros, int prazo) {
-        // O QUE ESTAVA ERRADO: Não havia validação para a taxa de juros.
-        // O QUE FOI CORRIGIDO: Adicionei validação para garantir que a taxa de juros seja positiva.
-        if (valorFinanciamento <= 0 || taxaJuros <= 0 || prazo <= 0) {
+    public List<Double> calculaParcela(double valorFinanciamento, double taxaJurosMensal, int prazo) {
+        if (valorFinanciamento <= 0 || taxaJurosMensal <= 0 || prazo <= 0) {
             throw new IllegalArgumentException("Valores de financiamento, taxa de juros e prazo devem ser positivos.");
         }
 
         List<Double> parcelas = new ArrayList<>();
-        double parcelaConstante = valorFinanciamento * (taxaJuros / (1 - Math.pow(1 + taxaJuros, -prazo)));
+        double parcelaConstante = valorFinanciamento * (taxaJurosMensal / (1 - Math.pow(1 + taxaJurosMensal, -prazo)));
         for (int i = 0; i < prazo; i++) {
             parcelas.add(parcelaConstante);
         }

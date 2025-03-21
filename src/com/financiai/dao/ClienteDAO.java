@@ -67,8 +67,7 @@ public class ClienteDAO {
 
     // Método para adicionar um cliente
     public void adicionarCliente(Cliente cliente) {
-        // O QUE ESTAVA ERRADO: Não havia validação do CPF antes de inserir no banco de dados.
-        // O QUE FOI CORRIGIDO: Adicionei uma validação básica do CPF (verifica se o CPF tem 11 dígitos ou 14 caracteres, considerando a máscara).
+        // Validação do CPF
         if (!validarCPF(cliente.getCpf())) {
             throw new IllegalArgumentException("CPF inválido. O CPF deve ter 11 dígitos ou 14 caracteres (com máscara).");
         }
@@ -87,10 +86,6 @@ public class ClienteDAO {
             System.out.println("Cliente adicionado com sucesso!");
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao adicionar cliente: " + e.getMessage(), e);
-        } finally {
-            // O QUE ESTAVA ERRADO: O método fecharConexao() não era chamado após as operações no banco de dados.
-            // O QUE FOI CORRIGIDO: Adicionei o fechamento da conexão no bloco finally para garantir que a conexão seja fechada.
-            fecharConexao();
         }
     }
 
@@ -109,13 +104,7 @@ public class ClienteDAO {
                 clientes.add(cliente);
             }
         } catch (SQLException e) {
-            // O QUE ESTAVA ERRADO: O tratamento de exceções era genérico, apenas lançando RuntimeException.
-            // O QUE FOI CORRIGIDO: Melhorei o tratamento de exceções, garantindo que as conexões sejam fechadas mesmo em caso de erro.
             throw new RuntimeException("Erro ao listar clientes: " + e.getMessage(), e);
-        } finally {
-            // O QUE ESTAVA ERRADO: O método fecharConexao() não era chamado após as operações no banco de dados.
-            // O QUE FOI CORRIGIDO: Adicionei o fechamento da conexão no bloco finally para garantir que a conexão seja fechada.
-            fecharConexao();
         }
         return clientes;
     }
@@ -135,13 +124,7 @@ public class ClienteDAO {
                 }
             }
         } catch (SQLException e) {
-            // O QUE ESTAVA ERRADO: O tratamento de exceções era genérico, apenas lançando RuntimeException.
-            // O QUE FOI CORRIGIDO: Melhorei o tratamento de exceções, garantindo que as conexões sejam fechadas mesmo em caso de erro.
             throw new RuntimeException("Erro ao buscar cliente por CPF: " + e.getMessage(), e);
-        } finally {
-            // O QUE ESTAVA ERRADO: O método fecharConexao() não era chamado após as operações no banco de dados.
-            // O QUE FOI CORRIGIDO: Adicionei o fechamento da conexão no bloco finally para garantir que a conexão seja fechada.
-            fecharConexao();
         }
         return null; // Retorna null se o cliente não for encontrado
     }
@@ -160,9 +143,15 @@ public class ClienteDAO {
 
     // Método para validar o CPF
     private boolean validarCPF(String cpf) {
+        // Verifica se o CPF é nulo
+        if (cpf == null) {
+            throw new IllegalArgumentException("CPF não pode ser nulo.");
+        }
+
         // Remove caracteres não numéricos
         cpf = cpf.replaceAll("[^0-9]", "");
-        // Verifica se o CPF tem 11 dígitos
+
+        // Verifica se o CPF tem 11 dígitos (sem máscara) ou 14 caracteres (com máscara)
         return cpf.length() == 11 || cpf.length() == 14;
     }
 }

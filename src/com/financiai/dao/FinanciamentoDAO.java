@@ -1,6 +1,8 @@
 package com.financiai.dao;
 
 import com.financiai.model.entities.Financiamento;
+import com.financiai.model.entities.Cliente;
+import com.financiai.model.entities.Imovel;
 import com.financiai.model.enums.TipoAmortizacao;
 import com.financiai.util.Conexao;
 
@@ -40,12 +42,19 @@ public class FinanciamentoDAO {
 
         String criaTabela = "CREATE TABLE financiamentos (" +
                 "id INT PRIMARY KEY AUTO_INCREMENT, " +
+                "cliente_cpf VARCHAR(14) NOT NULL, " +
+                "cliente_nome VARCHAR(100) NOT NULL, " +
+                "cliente_renda_mensal DOUBLE NOT NULL, " +
+                "tipo_imovel VARCHAR(50) NOT NULL, " +
+                "valor_imovel DOUBLE NOT NULL, " +
+                "valor_entrada DOUBLE NOT NULL, " +
                 "valor_financiado DOUBLE NOT NULL, " +
                 "taxa_juros DOUBLE NOT NULL, " +
-                "valor_entrada DOUBLE NOT NULL, " +
                 "prazo INT NOT NULL, " +
                 "tipo_amortizacao VARCHAR(50) NOT NULL, " +
-                "total_pagar DOUBLE NOT NULL)";
+                "total_pagar DOUBLE NOT NULL, " +
+                "FOREIGN KEY (cliente_cpf) REFERENCES clientes(cpf)" +
+                ")";
 
         try (Statement stmt = conexao.createStatement()) {
             stmt.executeUpdate(criaTabela);
@@ -55,67 +64,39 @@ public class FinanciamentoDAO {
         }
     }
 
-    // Método para verificar se um financiamento já existe
-    private boolean financiamentoExiste(int id) {
-        String sql = "SELECT COUNT(*) FROM financiamentos WHERE id = ?";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt(1) > 0;
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao verificar se financiamento existe: " + e.getMessage(), e);
-        }
-        return false;
-    }
-
     // Método para adicionar um financiamento
-    public void adicionarFinanciamento(Financiamento financiamento) {
-        if (financiamentoExiste(financiamento.getFinanciamentoId())) {
-            System.out.println("Financiamento com ID " + financiamento.getFinanciamentoId() + " já existe no banco de dados.");
-            return;
-        }
-
-        // O QUE ESTAVA ERRADO: Não havia validação dos valores de financiamento antes de inserir no banco de dados.
-        // O QUE FOI CORRIGIDO: Adicionei validações para garantir que os valores sejam positivos.
-        if (financiamento.getValorFinanciado() <= 0 || financiamento.getTaxaJuros() <= 0 || financiamento.getValorEntrada() < 0 || financiamento.getPrazo() <= 0) {
-            throw new IllegalArgumentException("Valores de financiamento, taxa de juros, entrada e prazo devem ser positivos.");
-        }
-
-        String sql = "INSERT INTO financiamentos (valor_financiado, taxa_juros, valor_entrada, prazo, tipo_amortizacao, total_pagar) VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setDouble(1, financiamento.getValorFinanciado());
-            stmt.setDouble(2, financiamento.getTaxaJuros());
-            stmt.setDouble(3, financiamento.getValorEntrada());
-            stmt.setInt(4, financiamento.getPrazo());
-            stmt.setString(5, financiamento.getTipoAmortizacao().toString());
-            stmt.setDouble(6, financiamento.getTotalPagar());
+    public void adicionarFinanciamento(Connection conn, Financiamento financiamento, Cliente cliente, Imovel imovel) throws SQLException {
+        String sql = "INSERT INTO financiamentos (cliente_cpf, cliente_nome, cliente_renda_mensal, tipo_imovel, valor_imovel, valor_entrada, valor_financiado, taxa_juros, prazo, tipo_amortizacao, total_pagar) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, cliente.getCpf());
+            stmt.setString(2, cliente.getNome());
+            stmt.setDouble(3, cliente.getRendaMensal());
+            stmt.setString(4, imovel.getTipoImovel().toString());
+            stmt.setDouble(5, imovel.getValorImovel());
+            stmt.setDouble(6, financiamento.getValorEntrada());
+            stmt.setDouble(7, financiamento.getValorFinanciado());
+            stmt.setDouble(8, financiamento.getTaxaJuros());
+            stmt.setInt(9, financiamento.getPrazo());
+            stmt.setString(10, financiamento.getTipoAmortizacao().toString());
+            stmt.setDouble(11, financiamento.getTotalPagar());
             stmt.executeUpdate();
 
-            // Recupera o ID gerado automaticamente
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    financiamento.setFinanciamentoId(generatedKeys.getInt(1)); // Atualiza o objeto com o ID gerado
+                    financiamento.setFinanciamentoId(generatedKeys.getInt(1));
+                    System.out.println("Financiamento salvo com ID: " + financiamento.getFinanciamentoId()); // Log para depuração
                 }
             }
-
-            System.out.println("Financiamento adicionado com sucesso!");
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao adicionar financiamento: " + e.getMessage(), e);
-        } finally {
-            // O QUE ESTAVA ERRADO: O método fecharConexao() não era chamado após as operações no banco de dados.
-            // O QUE FOI CORRIGIDO: Adicionei o fechamento da conexão no bloco finally para garantir que a conexão seja fechada.
-            fecharConexao();
         }
     }
 
     // Método para listar todos os financiamentos
-    public List<Financiamento> listarFinanciamentos() {
+    public List<Financiamento> listarFinanciamentos(Connection conn) {
         List<Financiamento> financiamentos = new ArrayList<>();
         String sql = "SELECT * FROM financiamentos";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql);
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 Financiamento financiamento = new Financiamento(
@@ -130,40 +111,8 @@ public class FinanciamentoDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao listar financiamentos: " + e.getMessage(), e);
-        } finally {
-            // O QUE ESTAVA ERRADO: O método fecharConexao() não era chamado após as operações no banco de dados.
-            // O QUE FOI CORRIGIDO: Adicionei o fechamento da conexão no bloco finally para garantir que a conexão seja fechada.
-            fecharConexao();
         }
         return financiamentos;
-    }
-
-    // Método para buscar um financiamento por ID
-    public Financiamento buscarFinanciamentoPorId(int id) {
-        String sql = "SELECT * FROM financiamentos WHERE id = ?";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    Financiamento financiamento = new Financiamento(
-                            rs.getInt("prazo"),
-                            rs.getDouble("taxa_juros"),
-                            TipoAmortizacao.valueOf(rs.getString("tipo_amortizacao")),
-                            rs.getDouble("valor_entrada"),
-                            rs.getDouble("valor_financiado")
-                    );
-                    financiamento.setTotalPagar(rs.getDouble("total_pagar"));
-                    return financiamento;
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao buscar financiamento por ID: " + e.getMessage(), e);
-        } finally {
-            // O QUE ESTAVA ERRADO: O método fecharConexao() não era chamado após as operações no banco de dados.
-            // O QUE FOI CORRIGIDO: Adicionei o fechamento da conexão no bloco finally para garantir que a conexão seja fechada.
-            fecharConexao();
-        }
-        return null; // Retorna null se o financiamento não for encontrado
     }
 
     // Método para fechar a conexão

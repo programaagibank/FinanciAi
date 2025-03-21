@@ -12,14 +12,20 @@ public class Financiamento {
     private double totalPagar;
     private int financiamentoId; // Adicionado para usar na classe FinanciamentoDAO
 
-    // Construtor com todos os atributos, incluindo o financiamentoId
-    public Financiamento(int prazo, Double taxaJuros, TipoAmortizacao tipoAmortizacao, double entrada, double valorEntrada) {
+    // Construtor com todos os atributos, exceto financiamentoId (gerado automaticamente)
+    public Financiamento(int prazo, Double taxaJuros, TipoAmortizacao tipoAmortizacao, double valorEntrada, double valorFinanciado) {
         this.prazo = prazo;
         this.taxaJuros = taxaJuros;
         this.tipoAmortizacao = tipoAmortizacao;
         this.valorEntrada = valorEntrada;
         this.valorFinanciado = valorFinanciado;
-        this.financiamentoId = financiamentoId; // Adicionado para usar na classe FinanciamentoDAO
+        this.totalPagar = calcularTotalPagar(); // Calcula o total a pagar com base nos outros atributos
+    }
+
+    // Método para calcular o total a pagar (pode ser personalizado conforme a lógica de negócio)
+    private double calcularTotalPagar() {
+        // Exemplo de cálculo simples: totalPagar = valorFinanciado + (valorFinanciado * taxaJuros)
+        return valorFinanciado + (valorFinanciado * taxaJuros);
     }
 
     // Getters e Setters
@@ -73,12 +79,10 @@ public class Financiamento {
     }
 
     public int getFinanciamentoId() {
-        return financiamentoId; // Adicionado para usar na classe FinanciamentoDAO
+        return financiamentoId;
     }
 
     public void setFinanciamentoId(int financiamentoId) {
-        this.financiamentoId = financiamentoId; // Adicionado para usar na classe FinanciamentoDAO
+        this.financiamentoId = financiamentoId;
     }
-
-
 }

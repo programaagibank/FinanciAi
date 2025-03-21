@@ -20,6 +20,7 @@ public class ImovelDAO {
     private void criarTabelaImoveis() {
         String verificaTabela = "SELECT COUNT(*) FROM information_schema.tables WHERE table_name = 'imoveis'";
         String criaTabela = "CREATE TABLE IF NOT EXISTS imoveis (" +
+                "id INT PRIMARY KEY AUTO_INCREMENT, " + // Adicionado uma chave primária autoincrementada
                 "tipo_imovel VARCHAR(50) NOT NULL, " +
                 "valor_imovel DOUBLE NOT NULL)";
 
@@ -39,8 +40,7 @@ public class ImovelDAO {
 
     // Método para adicionar um imóvel
     public void adicionarImovel(Imovel imovel) {
-        // O QUE ESTAVA ERRADO: Não havia validação do valor do imóvel antes de inserir no banco de dados.
-        // O QUE FOI CORRIGIDO: Adicionei validação para garantir que o valor do imóvel seja positivo.
+        // Validação do valor do imóvel
         if (imovel.getValorImovel() <= 0) {
             throw new IllegalArgumentException("O valor do imóvel deve ser positivo.");
         }
@@ -53,10 +53,6 @@ public class ImovelDAO {
             System.out.println("Imóvel adicionado com sucesso!");
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao adicionar imóvel: " + e.getMessage(), e);
-        } finally {
-            // O QUE ESTAVA ERRADO: O método fecharConexao() não era chamado após as operações no banco de dados.
-            // O QUE FOI CORRIGIDO: Adicionei o fechamento da conexão no bloco finally para garantir que a conexão seja fechada.
-            fecharConexao();
         }
     }
 
@@ -75,10 +71,6 @@ public class ImovelDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao listar imóveis: " + e.getMessage(), e);
-        } finally {
-            // O QUE ESTAVA ERRADO: O método fecharConexao() não era chamado após as operações no banco de dados.
-            // O QUE FOI CORRIGIDO: Adicionei o fechamento da conexão no bloco finally para garantir que a conexão seja fechada.
-            fecharConexao();
         }
         return imoveis;
     }
@@ -100,10 +92,6 @@ public class ImovelDAO {
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao buscar imóveis por tipo: " + e.getMessage(), e);
-        } finally {
-            // O QUE ESTAVA ERRADO: O método fecharConexao() não era chamado após as operações no banco de dados.
-            // O QUE FOI CORRIGIDO: Adicionei o fechamento da conexão no bloco finally para garantir que a conexão seja fechada.
-            fecharConexao();
         }
         return imoveis;
     }
