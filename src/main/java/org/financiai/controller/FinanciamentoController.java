@@ -71,7 +71,15 @@ public class FinanciamentoController {
 
 
             }
+
         }
+    }
+
+    public double totalAPagar(double price, double sac){
+        price = price + sac;
+
+        return price;
+
     }
 
 }
