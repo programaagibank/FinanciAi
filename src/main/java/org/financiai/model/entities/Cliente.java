@@ -3,14 +3,10 @@ package org.financiai.model.entities;
 public class Cliente {
 
     private String nome;
-    private String cpf;
     private Double rendaMensal;
+    private String cpf;
 
-
-    public Cliente(){}
-
-    public Cliente(String nome, String cpf, double rendaMensal){
-
+    public Cliente(String nome, String cpf, double rendaMensal) {
         if (cpf == null) {
             throw new IllegalArgumentException("CPF não pode ser nulo.");
         }
@@ -18,9 +14,6 @@ public class Cliente {
         this.cpf = cpf;
         this.rendaMensal = rendaMensal;
     }
-
-
-}
 
     public String getCpf() {
         return cpf;
