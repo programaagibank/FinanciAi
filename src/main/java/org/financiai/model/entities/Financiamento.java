@@ -11,15 +11,18 @@ public class Financiamento {
     private double valorEntrada;
     private int prazo;
     private TipoAmortizacao tipoAmortizacao;
-    private double totalPagar;
+    private double totalPagar; // adicionado pois estava faltando isto
 
-    public Financiamento(int prazo, Double taxaJuros, TipoAmortizacao tipoAmortizacao, double valorEntrada, double valorFinanciado) {
+
+    // adicionado double totalPagar pois estava faltando isto
+    public Financiamento(int prazo, Double taxaJuros, TipoAmortizacao tipoAmortizacao, double valorEntrada, double valorFinanciado ,double totalPagar){
 
         this.prazo = prazo;
         this.taxaJuros = taxaJuros;
         this.tipoAmortizacao = tipoAmortizacao;
         this.valorEntrada = valorEntrada;
         this.valorFinanciado = valorFinanciado;
+        this.totalPagar = totalPagar; // adicionado double totalPagar pois estava faltando isto
     }
 
 
