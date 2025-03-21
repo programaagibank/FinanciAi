@@ -6,7 +6,7 @@ import org.financiai.services.SAC;
 
 import java.util.List;
 
-/**
+/*
  * Calcula o Financiamento como um todo, utilizando métodos.
  * @param rendaMensal renda mensal do cliente.
  * @param valorImovel quanto custa o imóvel da simulação.
@@ -15,7 +15,7 @@ import java.util.List;
  * @param prazo quantidade total de meses para o financiamento.
  * @enum  amortizacao, tipo da amortização escolhida.
  * @return encerra o método caso atenda a condição
- * **/
+ * */
 
 public class FinanciamentoController {
 
