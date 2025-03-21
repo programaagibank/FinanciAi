@@ -43,4 +43,14 @@ public class SAC implements Amortizacao{
         }
         return amortizacao;
     }
+
+    public double totalPagoSac(double valorFinanciamento, Double taxaJuros, int prazo) {
+        List<Double> parcelas = calculaParcela(valorFinanciamento, taxaJuros, prazo);
+        double totalPago = 0;
+
+        for (double parcela : parcelas) {
+            totalPago += parcela;
+        }
+        return totalPago;
+    }
 }
