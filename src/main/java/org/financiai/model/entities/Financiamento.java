@@ -5,7 +5,7 @@ import org.financiai.model.enums.TipoAmortizacao;
 public class Financiamento {
 
 
-
+    private int financiamentoId; // Adicionado para armazenar o ID gerado pelo banco de dados
     private Double taxaJuros;
     private double valorFinanciado;
     private double valorEntrada;
@@ -14,16 +14,16 @@ public class Financiamento {
     private double totalPagar; // adicionado pois estava faltando isto
 
 
-    // adicionado double totalPagar pois estava faltando isto
-    public Financiamento(int prazo, Double taxaJuros, TipoAmortizacao tipoAmortizacao, double valorEntrada, double valorFinanciado ,double totalPagar){
-
+    public Financiamento(int prazo, Double taxaJuros, TipoAmortizacao tipoAmortizacao, double valorEntrada, double valorFinanciado, double totalPagar) {
         this.prazo = prazo;
         this.taxaJuros = taxaJuros;
         this.tipoAmortizacao = tipoAmortizacao;
         this.valorEntrada = valorEntrada;
         this.valorFinanciado = valorFinanciado;
-        this.totalPagar = totalPagar; // adicionado double totalPagar pois estava faltando isto
+        this.totalPagar = totalPagar;
     }
+
+    // Getter e Setter para financiamentoId
 
 
 
@@ -75,5 +75,12 @@ public class Financiamento {
         this.valorFinanciado = valorFinanciado;
     }
 
+    public int getFinanciamentoId() {// Adicionado para armazenar o ID gerado pelo banco de dados
+        return financiamentoId;
+    }
+
+    public void setFinanciamentoId(int financiamentoId) {// Adicionado para armazenar o ID gerado pelo banco de dados
+        this.financiamentoId = financiamentoId;
+    }
 
 }
