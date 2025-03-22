@@ -2,22 +2,29 @@ package org.financiai.model.entities;
 
 public class Parcelas {
 
-
     private int id; // ID da parcela
     private int numeroParcela;
     private Double valorParcela;
     private Double valorAmortizacao;
     private int financiamentoId; // ID do financiamento associado à parcela
 
-
-    // Construtor com todos os atributos (incluindo id)
-    public Parcelas(int id, int numeroParcela, Double valorParcela, Double valorAmortizacao, int financiamentoId) {
-        this.id = id;// ID da parcela
+    // Construtor sem id (para criação antes de inserir no banco de dados)
+    public Parcelas(int numeroParcela, Double valorParcela, Double valorAmortizacao, int financiamentoId) {
         this.numeroParcela = numeroParcela;
         this.valorParcela = valorParcela;
         this.valorAmortizacao = valorAmortizacao;
-        this.financiamentoId = financiamentoId;// ID do financiamento associado à parcela
+        this.financiamentoId = financiamentoId;
     }
+
+    // Construtor com todos os atributos (incluindo id)
+    public Parcelas(int id, int numeroParcela, Double valorParcela, Double valorAmortizacao, int financiamentoId) {
+        this.id = id;
+        this.numeroParcela = numeroParcela;
+        this.valorParcela = valorParcela;
+        this.valorAmortizacao = valorAmortizacao;
+        this.financiamentoId = financiamentoId;
+    }
+
 
     // Getters e Setters
 
