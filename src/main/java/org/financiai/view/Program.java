@@ -44,6 +44,7 @@ public class Program {
         Cliente cliente = new Cliente("Marcus", "12345678900", rendaMensal);
         Financiamento financiamento = new Financiamento(prazo, taxaJurosAnual, amortizacao, valorEntrada, valorImovel-valorEntrada);
 
+        //método responsável por dar o "start" nas contas e chamar os métodos de impressão.
         calcularFinanciamento(cliente.getRendaMensal(), imovel.getValorImovel(), financiamento.getValorEntrada(),
                               financiamento.getTaxaJuros(), financiamento.getPrazo(), amortizacao);
 
