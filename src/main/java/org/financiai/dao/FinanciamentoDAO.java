@@ -65,9 +65,11 @@ public class FinanciamentoDAO {
     }
 
     // Método para adicionar um financiamento
-    public void adicionarFinanciamento(Connection conn, Financiamento financiamento, Cliente cliente, Imovel imovel) throws SQLException {
+    public void adicionarFinanciamento(Financiamento financiamento, Cliente cliente, Imovel imovel) throws SQLException {
         String sql = "INSERT INTO financiamentos (cliente_cpf, cliente_nome, cliente_renda_mensal, tipo_imovel, valor_imovel, valor_entrada, valor_financiado, taxa_juros, prazo, tipo_amortizacao, total_pagar) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            conexao.setAutoCommit(false); // Inicia a transação
+
             stmt.setString(1, cliente.getCpf());
             stmt.setString(2, cliente.getNome());
             stmt.setDouble(3, cliente.getRendaMensal());
@@ -87,16 +89,21 @@ public class FinanciamentoDAO {
                     System.out.println("Financiamento salvo com ID: " + financiamento.getFinanciamentoId()); // Log para depuração
                 }
             }
+
+            conexao.commit(); // Confirma a transação
         } catch (SQLException e) {
+            conexao.rollback(); // Reverte a transação em caso de erro
             throw new RuntimeException("Erro ao adicionar financiamento: " + e.getMessage(), e);
+        } finally {
+            conexao.setAutoCommit(true); // Restaura o modo de autocommit
         }
     }
 
     // Método para listar todos os financiamentos
-    public List<Financiamento> listarFinanciamentos(Connection conn) {
+    public List<Financiamento> listarFinanciamentos() {
         List<Financiamento> financiamentos = new ArrayList<>();
         String sql = "SELECT * FROM financiamentos";
-        try (PreparedStatement stmt = conn.prepareStatement(sql);
+        try (PreparedStatement stmt = conexao.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 Financiamento financiamento = new Financiamento(
@@ -104,9 +111,10 @@ public class FinanciamentoDAO {
                         rs.getDouble("taxa_juros"),
                         TipoAmortizacao.valueOf(rs.getString("tipo_amortizacao")),
                         rs.getDouble("valor_entrada"),
-                        rs.getDouble("valor_financiado")
+                        rs.getDouble("valor_financiado"),
+                        rs.getDouble("total_pagar") // Adicionado o total_pagar
                 );
-                financiamento.setTotalPagar(rs.getDouble("total_pagar"));
+                financiamento.setFinanciamentoId(rs.getInt("id")); // Define o ID do financiamento
                 financiamentos.add(financiamento);
             }
         } catch (SQLException e) {
