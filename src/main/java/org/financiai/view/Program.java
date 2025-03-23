@@ -20,18 +20,19 @@ import java.util.List;
 
 public class Program {
 
+    // Método principal que inicia a execução do programa
     public static void main(String[] args) {
 
-        // Exibir o logo
+        // Exibe o logo da aplicação
         Program.exibirLogo();
 
-        // Inicializa os DAOs
+        // Inicializa os DAOs (Data Access Objects) para interagir com o banco de dados
         ClienteDAO clienteDAO = new ClienteDAO();
         ImovelDAO imovelDAO = new ImovelDAO();
         FinanciamentoDAO financiamentoDAO = new FinanciamentoDAO();
         ParcelasDAO parcelasDAO = new ParcelasDAO();
 
-        // Cria 5 clientes
+        // Cria 5 clientes com nome, CPF e renda mensal
         Cliente cliente1 = new Cliente("João Silva", "123.456.789-00", 5000.0);
         Cliente cliente2 = new Cliente("Maria Oliveira", "987.654.321-00", 6000.0);
         Cliente cliente3 = new Cliente("Carlos Souza", "111.222.333-44", 7000.0);
@@ -45,7 +46,7 @@ public class Program {
         clienteDAO.adicionarCliente(cliente4);
         clienteDAO.adicionarCliente(cliente5);
 
-        // Cria 5 imóveis
+        // Cria 5 imóveis com tipo e valor
         Imovel imovel1 = new Imovel(TipoImovel.CASA, 200000.0);
         Imovel imovel2 = new Imovel(TipoImovel.APARTAMENTO, 300000.0);
         Imovel imovel3 = new Imovel(TipoImovel.APARTAMENTO, 100000.0);
@@ -59,11 +60,11 @@ public class Program {
         imovelDAO.adicionarImovel(imovel4);
         imovelDAO.adicionarImovel(imovel5);
 
-        // Lista de clientes e imóveis
+        // Lista de clientes e imóveis para facilitar a simulação de financiamentos
         Cliente[] clientes = {cliente1, cliente2, cliente3, cliente4, cliente5};
         Imovel[] imoveis = {imovel1, imovel2, imovel3, imovel4, imovel5};
 
-        // Simula financiamentos para cada cliente (apenas um financiamento por cliente)
+        // Simula financiamentos para cada cliente (um financiamento por cliente)
         for (int i = 0; i < clientes.length; i++) {
             Cliente cliente = clientes[i];
             Imovel imovel = imoveis[i]; // Cada cliente simula um financiamento para um imóvel correspondente
@@ -78,14 +79,20 @@ public class Program {
         parcelasDAO.fecharConexao();
     }
 
+    // Método para simular um financiamento para um cliente e um imóvel
     private static void simularFinanciamento(Cliente cliente, Imovel imovel, FinanciamentoDAO financiamentoDAO, ParcelasDAO parcelasDAO) {
-        double valorEntrada = imovel.getValorImovel() * 0.2; // 20% de entrada
+        // Calcula o valor de entrada (20% do valor do imóvel)
+        double valorEntrada = imovel.getValorImovel() * 0.2;
+        // Calcula o valor financiado (valor do imóvel menos a entrada)
         double valorFinanciado = imovel.getValorImovel() - valorEntrada;
-        double taxaJurosAnual = 10.0; // 10% ao ano
-        int prazo = 48; // 20 anos em meses
-        TipoAmortizacao tipoAmortizacao = TipoAmortizacao.PRICE; // Usando Price como exemplo
+        // Define a taxa de juros anual (10%)
+        double taxaJurosAnual = 10.0;
+        // Define o prazo do financiamento em meses (48 meses = 4 anos)
+        int prazo = 48;
+        // Define o tipo de amortização (Price)
+        TipoAmortizacao tipoAmortizacao = TipoAmortizacao.PRICE;
 
-        // Calcula o financiamento
+        // Calcula o financiamento usando o controlador
         FinanciamentoController.calcularFinanciamento(
                 cliente.getRendaMensal(),
                 imovel.getValorImovel(),
@@ -98,7 +105,7 @@ public class Program {
         // Calcula o valor total a ser pago
         double totalPagar = calcularTotalPagar(valorFinanciado, taxaJurosAnual / 12 / 100, prazo, tipoAmortizacao);
 
-        // Cria o objeto Financiamento e adiciona ao banco de dados
+        // Cria o objeto Financiamento com os dados calculados
         Financiamento financiamento = new Financiamento(
                 prazo,
                 taxaJurosAnual,
@@ -112,7 +119,7 @@ public class Program {
             // Adiciona o financiamento ao banco de dados
             financiamentoDAO.adicionarFinanciamento(financiamento, cliente, imovel);
 
-            // Calcula as parcelas e as salva no banco de dados
+            // Calcula as parcelas e as amortizações com base no tipo de amortização
             List<Double> parcelas;
             List<Double> amortizacoes;
 
@@ -128,30 +135,41 @@ public class Program {
                 throw new IllegalArgumentException("Tipo de amortizacao invalido.");
             }
 
-            // Declara a lista de parcelas
-            List<Parcelas> listaParcelas = new ArrayList<>();
+            // Lista para armazenar as parcelas que serão salvas no banco de dados (apenas 5 primeiras e 5 últimas)
+            List<Parcelas> parcelasParaBanco = new ArrayList<>();
 
-            // Salva as parcelas no banco de dados e adiciona à lista
+            // Lista para armazenar todas as parcelas para o PDF
+            List<Parcelas> parcelasParaPDF = new ArrayList<>();
+
+            // Itera sobre todas as parcelas
             for (int i = 0; i < parcelas.size(); i++) {
+                // Cria o objeto Parcelas para cada parcela
                 Parcelas parcela = new Parcelas(
                         i + 1, // Número da parcela
                         parcelas.get(i), // Valor da parcela
                         amortizacoes.get(i), // Valor da amortização
                         financiamento.getFinanciamentoId() // ID do financiamento
                 );
-                parcelasDAO.adicionarParcela(parcela);
-                listaParcelas.add(parcela); // Adiciona a parcela à lista
+
+                // Adiciona a parcela à lista do PDF (todas as parcelas)
+                parcelasParaPDF.add(parcela);
+
+                // Adiciona apenas as 5 primeiras e as 5 últimas parcelas ao banco de dados
+                if (i < 5 || i >= parcelas.size() - 5) {
+                    parcelasParaBanco.add(parcela);
+                    parcelasDAO.adicionarParcela(parcela); // Salva no banco de dados
+                }
             }
 
-            // Gera o PDF com as informações do financiamento e parcelas
-            GeradorPDF.gerarPDF(financiamento, cliente, imovel, listaParcelas);
+            // Gera o PDF com todas as parcelas
+            GeradorPDF.gerarPDF(financiamento, cliente, imovel, parcelasParaPDF);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    // Método para calcular o valor total a ser pago
+    // Método para calcular o valor total a ser pago com base no tipo de amortização
     private static double calcularTotalPagar(double valorFinanciado, double taxaJurosMensal, int prazo, TipoAmortizacao tipoAmortizacao) {
         if (tipoAmortizacao == TipoAmortizacao.PRICE) {
             // Fórmula do Price: Valor da parcela * número de parcelas
@@ -173,7 +191,7 @@ public class Program {
         throw new IllegalArgumentException("Tipo de amortização inválido.");
     }
 
-    // Método para exibir o logo
+    // Método para exibir o logo da aplicação
     public static void exibirLogo() {
         System.out.println();
         System.out.println("███████╗██╗███╗   ██╗ █████╗ ███╗   ██╗ ██████╗██╗ █████╗ ██╗");
