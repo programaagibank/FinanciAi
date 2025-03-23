@@ -53,7 +53,7 @@ public class FinanciamentoController {
             FinanciamentoView.imprimirValorTotal(sac.totalPagoSac(valorFinanciamento, taxaJurosMensal, prazo));
 
             if (parcelasSac.getFirst() > limiteParcela || amortizacaoSac.getFirst() > limiteParcela) {
-                FinanciamentoView.imprimirErro("Financiamento não aprovado! A primeira parcela ou amortização excede 30% da renda mensal.");
+                FinanciamentoView.imprimirErro("Financiamento nao aprovado! A primeira parcela ou amortizacao excede 30% da renda mensal.");
                 return;
             }
 
