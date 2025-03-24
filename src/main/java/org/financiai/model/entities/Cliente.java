@@ -6,13 +6,13 @@ public class Cliente {
     private Double rendaMensal;
     private String cpf;
 
-    public Cliente(){}
-
-    public Cliente(String nome, String cpf, double rendaMensal){
-
+    public Cliente(String nome, String cpf, double rendaMensal) {
+        if (cpf == null) {
+            throw new IllegalArgumentException("CPF não pode ser nulo.");
+        }
         this.nome = nome;
+        this.cpf = cpf;
         this.rendaMensal = rendaMensal;
-
     }
 
     public String getCpf() {

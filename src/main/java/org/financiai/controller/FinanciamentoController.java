@@ -7,7 +7,7 @@ import org.financiai.view.FinanciamentoView;
 
 import java.util.List;
 
-/**
+/*
  * Calcula o Financiamento como um todo, utilizando métodos.
  * @param rendaMensal renda mensal do cliente.
  * @param valorImovel quanto custa o imóvel da simulação.
@@ -16,7 +16,7 @@ import java.util.List;
  * @param prazo quantidade total de meses para o financiamento.
  * @enum  amortizacao, tipo da amortização escolhida.
  * @return encerra o método caso atenda a condição
- * **/
+ * */
 
 public class FinanciamentoController {
 
@@ -53,7 +53,7 @@ public class FinanciamentoController {
             FinanciamentoView.imprimirValorTotal(sac.totalPagoSac(valorFinanciamento, taxaJurosMensal, prazo));
 
             if (parcelasSac.getFirst() > limiteParcela || amortizacaoSac.getFirst() > limiteParcela) {
-                FinanciamentoView.imprimirErro("Financiamento não aprovado! A primeira parcela ou amortização excede 30% da renda mensal.");
+                FinanciamentoView.imprimirErro("Financiamento nao aprovado! A primeira parcela ou amortizacao excede 30% da renda mensal.");
                 return;
             }
 
