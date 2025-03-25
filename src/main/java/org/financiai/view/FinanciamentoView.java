@@ -10,7 +10,22 @@ public class FinanciamentoView {
     private static final String RED = "\u001B[31m";
     private static final String CYAN = "\u001B[36m";
 
+    // Método para exibir o logo da aplicação
+    public static void exibirLogo() {
+        System.out.println();
+        System.out.println("███████╗██╗███╗   ██╗ █████╗ ███╗   ██╗ ██████╗██╗ █████╗ ██╗");
+        System.out.println("██╔════╝██║████╗  ██║██╔══██╗████╗  ██║██╔════╝██║██╔══██╗██║");
+        System.out.println("█████╗  ██║██╔██╗ ██║███████║██╔██╗ ██║██║     ██║███████║██║");
+        System.out.println("██╔══╝  ██║██║╚██╗██║██╔══██║██║╚██╗██║██║     ██║██╔══██║██║");
+        System.out.println("██║     ██║██║ ╚████║██║  ██║██║ ╚████║╚██████╗██║██║  ██║██║");
+        System.out.println("╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝╚═╝╚═╝  ╚═╝╚═╝");
+        System.out.println();
+        System.out.println();
+    }
+
+
     public static void imprimirValorTotal(double valorTotal) {
+        exibirLogo();
         System.out.println(YELLOW + "══════════════════════════════════════" + RESET);
         System.out.printf(YELLOW + "         📌 VALOR TOTAL PAGO 📌        \n" + RESET);
         System.out.println(YELLOW + "══════════════════════════════════════" + RESET);
@@ -41,7 +56,8 @@ public class FinanciamentoView {
         }
     }
 
-    public static void imprimirErro(String mensagem) {
+        public static void imprimirErro(String mensagem) {
         System.out.println(RED + "❌ " + mensagem + RESET);
     }
+
 }
