@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="450.0" spacing="20" styleClass="root" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financiai.financiai.controller.FinanciamentoController">
+
+    <stylesheets>
+        <URL value="@financiai/financiai/css/style.css" />
+    </stylesheets>
+
+    <!-- Logo -->
+    <ImageView fitHeight="80" fitWidth="200" preserveRatio="true">
+        <image>
+            <Image url="@/images/financiailogo.jpeg" />
+        </image>
+    </ImageView>
+
+    <Label styleClass="titulo" text="Simulador de Financiamento" />
+
+    <GridPane hgap="10" vgap="10" styleClass="grid-pane">
+        <!-- Campos do formulário -->
+        <Label text="Nome do Cliente:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="nomeClienteField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+        <Label text="CPF:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="cpfClienteField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+        <Label text="Renda Mensal:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="rendaClienteField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+        <Label text="Valor do Imóvel:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <TextField fx:id="valorImovelField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+        <Label text="Valor de Entrada:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <TextField fx:id="valorEntradaField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+        <Label text="Taxa de Juros (% a.a.):" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <TextField fx:id="taxaJurosField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+        <Label text="Prazo (meses):" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <TextField fx:id="prazoField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+        <Label text="Tipo de Imóvel:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+        <ChoiceBox fx:id="tipoImovelBox" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+
+        <Label text="Tipo de Financiamento:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+        <ChoiceBox fx:id="tipoFinanciamentoBox" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
+            <ColumnConstraints hgrow="SOMETIMES" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+        </rowConstraints>
+    </GridPane>
+
+    <HBox spacing="20" alignment="CENTER">
+        <Button onAction="#calcularFinanciamento" styleClass="botao-primario" text="Calcular" />
+        <Button onAction="#limparCampos" styleClass="botao-secundario" text="Limpar" />
+
+    </HBox>
+
+    <Label fx:id="resultadoLabel" styleClass="label-destaque" />
+</VBox>
