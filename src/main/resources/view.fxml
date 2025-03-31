@@ -69,7 +69,8 @@
     <HBox spacing="20" alignment="CENTER">
         <Button onAction="#calcularFinanciamento" styleClass="botao-primario" text="Calcular" />
         <Button onAction="#limparCampos" styleClass="botao-secundario" text="Limpar" />
-
+        <!-- Adicione isso no final do VBox, antes do fechamento </VBox> -->
+        <Label fx:id="statusBancoLabel" styleClass="status-banco" />
     </HBox>
 
     <Label fx:id="resultadoLabel" styleClass="label-destaque" />
