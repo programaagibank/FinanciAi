@@ -4,7 +4,6 @@ plugins {
     id 'org.javamodularity.moduleplugin' version '1.8.12'
     id 'org.openjfx.javafxplugin' version '0.0.13'
     id 'org.beryx.jlink' version '2.25.0'
-
 }
 
 group 'financiai'
@@ -18,17 +17,21 @@ ext {
     junitVersion = '5.10.2'
 }
 
-sourceCompatibility = '21'
-targetCompatibility = '21'
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(22)) // Garante compatibilidade com Java 22
+    }
+}
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
 application {
-    mainModule = 'financiai.financiai'
-    mainClass = 'financiai.financiai.Main'
+    mainModule = 'financiai.financiai' // Confirme o nome correto do módulo
+    mainClass = 'financiai.financiai.Main' // Confirme o nome correto da classe principal
 }
+
 sourceSets {
     main {
         resources {
@@ -38,15 +41,13 @@ sourceSets {
 }
 
 javafx {
-    version = '21'
+    version = '22' // Para Java 22
     modules = ['javafx.controls', 'javafx.fxml']
 }
 
 dependencies {
-
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
-    implementation 'org.openjfx:javafx-controls:21'
 
     // Gson
     implementation 'com.google.code.gson:gson:2.10.1'
@@ -56,8 +57,6 @@ dependencies {
 
     // MySQL Connector
     implementation 'mysql:mysql-connector-java:8.0.33'
-
-
 }
 
 test {
