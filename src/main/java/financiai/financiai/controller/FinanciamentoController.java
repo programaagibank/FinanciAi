@@ -1,28 +1,18 @@
 package financiai.financiai.controller;
 
-import financiai.financiai.model.Cliente;
-import financiai.financiai.model.Financiamento;
-import financiai.financiai.model.Imovel;
-import financiai.financiai.model.Parcela;
-import financiai.financiai.services.TipoAmortizacao;
-import financiai.financiai.services.TipoImovel;
-import financiai.financiai.dao.ClienteDAO;
-import financiai.financiai.dao.DatabaseSetupDAO;
-import financiai.financiai.dao.FinanciamentoDAO;
-import financiai.financiai.dao.ImovelDAO;
-import financiai.financiai.dao.ParcelasDAO;
+import financiai.financiai.model.*;
+import financiai.financiai.services.*;
+import financiai.financiai.dao.*;
 import financiai.financiai.util.Conexao;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -37,169 +27,245 @@ public class FinanciamentoController {
     @FXML private ChoiceBox<String> tipoImovelBox;
     @FXML private ChoiceBox<String> tipoFinanciamentoBox;
     @FXML private Label resultadoLabel;
+    @FXML private Label statusBancoLabel;
 
     private Stage primaryStage;
-    private Financiamento financiamento;
+    private boolean bancoPronto = false;
     private Cliente cliente;
     private Imovel imovel;
+    private Financiamento financiamento;
     private List<Parcela> parcelas;
 
     @FXML
     public void initialize() {
         tipoImovelBox.getItems().addAll("Casa", "Apartamento");
         tipoFinanciamentoBox.getItems().addAll("SAC", "Price");
+
+        // Verificar estrutura do banco ao iniciar
+        verificarEstruturaBanco();
     }
 
-    public void setPrimaryStage(Stage stage) {
-        this.primaryStage = stage;
-    }
+    private void verificarEstruturaBanco() {
+        statusBancoLabel.setText("Verificando banco de dados...");
+        try (Connection conexao = Conexao.conectar()) {
+            // Verificar e criar tabelas se necessário
+            ClienteDAO clienteDAO = new ClienteDAO();
+            clienteDAO.verificarTabela(conexao);
 
-    @FXML
-    private void calcularFinanciamento() {
-        try {
-            // Obter dados do formulário
-            String nome = nomeClienteField.getText();
-            String cpf = cpfClienteField.getText();
-            double renda = Double.parseDouble(rendaClienteField.getText().replace(",", "."));
-            double valorImovel = Double.parseDouble(valorImovelField.getText().replace(",", "."));
-            double valorEntrada = Double.parseDouble(valorEntradaField.getText().replace(",", "."));
-            double taxaJurosMensal = Double.parseDouble(taxaJurosField.getText().replace(",", ".")) / 100;
-            double taxaJuros = Math.pow(1 + taxaJurosMensal, 1.0 / 12) - 1;
-            int prazo = Integer.parseInt(prazoField.getText());
-            TipoImovel tipoImovel = TipoImovel.valueOf(tipoImovelBox.getValue().toUpperCase());
-            TipoAmortizacao tipoAmortizacao = TipoAmortizacao.valueOf(tipoFinanciamentoBox.getValue().toUpperCase());
+            ImovelDAO imovelDAO = new ImovelDAO();
+            imovelDAO.verificarTabela(conexao);
 
-            // Validar entrada
-            if (valorEntrada >= valorImovel) {
-                mostrarAlerta("Erro", "O valor de entrada não pode ser maior ou igual ao valor do imóvel");
-                return;
-            }
+            FinanciamentoDAO financiamentoDAO = new FinanciamentoDAO();
+            financiamentoDAO.verificarTabela(conexao);
 
-            // Calcular valor financiado
-            double valorFinanciado = valorImovel - valorEntrada;
-            System.out.println("Valor Imóvel: " + valorImovel);
-            System.out.println("Valor Entrada: " + valorEntrada);
-            System.out.println("Valor Financiado: " + valorFinanciado);
-            System.out.println("Taxa de Juros: " + taxaJuros);
-            System.out.println("Prazo: " + prazo);
+            ParcelasDAO parcelasDAO = new ParcelasDAO();
+            parcelasDAO.verificarTabela(conexao);
 
-            // Criar objetos de domínio
-            cliente = new Cliente(nome, cpf, renda);
-            imovel = new Imovel(tipoImovel, valorImovel);
-
-            // Calcular parcelas
-            parcelas = tipoAmortizacao.calcularParcela(valorFinanciado, taxaJuros, prazo);
-
-            // Verificar valores das parcelas
-            double totalPagar = 0.0;
-            for (Parcela p : parcelas) {
-                System.out.println("Parcela: " + p.getValorParcela());
-                totalPagar += p.getValorParcela();
-            }
-
-            // Criar financiamento
-            financiamento = new Financiamento(prazo, taxaJuros, tipoAmortizacao, valorEntrada, valorFinanciado, totalPagar);
-
-            // Mostrar resultado
-            resultadoLabel.setText(String.format("Financiamento calculado! Total a pagar: R$ %.2f", totalPagar));
-
-            // Salvar no banco e carregar tela de resultados
-            salvarSimulacaoNoBanco();
-            carregarTelaResultados();
-
-        } catch (NumberFormatException e) {
-            mostrarAlerta("Erro de Formato", "Por favor, insira valores numéricos válidos em todos os campos.");
-        } catch (IllegalArgumentException e) {
-            mostrarAlerta("Erro", "Selecione um tipo de imóvel e financiamento válidos");
-        } catch (Exception e) {
-            mostrarAlerta("Erro", "Ocorreu um erro ao calcular o financiamento: " + e.getMessage());
+            bancoPronto = true;
+            statusBancoLabel.setText("Banco de dados pronto!");
+        } catch (SQLException e) {
+            bancoPronto = false;
+            statusBancoLabel.setText("Erro no banco de dados!");
+            mostrarAlerta("Erro no Banco", "Não foi possível preparar o banco de dados: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
+    @FXML
+    private void calcularFinanciamento() {
+        if (!bancoPronto) {
+            mostrarAlerta("Banco não pronto", "Aguarde a inicialização do banco de dados");
+            return;
+        }
 
-    private void verificarTabelas(Connection conexao) throws SQLException {
-        DatabaseSetupDAO dbSetup = new DatabaseSetupDAO();
-        dbSetup.criarTabelas(conexao);
-    }
-
-    private void salvarSimulacaoNoBanco() {
-        Connection conexao = null;
         try {
-            conexao = Conexao.conectar();
-            conexao.setAutoCommit(false); // Inicia transação
+            // Validação dos campos
+            if (!validarCampos()) return;
 
-            // 1. Verificar/Criar tabelas
-            DatabaseSetupDAO dbSetup = new DatabaseSetupDAO();
-            dbSetup.criarTabelas(conexao);
+            // Coletar dados
+            DadosFinanciamento dados = coletarDadosFormulario();
 
-            // 2. Salvar Cliente (com validação adicional)
-            if (cliente.getCpf() == null || cliente.getCpf().trim().isEmpty()) {
-                throw new IllegalArgumentException("CPF do cliente é obrigatório");
+            // Validação de negócio
+            if (dados.valorEntrada >= dados.valorImovel) {
+                mostrarAlerta("Erro", "Valor de entrada não pode ser maior ou igual ao valor do imóvel");
+                return;
             }
 
+            // Criar entidades
+            cliente = new Cliente(dados.nome, dados.cpf, dados.renda);
+            imovel = new Imovel(dados.tipoImovel, dados.valorImovel);
+
+            // Calcular financiamento
+            financiamento = calcularFinanciamento(dados, cliente, imovel);
+
+            // Salvar tudo
+            salvarFinanciamentoCompleto(cliente, imovel, financiamento);
+
+            // Mostrar resultado
+            resultadoLabel.setText(String.format("Financiamento calculado! Total: R$ %.2f",
+                    financiamento.getTotalPagar()));
+
+            mostrarTelaResultados();
+
+        } catch (Exception e) {
+            mostrarAlerta("Erro", "Falha no cálculo: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private DadosFinanciamento coletarDadosFormulario() throws IllegalArgumentException {
+        DadosFinanciamento dados = new DadosFinanciamento();
+        try {
+            dados.nome = nomeClienteField.getText();
+            dados.cpf = cpfClienteField.getText();
+            dados.renda = Double.parseDouble(rendaClienteField.getText().replace(",", "."));
+            dados.valorImovel = Double.parseDouble(valorImovelField.getText().replace(",", "."));
+            dados.valorEntrada = Double.parseDouble(valorEntradaField.getText().replace(",", "."));
+            dados.taxaJuros = Double.parseDouble(taxaJurosField.getText().replace(",", ".")) / 100;
+            dados.prazo = Integer.parseInt(prazoField.getText());
+            dados.tipoImovel = TipoImovel.valueOf(tipoImovelBox.getValue().toUpperCase());
+            dados.tipoAmortizacao = TipoAmortizacao.valueOf(tipoFinanciamentoBox.getValue().toUpperCase());
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Dados inválidos no formulário");
+        }
+        return dados;
+    }
+
+    private boolean validarCampos() {
+        // Validação de campos vazios
+        if (nomeClienteField.getText().isEmpty() ||
+                cpfClienteField.getText().isEmpty() ||
+                rendaClienteField.getText().isEmpty() ||
+                valorImovelField.getText().isEmpty() ||
+                valorEntradaField.getText().isEmpty() ||
+                taxaJurosField.getText().isEmpty() ||
+                prazoField.getText().isEmpty() ||
+                tipoImovelBox.getValue() == null ||
+                tipoFinanciamentoBox.getValue() == null) {
+
+            mostrarAlerta("Erro", "Preencha todos os campos obrigatórios");
+            return false;
+        }
+
+        // Validação de CPF
+        try {
+            new Cliente("Teste", cpfClienteField.getText(), 1000); // Usa a validação da classe Cliente
+        } catch (IllegalArgumentException e) {
+            mostrarAlerta("Erro", "CPF inválido: " + e.getMessage());
+            return false;
+        }
+
+        // Validação de valores numéricos
+        try {
+            double renda = Double.parseDouble(rendaClienteField.getText().replace(",", "."));
+            double valorImovel = Double.parseDouble(valorImovelField.getText().replace(",", "."));
+            double valorEntrada = Double.parseDouble(valorEntradaField.getText().replace(",", "."));
+            double taxaJuros = Double.parseDouble(taxaJurosField.getText().replace(",", "."));
+            int prazo = Integer.parseInt(prazoField.getText());
+
+            if (renda <= 0 || valorImovel <= 0 || valorEntrada < 0 || taxaJuros <= 0 || prazo <= 0) {
+                mostrarAlerta("Erro", "Valores devem ser maiores que zero");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            mostrarAlerta("Erro", "Valores numéricos inválidos");
+            return false;
+        }
+
+        return true;
+    }
+
+    private Financiamento calcularFinanciamento(DadosFinanciamento dados, Cliente cliente, Imovel imovel) {
+        double valorFinanciado = dados.valorImovel - dados.valorEntrada;
+        parcelas = dados.tipoAmortizacao.calcularParcela(valorFinanciado, dados.taxaJuros, dados.prazo);
+
+        double totalPagar = parcelas.stream().mapToDouble(Parcela::getValorParcela).sum();
+
+        Financiamento financiamento = new Financiamento(
+                dados.prazo, dados.taxaJuros, dados.tipoAmortizacao,
+                dados.valorEntrada, valorFinanciado, totalPagar
+        );
+
+        financiamento.setParcelas(parcelas);
+        return financiamento;
+    }
+
+    private void salvarFinanciamentoCompleto(Cliente cliente, Imovel imovel, Financiamento financiamento) {
+        try (Connection conexao = Conexao.conectar()) {
+            conexao.setAutoCommit(false);
+
+            // 1. Cliente
             ClienteDAO clienteDAO = new ClienteDAO();
-            clienteDAO.adicionarCliente(cliente, conexao);
+            Cliente clienteExistente = clienteDAO.buscarClientePorCpf(cliente.getCpf(), conexao);
+            if (clienteExistente != null) {
+                cliente = clienteExistente;
+            } else {
+                clienteDAO.adicionarCliente(cliente, conexao);
+            }
 
-            // Verifica se o ID foi atribuído
-           // if (cliente.getId() <= 0) {
-              //  throw new SQLException("ID do cliente não foi gerado corretamente");
-         //   }
+            // 2. Imóvel
+            ImovelDAO imovelDAO = new ImovelDAO();
+            imovelDAO.adicionarImovel(imovel, conexao);
 
-            // Restante do código permanece igual...
-            // [Continua com a inserção do imóvel, financiamento e parcelas]
+            // 3. Financiamento
+            financiamento.setClienteId(cliente.getId());
+            financiamento.setImovelId(imovel.getId());
+            financiamento.setDataSimulacao(LocalDate.now());
 
-          //  conexao.commit(); // Confirma transação somente se tudo der certo
-//System.out.println("Simulação salva com sucesso! ID Cliente: " + cliente.getId());
+            FinanciamentoDAO financiamentoDAO = new FinanciamentoDAO();
+            financiamentoDAO.adicionarFinanciamento(financiamento, conexao);
+
+            // 4. Parcelas
+            ParcelasDAO parcelasDAO = new ParcelasDAO();
+            for (Parcela parcela : financiamento.getParcelas()) {
+                parcela.setFinanciamentoId(financiamento.getId());
+                parcelasDAO.adicionarParcela(parcela, conexao);
+            }
+
+            conexao.commit();
+            System.out.println("Dados salvos com sucesso!");
 
         } catch (SQLException e) {
-            if (conexao != null) {
-                try {
-                    conexao.rollback(); // Reverte em caso de erro
-                    System.err.println("Transação revertida: " + e.getMessage());
-                } catch (SQLException ex) {
-                    System.err.println("Erro ao fazer rollback: " + ex.getMessage());
-                }
-            }
-            mostrarAlerta("Erro no Banco de Dados", "Detalhes: " + e.getMessage());
-        } finally {
-            if (conexao != null) {
-                try {
-                    conexao.setAutoCommit(true); // Restaura modo padrão
-                    conexao.close();
-                } catch (SQLException e) {
-                    System.err.println("Erro ao fechar conexão: " + e.getMessage());
-                }
-            }
+            mostrarAlerta("Erro no Banco", "Falha ao salvar: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
+    private static class DadosFinanciamento {
+        String nome;
+        String cpf;
+        double renda;
+        double valorImovel;
+        double valorEntrada;
+        double taxaJuros;
+        int prazo;
+        TipoImovel tipoImovel;
+        TipoAmortizacao tipoAmortizacao;
+    }
 
-    private void carregarTelaResultados() throws IOException {
-        String path = "view/simulacaoView.fxml";
-        URL url = getClass().getResource("/" + path);
+    private void mostrarAlerta(String titulo, String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
+    }
 
-        if (url == null) {
-            File file = new File("src/main/resources/" + path);
-            if (file.exists()) {
-                url = file.toURI().toURL();
-            } else {
-                throw new IOException("Arquivo FXML não encontrado: " + path);
-            }
-        }
+    @FXML
+    private void mostrarTelaResultados() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/simulacaoView.fxml"));
+            Parent root = loader.load();
 
-        FXMLLoader loader = new FXMLLoader(url);
-        Stage resultStage = new Stage();
-        resultStage.setScene(new Scene(loader.load()));
+            ResultPageController controller = loader.getController();
+            controller.setDadosFinanciamento(financiamento, cliente, imovel, parcelas);
 
-        ResultPageController controller = loader.getController();
-        controller.setDadosFinanciamento(financiamento, cliente, imovel, parcelas);
-
-        resultStage.setTitle("Resultado da Simulação");
-        resultStage.show();
-
-        if (primaryStage != null) {
-            primaryStage.close();
+            Stage stage = (Stage) nomeClienteField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            mostrarAlerta("Erro", "Não foi possível carregar a tela de resultados: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -217,11 +283,78 @@ public class FinanciamentoController {
         resultadoLabel.setText("");
     }
 
-    private void mostrarAlerta(String titulo, String mensagem) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensagem);
-        alert.showAndWait();
+    public void setPrimaryStage(Stage stage) {
+        this.primaryStage = stage;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
