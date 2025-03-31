@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class FinanciamentoDAO {
     public void adicionarFinanciamento(Financiamento financiamento, Connection conexao) throws SQLException {
         String sql = "INSERT INTO financiamentos ( imovel_id, taxa_juros, valor_entrada, " +
-                "valor_financiado, prazo, tipo_amortizacao, total_pagar, data_simulacao) " +
+                "valor_financiado, prazo, 5ipo_amortizacao, total_pagar, data_simulacao) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {

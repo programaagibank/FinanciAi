@@ -22,7 +22,7 @@ public class DatabaseSetupDAO {
             stmt.execute("CREATE TABLE IF NOT EXISTS clientes (" +
 
                     "nome VARCHAR(100) NOT NULL, " +
-                    "cpf VARCHAR(14) NOT NULL UNIQUE, " +
+                    "cpf VARCHAR(11) NOT NULL UNIQUE, " +
                     "renda_mensal DECIMAL(10,2) NOT NULL)");
 
             // Tabela imoveis
