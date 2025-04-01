@@ -1,95 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
 
-<?import java.net.URL?>
-<VBox xmlns="http://javafx.com/javafx/17"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="financiai.financiai.controller.ResultPageController"
-      spacing="20"
-      alignment="TOP_CENTER"
-      style="-fx-padding: 30; -fx-background-color: #f5f5f5;">
+<VBox alignment="TOP_CENTER" prefHeight="740.0" prefWidth="774.0" spacing="20" style="-fx-padding: 30; -fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financiai.financiai.controller.ResultPageController">
 
     <stylesheets>
         <URL value="@/financiai/financiai/css/style.css" />
     </stylesheets>
 
+    <!-- Restante do conteúdo permanece igual -->
+    <Label styleClass="titulo-resultado" text="RESULTADO DA SIMULAÇÃO" />
+
+    <GridPane hgap="10" prefHeight="192.0" prefWidth="268.0" styleClass="resumo-container" vgap="10">
+        <Label prefHeight="25.0" prefWidth="698.0" styleClass="subtitulo" text="Resumo do Financiamento" GridPane.columnSpan="2" />
+
+        <Label text="Nome do Cliente:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label fx:id="resumoNomeCliente" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+        <Label text="Valor Financiado:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label fx:id="resumoValorFinanciado" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+        <Label text="Parcelas:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <Label fx:id="resumoParcelas" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+        <Label text="Valor da Parcela:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <Label fx:id="resumoValorParcela" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+        <Label text="Total a Pagar:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <Label fx:id="resumoTotalPagar" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
+            <ColumnConstraints hgrow="SOMETIMES" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+        </rowConstraints>
+    </GridPane>
+
+    <Label prefHeight="63.0" prefWidth="255.0" styleClass="subtitulo" text="DETALHAMENTO DAS PARCELAS:" />
+
+    <TextArea fx:id="tabelaParcelasArea" prefHeight="237.0" prefWidth="714.0" styleClass="tabela-parcelas" wrapText="true" />
+
+
+
+
     <!-- Botões movidos para cima do logo -->
-    <HBox spacing="20" alignment="CENTER">
-        <Button text="Exportar PDF"
-                onAction="#gerarPDF"
-                styleClass="botao-exportar">
+    <HBox alignment="CENTER" spacing="20">
+        <Button onAction="#gerarPDF" styleClass="botao-exportar" text="Exportar PDF">
             <tooltip>
-                <Tooltip text="Gerar relatório em PDF com os detalhes"/>
+                <Tooltip text="Gerar relatório em PDF com os detalhes" />
             </tooltip>
         </Button>
 
-        <Button text="Nova Simulação"
-                onAction="#voltar"
-                styleClass="botao-secundario"/>
+        <Button onAction="#voltar" styleClass="botao-secundario" text="Nova Simulação" />
     </HBox>
-
-    <!-- Logo -->
-    <ImageView fitHeight="80" fitWidth="200" preserveRatio="true">
-        <image>
-            <Image url="@/images/financiailogo.jpeg" />
-        </image>
-    </ImageView>
-
-    <!-- Restante do conteúdo permanece igual -->
-    <Label text="RESULTADO DA SIMULAÇÃO"
-           styleClass="titulo-resultado"/>
 
     <HBox alignment="CENTER" spacing="10">
-        <Label text="Status:" styleClass="label-destaque"/>
-        <Label fx:id="simulacaoResultLabel"
-               styleClass="status-label"/>
+        <Label fx:id="simulacaoResultLabel" styleClass="status-label" />
     </HBox>
-
-    <Label text="DETALHAMENTO DAS PARCELAS:"
-           styleClass="subtitulo"/>
-
-    <TextArea fx:id="tabelaParcelasArea"
-              editable="false"
-              wrapText="true"
-              styleClass="tabela-parcelas"/>
-
-    <GridPane hgap="10" vgap="10"
-              styleClass="resumo-container">
-        <Label text="Resumo do Financiamento:"
-               styleClass="subtitulo"
-               GridPane.columnSpan="2"/>
-
-        <Label text="Nome do Cliente:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-        <Label fx:id="resumoNomeCliente" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-
-        <Label text="Valor Financiado:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-        <Label fx:id="resumoValorFinanciado" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-
-        <Label text="Parcelas:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-        <Label fx:id="resumoParcelas" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-
-        <Label text="Valor da Parcela:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-        <Label fx:id="resumoValorParcela" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-
-        <Label text="Total a Pagar:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-        <Label fx:id="resumoTotalPagar" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-
-        <columnConstraints>
-            <ColumnConstraints halignment="RIGHT" hgrow="NEVER"/>
-            <ColumnConstraints hgrow="SOMETIMES"/>
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints vgrow="SOMETIMES"/>
-            <RowConstraints vgrow="SOMETIMES"/>
-            <RowConstraints vgrow="SOMETIMES"/>
-            <RowConstraints vgrow="SOMETIMES"/>
-            <RowConstraints vgrow="SOMETIMES"/>
-            <RowConstraints vgrow="SOMETIMES"/>
-        </rowConstraints>
-    </GridPane>
 </VBox>

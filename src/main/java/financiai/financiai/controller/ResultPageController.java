@@ -52,7 +52,7 @@ public class ResultPageController {
         StringBuilder sb = new StringBuilder();
         sb.append("Nº Parcela\tValor (R$)\tAmortização (R$)\tJuros (R$)\tSaldo Devedor (R$)\n");
         for (Parcela parcela : parcelas) {
-            sb.append(String.format("%d\t\t%.2f\t\t%.2f\t\t%.2f\t\t%.2f\n",
+            sb.append(String.format("%d\t\t%.2f\t\t%.2f\t\t\t%.2f\t\t\t%.2f\n",
                     parcela.getNumeroParcela(),
                     parcela.getValorParcela(),
                     parcela.getValorAmortizacao(),
