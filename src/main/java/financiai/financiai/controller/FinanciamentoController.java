@@ -3,6 +3,7 @@ package financiai.financiai.controller;
 import financiai.financiai.model.*;
 import financiai.financiai.services.*;
 import financiai.financiai.dao.*;
+import financiai.financiai.dao.ParcelasDAO;
 import financiai.financiai.util.Conexao;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
