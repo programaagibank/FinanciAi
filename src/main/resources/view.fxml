@@ -23,25 +23,25 @@
     <GridPane hgap="10" prefHeight="305.0" prefWidth="435.0" styleClass="grid-pane" vgap="10">
         <!-- Campos do formulário -->
         <Label text="Nome do Cliente:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <TextField fx:id="nomeClienteField" prefHeight="25.0" prefWidth="317.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <TextField fx:id="nomeClienteField" prefHeight="25.0" prefWidth="310.0" promptText="Digite seu nome" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
         <Label text="CPF:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <TextField fx:id="cpfClienteField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <TextField fx:id="cpfClienteField" promptText="Digite seu CPF para registrar e/ou consultas" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
         <Label text="Renda Mensal:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <TextField fx:id="rendaClienteField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <TextField fx:id="rendaClienteField" promptText="Digite sua renda mensal" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
         <Label text="Valor do Imóvel:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-        <TextField fx:id="valorImovelField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <TextField fx:id="valorImovelField" promptText="Digite o valor do imóvel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
         <Label text="Valor de Entrada:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-        <TextField fx:id="valorEntradaField" prefHeight="25.0" prefWidth="326.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <TextField fx:id="valorEntradaField" prefHeight="25.0" prefWidth="326.0" promptText="Digite o valor de entrada" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
         <Label text="Taxa de Juros (% a.a.):" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-        <TextField fx:id="taxaJurosField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <TextField fx:id="taxaJurosField" promptText="Digite a taxa de juros" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
         <Label text="Prazo (meses):" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-        <TextField fx:id="prazoField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <TextField fx:id="prazoField" promptText="Digite o prazo" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
         <Label text="Tipo de Imóvel:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
         <ChoiceBox fx:id="tipoImovelBox" GridPane.columnIndex="1" GridPane.rowIndex="7" />
