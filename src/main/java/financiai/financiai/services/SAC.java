@@ -1,14 +1,15 @@
 package financiai.financiai.services;
 
-
 import financiai.financiai.model.Parcela;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class SAC {
-    public List<Parcela> calcularParcela(Double valorFinanciamento, Double taxaJuros, int prazo) {
+    public List<Parcela> calcularParcela(Double valorFinanciamento, Double taxaJuros, int prazo, String cpfCliente) {
         validarParametros(valorFinanciamento, taxaJuros, prazo);
+        if (cpfCliente == null || cpfCliente.trim().isEmpty()) {
+            throw new IllegalArgumentException("CPF do cliente não pode ser nulo ou vazio");
+        }
 
         List<Parcela> parcelas = new ArrayList<>();
         double amortizacaoConstante = valorFinanciamento / prazo;
@@ -19,8 +20,7 @@ public class SAC {
             double parcela = amortizacaoConstante + juros;
             saldoDevedor -= amortizacaoConstante;
 
-            // Se o construtor de Parcela precisa de 5 parâmetros:
-            parcelas.add(new Parcela(i, parcela, amortizacaoConstante, juros, saldoDevedor));
+            parcelas.add(new Parcela(i, parcela, amortizacaoConstante, juros, saldoDevedor, cpfCliente));
         }
 
         return parcelas;

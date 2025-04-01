@@ -3,13 +3,13 @@ package financiai.financiai.model;
 public class Cliente {
 
     private String nome;
-    private Double rendaMensal;
+    private Double renda_mensal;
     private String cpf;
 
     public Cliente() {
     }
 
-    public Cliente(String nome, String cpf, double rendaMensal) {
+    public Cliente(String nome, String cpf, double renda_mensal) {
         if (cpf == null || cpf.trim().isEmpty()) {
             throw new IllegalArgumentException("CPF não pode ser nulo ou vazio");
         }
@@ -18,7 +18,7 @@ public class Cliente {
         }
         this.nome = nome;
         this.cpf = cpf.replaceAll("[^0-9]", ""); // Remove formatação
-        this.rendaMensal = rendaMensal;
+        this.renda_mensal = renda_mensal;
     }
 
     private boolean validarCPF(String cpf) {
@@ -45,11 +45,20 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public Double getRendaMensal() {
-        return rendaMensal;
+    public Double getRenda_mensal() {
+        return renda_mensal;
     }
 
-    public void setRendaMensal(Double rendaMensal) {
-        this.rendaMensal = rendaMensal;
+    public void setRenda_mensal(Double renda_mensal) {
+        this.renda_mensal = renda_mensal;
+    }
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

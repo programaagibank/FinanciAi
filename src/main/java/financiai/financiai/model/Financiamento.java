@@ -2,6 +2,8 @@ package financiai.financiai.model;
 
 import financiai.financiai.services.TipoAmortizacao;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Financiamento {
     private int id;
@@ -14,12 +16,15 @@ public class Financiamento {
     private TipoAmortizacao tipoAmortizacao;
     private double totalPagar;
     private LocalDate dataSimulacao;
+    private List<Parcela> parcelas; // Novo atributo para armazenar as parcelas
 
     public Financiamento() {
+        this.parcelas = new ArrayList<>(); // Inicializa a lista
     }
 
     public Financiamento(int prazo, Double taxaJuros, TipoAmortizacao tipoAmortizacao,
                          double valorEntrada, double valorFinanciado, double totalPagar) {
+        this();
         this.prazo = prazo;
         this.taxaJuros = taxaJuros;
         this.tipoAmortizacao = tipoAmortizacao;
@@ -28,7 +33,23 @@ public class Financiamento {
         this.totalPagar = totalPagar;
     }
 
-    // Getters e Setters
+    // Getters e Setters existentes...
+
+    // Métodos para parcelas
+    public List<Parcela> getParcelas() {
+        return parcelas;
+    }
+
+    public void setParcelas(List<Parcela> parcelas) {
+        this.parcelas = parcelas;
+    }
+
+    // Método para adicionar uma parcela individual
+    public void adicionarParcela(Parcela parcela) {
+        this.parcelas.add(parcela);
+    }
+
+    // Restante dos getters e setters...
     public int getId() {
         return id;
     }

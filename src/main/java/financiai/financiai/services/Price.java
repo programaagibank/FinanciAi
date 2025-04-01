@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Price {
-    public List<Parcela> calcularParcela(Double valorFinanciamento, Double taxaJuros, int prazo) {
+    public List<Parcela> calcularParcela(Double valorFinanciamento, Double taxaJuros, int prazo, String cpfCliente) {
         validarParametros(valorFinanciamento, taxaJuros, prazo);
+        if (cpfCliente == null || cpfCliente.trim().isEmpty()) {
+            throw new IllegalArgumentException("CPF do cliente não pode ser nulo ou vazio");
+        }
 
         List<Parcela> parcelas = new ArrayList<>();
         double parcelaConstante = calcularParcelaConstante(valorFinanciamento, taxaJuros, prazo);
@@ -17,7 +20,7 @@ public class Price {
             double amortizacao = parcelaConstante - juros;
             saldoDevedor -= amortizacao;
 
-            parcelas.add(new Parcela(i, parcelaConstante, amortizacao, juros, saldoDevedor));
+            parcelas.add(new Parcela(i, parcelaConstante, amortizacao, juros, saldoDevedor, cpfCliente));
         }
 
         return parcelas;

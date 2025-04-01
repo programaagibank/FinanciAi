@@ -110,3 +110,63 @@
     -fx-padding: 15;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
 }
+.status-banco {
+    -fx-text-fill: #2e8b57; /* Verde para status OK */
+    -fx-font-weight: bold;
+}
+/* Adicione estas regras ao seu arquivo CSS existente */
+
+.titulo {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.table-cell {
+    -fx-alignment: CENTER-RIGHT;
+    -fx-padding: 5px;
+}
+
+.botao-secundario {
+    -fx-background-color: #6c757d;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 15px;
+}
+
+.botao-secundario:hover {
+    -fx-background-color: #5a6268;
+}
+.table-view {
+    -fx-base: #f8f9fa;
+    -fx-control-inner-background: #ffffff;
+    -fx-background-color: #ffffff;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: #dee2e6;
+    -fx-padding: 5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #343a40;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #dee2e6;
+    -fx-text-fill: white;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f8f9fa;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+}
