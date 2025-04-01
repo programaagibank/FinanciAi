@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -177,7 +178,7 @@ public class FinanciamentoController {
 
     private Financiamento calcularFinanciamento(DadosFinanciamento dados, Cliente cliente, Imovel imovel) {
         double valorFinanciado = dados.valorImovel - dados.valorEntrada;
-        parcelas = dados.tipoAmortizacao.calcularParcela(valorFinanciado, dados.taxaJuros, dados.prazo);
+        parcelas = dados.tipoAmortizacao.calcularParcela(valorFinanciado, dados.taxaJuros, dados.prazo, dados.cpf);
 
         double totalPagar = parcelas.stream().mapToDouble(Parcela::getValorParcela).sum();
 
@@ -256,6 +257,8 @@ public class FinanciamentoController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/simulacaoView.fxml"));
             Parent root = loader.load();
+            // Para carregar a view de parcelas
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/parcelaView.fxml"));
 
             ResultPageController controller = loader.getController();
             controller.setDadosFinanciamento(financiamento, cliente, imovel, parcelas);
@@ -265,6 +268,50 @@ public class FinanciamentoController {
             stage.show();
         } catch (IOException e) {
             mostrarAlerta("Erro", "Não foi possível carregar a tela de resultados: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void buscarParcelasPorCPF() {
+        try {
+            String cpf = cpfClienteField.getText().replaceAll("[^0-9]", "");
+
+            if (cpf.isEmpty()) {
+                mostrarAlerta("Erro", "Informe um CPF para buscar");
+                return;
+            }
+
+            try (Connection conexao = Conexao.conectar()) {
+                ParcelasDAO parcelasDAO = new ParcelasDAO();
+                List<Parcela> parcelas = parcelasDAO.buscarParcelasPorCpfCliente(cpf, conexao);
+
+                if (parcelas.isEmpty()) {
+                    mostrarAlerta("Informação", "Nenhuma parcela encontrada para este CPF");
+                    return;
+                }
+
+                // Carrega a tela de visualização de parcelas
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/parcelaView.fxml"));
+                URL url = getClass().getResource("/view/parcelaView.fxml");
+
+                if (url == null) {
+                    throw new RuntimeException("Arquivo FXML não encontrado. Verifique se o arquivo parcelaView.fxml está em: " +
+                            "src/main/resources/view/parcelaView.fxml");
+
+                }
+
+                Parent root = loader.load();
+
+                ParcelaViewController controller = loader.getController();
+                controller.setParcelas(parcelas);
+
+                Stage stage = (Stage) cpfClienteField.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            }
+        } catch (SQLException | IOException e) {
+            mostrarAlerta("Erro", "Falha ao buscar parcelas: " + e.getMessage());
             e.printStackTrace();
         }
     }

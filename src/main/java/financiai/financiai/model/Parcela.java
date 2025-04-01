@@ -1,23 +1,49 @@
 package financiai.financiai.model;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 public class Parcela {
+    private final SimpleIntegerProperty numeroParcela;
+    private final SimpleDoubleProperty valorParcela;
+    private final SimpleDoubleProperty valorAmortizacao;
+    private final SimpleDoubleProperty valorJuros;
+    private final SimpleDoubleProperty saldoDevedor;
+    private String cpf;
     private int financiamentoId;
-    private int numeroParcela;
-    private double valorParcela;
-    private double valorJuros;
-    private double valorAmortizacao;
-    private double saldoDevedor;
 
     public Parcela(int numeroParcela, double valorParcela, double valorAmortizacao,
-                   double valorJuros, double saldoDevedor) {
-        this.numeroParcela = numeroParcela;
-        this.valorParcela = valorParcela;
-        this.valorAmortizacao = valorAmortizacao;
-        this.valorJuros = valorJuros;
-        this.saldoDevedor = saldoDevedor;
+                   double valorJuros, double saldoDevedor, String cpf) {
+        this.numeroParcela = new SimpleIntegerProperty(numeroParcela);
+        this.valorParcela = new SimpleDoubleProperty(valorParcela);
+        this.valorAmortizacao = new SimpleDoubleProperty(valorAmortizacao);
+        this.valorJuros = new SimpleDoubleProperty(valorJuros);
+        this.saldoDevedor = new SimpleDoubleProperty(saldoDevedor);
+        this.cpf = cpf.replaceAll("[^0-9]", "");
     }
 
-    // Getters e Setters
+    // Getters para as propriedades (necessários para o TableView)
+    public int getNumeroParcela() {
+        return numeroParcela.get();
+    }
+
+    public double getValorParcela() {
+        return valorParcela.get();
+    }
+
+    public double getValorAmortizacao() {
+        return valorAmortizacao.get();
+    }
+
+    public double getValorJuros() {
+        return valorJuros.get();
+    }
+
+    public double getSaldoDevedor() {
+        return saldoDevedor.get();
+    }
+
+     // Getters e Setters
     public int getFinanciamentoId() {
         return financiamentoId;
     }
@@ -26,23 +52,13 @@ public class Parcela {
         this.financiamentoId = financiamentoId;
     }
 
-    public int getNumeroParcela() {
-        return numeroParcela;
+
+    public String getCpf() {
+        return cpf;
     }
 
-    public double getValorParcela() {
-        return valorParcela;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
-    public double getValorJuros() {
-        return valorJuros;
-    }
-
-    public double getValorAmortizacao() {
-        return valorAmortizacao;
-    }
-
-    public double getSaldoDevedor() {
-        return saldoDevedor;
-    }
 }
