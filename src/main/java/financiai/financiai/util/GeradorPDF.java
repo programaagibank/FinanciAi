@@ -1,6 +1,5 @@
 package financiai.financiai.util;
 
-
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -10,8 +9,8 @@ import financiai.financiai.model.Financiamento;
 import financiai.financiai.model.Imovel;
 import financiai.financiai.model.Parcela;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -25,20 +24,34 @@ public class GeradorPDF {
             // Cria o arquivo PDF
             String fileName = "SimulacaoFinanciamento_" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".pdf";
             PdfWriter.getInstance(document, new FileOutputStream(fileName));
-            document.open();
+            document.open(); // 🔹 Abre o documento ANTES de adicionar qualquer conteúdo
+
+            // 🔹 Adiciona uma página com um título para evitar erro
+            document.add(new Paragraph(" "));
 
             // Configuração de fontes
             Font headerFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
             Font normalFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
             Font titleFont = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
 
-            // Adiciona título principal
+            // 🔹 Adiciona a LOGO no começo do PDF
+            InputStream inputStream = GeradorPDF.class.getClassLoader().getResourceAsStream("gg.png");
+            if (inputStream != null) {
+                Image logo = Image.getInstance(ImageIO.read(inputStream), null);
+                logo.scaleToFit(150, 150);
+                logo.setAlignment(Element.ALIGN_CENTER);
+                document.add(logo);
+            } else {
+                document.add(new Paragraph("⚠ Logo não encontrada!", headerFont)); // Mensagem caso a logo falhe
+            }
+
+            // 🔹 Adiciona título principal
             Paragraph title = new Paragraph("Simulação de Financiamento", titleFont);
             title.setAlignment(Element.ALIGN_CENTER);
             title.setSpacingAfter(20);
             document.add(title);
 
-            // Cria uma tabela com 2 colunas para cabeçalho
+            // 🔹 Cria uma tabela com 2 colunas para cabeçalho
             PdfPTable headerTable = new PdfPTable(2);
             headerTable.setWidthPercentage(100);
             headerTable.setSpacingBefore(10);
@@ -69,7 +82,7 @@ public class GeradorPDF {
             headerTable.addCell(infoCell);
             document.add(headerTable);
 
-            // Adiciona tabela de parcelas
+            // 🔹 Adiciona tabela de parcelas
             document.add(new Paragraph("\nTabela de Parcelas:", headerFont));
             PdfPTable table = new PdfPTable(4); // 4 colunas
             table.setWidthPercentage(100);
@@ -92,7 +105,7 @@ public class GeradorPDF {
 
             document.add(table);
 
-            // Adiciona data de emissão
+            // 🔹 Adiciona data de emissão
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             Paragraph footer = new Paragraph("\nData de Emissão: " + dateFormat.format(new Date()), normalFont);
             footer.setAlignment(Element.ALIGN_RIGHT);
@@ -107,3 +120,4 @@ public class GeradorPDF {
         }
     }
 }
+
