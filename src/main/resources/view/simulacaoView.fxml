@@ -59,7 +59,7 @@
                 <Tooltip text="Gerar relatório em PDF com os detalhes" />
             </tooltip>
         </Button>
-
+        <Button fx:id="gerarContratoButton" layoutX="200" layoutY="400" mnemonicParsing="false" onAction="#gerarContrato" text="Gerar Contrato" />
         <Button onAction="#voltar" styleClass="botao-secundario" text="Nova Simulação" />
     </HBox>
 

@@ -30,7 +30,7 @@ public class FinanciamentoController {
     @FXML private ChoiceBox<String> tipoFinanciamentoBox;
     @FXML private Label resultadoLabel;
     @FXML private Label statusBancoLabel;
-    @FXML private ChoiceBox<String> bancoBox;
+    @FXML private ChoiceBox<String> bancoBox;// Certifique-se que esta declaração existe
     @FXML private Label taxaJurosLabel;
 
     private Stage primaryStage;
@@ -43,15 +43,36 @@ public class FinanciamentoController {
 
     @FXML
     public void initialize() {
-        tipoImovelBox.getItems().addAll("Casa", "Apartamento");
-        tipoFinanciamentoBox.getItems().addAll("SAC", "Price");
-        bancoBox.getItems().addAll("ITAU", "AGIBANK");
-        taxasBancos.put("ITAU", 0.08);  // Taxa fixa ajustada para 8%
-        taxasBancos.put("AGIBANK", 0.09); // Taxa fixa ajustada para 9%
+        try {
+            tipoImovelBox.getItems().addAll("Casa", "Apartamento");
+            tipoFinanciamentoBox.getItems().addAll("SAC", "Price");
+            // Inicialize primeiro os itens do ChoiceBox
+            bancoBox.getItems().clear();
+            bancoBox.getItems().addAll("ITAU", "AGIBANK");
+
+            // Configure um valor padrão para evitar null
+            bancoBox.setValue("AGIBANK");
+
+            // Configure as taxas (como já está no seu código)
+            taxasBancos.put("ITAU", 0.08);
+            taxasBancos.put("AGIBANK", 0.09);
+
+            // Adicione o listener para atualizar a taxa
+            bancoBox.setOnAction(event -> atualizarTaxaJuros());
+
+            // Debug (pode remover depois)
+            System.out.println("BancoBox inicializado com: " + bancoBox.getItems());
+
+        } catch (Exception e) {
+            System.err.println("Erro ao inicializar bancoBox: " + e.getMessage());
+            e.printStackTrace();
+        }
 
         bancoBox.setOnAction(event -> atualizarTaxaJuros());
         verificarEstruturaBanco();
     }
+
+
 
     private void atualizarTaxaJuros() {
         String bancoSelecionado = bancoBox.getValue();
@@ -289,11 +310,10 @@ public class FinanciamentoController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/simulacaoView.fxml"));
             Parent root = loader.load();
-            // Para carregar a view de parcelas
-            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/parcelaView.fxml"));
 
             ResultPageController controller = loader.getController();
-            controller.setDadosFinanciamento(financiamento, cliente, imovel, parcelas);
+            String bancoSelecionado = (bancoBox != null) ? bancoBox.getValue() : "Nenhum";
+            controller.setDadosFinanciamento(financiamento, cliente, imovel, parcelas, bancoSelecionado);
 
             Stage stage = (Stage) nomeClienteField.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -362,6 +382,7 @@ public class FinanciamentoController {
         taxaJurosLabel.setText("Taxa de Juros: -");
         resultadoLabel.setText("");
     }
+
 
     public void setPrimaryStage(Stage stage) {
         this.primaryStage = stage;
