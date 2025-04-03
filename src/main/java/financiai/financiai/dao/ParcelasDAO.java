@@ -61,30 +61,7 @@ public class ParcelasDAO {
         }
     }
 
-    // Método de lote com verificação de existência
-    private void inserirLoteParcelas(List<Parcela> parcelas, Connection conexao) throws SQLException {
-        String sql = "INSERT INTO parcelas (cpf, financiamento_id, numero_parcela, valor_parcela, " +
-                "valor_amortizacao, valor_juros, saldo_devedor) VALUES (?, ?, ?, ?, ?, ?, ?) " +
-                "ON DUPLICATE KEY UPDATE " + // Cláusula para evitar erros de duplicação
-                "valor_parcela = VALUES(valor_parcela), " +
-                "valor_amortizacao = VALUES(valor_amortizacao), " +
-                "valor_juros = VALUES(valor_juros), " +
-                "saldo_devedor = VALUES(saldo_devedor)";
 
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            for (Parcela parcela : parcelas) {
-                stmt.setString(1, parcela.getCpf());
-                stmt.setInt(2, parcela.getFinanciamentoId());
-                stmt.setInt(3, parcela.getNumeroParcela());
-                stmt.setDouble(4, parcela.getValorParcela());
-                stmt.setDouble(5, parcela.getValorAmortizacao());
-                stmt.setDouble(6, parcela.getValorJuros());
-                stmt.setDouble(7, parcela.getSaldoDevedor());
-                stmt.addBatch();
-            }
-            stmt.executeBatch();
-        }
-    }
 
     // Método de busca mantido
     public List<Parcela> buscarParcelasPorCpfCliente(String cpf, Connection conexao) throws SQLException {
