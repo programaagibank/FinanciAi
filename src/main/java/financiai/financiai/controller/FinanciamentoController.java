@@ -264,7 +264,7 @@ public class FinanciamentoController {
             }
         }
     }
-    private static class DadosFinanciamento {
+    public static class DadosFinanciamento {
         String nome;
         String cpf;
         double renda;
