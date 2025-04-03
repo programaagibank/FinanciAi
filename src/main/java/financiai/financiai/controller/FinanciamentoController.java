@@ -69,7 +69,7 @@ public class FinanciamentoController {
             parcelasDAO.verificarTabela(conexao);
 
             bancoPronto = true;
-            statusBancoLabel.setText("Banco de dados pronto!");
+            statusBancoLabel.setText("");
         } catch (SQLException e) {
             bancoPronto = false;
             statusBancoLabel.setText("Erro no banco de dados!");
@@ -128,7 +128,9 @@ public class FinanciamentoController {
             dados.renda = Double.parseDouble(rendaClienteField.getText().replace(",", "."));
             dados.valorImovel = Double.parseDouble(valorImovelField.getText().replace(",", "."));
             dados.valorEntrada = Double.parseDouble(valorEntradaField.getText().replace(",", "."));
-            dados.taxaJuros = Double.parseDouble(taxaJurosField.getText().replace(",", ".")) / 100;
+            double taxaJurosAnual = Double.parseDouble(taxaJurosField.getText().replace(",", ".")) / 100;
+            double taxaJurosMensal = Math.pow(1 + taxaJurosAnual, 1.0 / 12) - 1;
+            dados.taxaJuros = taxaJurosMensal;
             dados.prazo = Integer.parseInt(prazoField.getText());
             dados.tipoImovel = TipoImovel.valueOf(tipoImovelBox.getValue().toUpperCase());
             dados.tipoAmortizacao = TipoAmortizacao.valueOf(tipoFinanciamentoBox.getValue().toUpperCase());

@@ -42,7 +42,7 @@ public class GeradorPDF {
             headerTable.setSpacingAfter(10);
 
             try {
-                InputStream inputStream = GeradorPDF.class.getClassLoader().getResourceAsStream("iconFinanciai.png");
+                InputStream inputStream = GeradorPDF.class.getClassLoader().getResourceAsStream("images/iconFinanciai.png");
                 if (inputStream != null) {
                     Image logo = Image.getInstance(ImageIO.read(inputStream), null);
                     logo.scaleToFit(200, 200);
