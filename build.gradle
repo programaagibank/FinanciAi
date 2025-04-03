@@ -4,7 +4,6 @@ plugins {
     id 'org.javamodularity.moduleplugin' version '1.8.12'
     id 'org.openjfx.javafxplugin' version '0.0.13'
     id 'org.beryx.jlink' version '2.25.0'
-
 }
 
 group 'financiai'
@@ -15,7 +14,12 @@ repositories {
 }
 
 ext {
-    junitVersion = '5.10.2'
+    junitVersion = '5.10.2' // Use this variable consistently
+    mockitoVersion = '5.3.1'
+    javafxVersion = '21'
+    gsonVersion = '2.10.1'
+    itextpdfVersion = '5.5.13.4'
+    mysqlConnectorVersion = '8.0.33'
 }
 
 sourceCompatibility = '21'
@@ -29,6 +33,7 @@ application {
     mainModule = 'financiai.financiai'
     mainClass = 'financiai.financiai.Main'
 }
+
 sourceSets {
     main {
         resources {
@@ -38,27 +43,46 @@ sourceSets {
 }
 
 javafx {
-    version = '21'
+    version = javafxVersion
     modules = ['javafx.controls', 'javafx.fxml']
 }
 
 dependencies {
+    // JUnit 5 (using ext.junitVersion)
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
-    implementation 'org.openjfx:javafx-controls:21'
+    // Mockito (using ext.mockitoVersion)
+    testImplementation "org.mockito:mockito-core:${mockitoVersion}"
+    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
+
+    // JavaFX (already handled by the plugin, but explicit dependencies can be added if needed)
+    implementation "org.openjfx:javafx-controls:${javafxVersion}"
+    implementation "org.openjfx:javafx-fxml:${javafxVersion}"
 
     // Gson
-    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation "com.google.code.gson:gson:${gsonVersion}"
 
     // iTextPDF
-    implementation 'com.itextpdf:itextpdf:5.5.13.4'
+    implementation "com.itextpdf:itextpdf:${itextpdfVersion}"
 
     // MySQL Connector
-    implementation 'mysql:mysql-connector-java:8.0.33'
+    implementation "mysql:mysql-connector-java:${mysqlConnectorVersion}"
 
+    // JavaFX
+    implementation 'org.openjfx:javafx-controls:17.0.2'
+    implementation 'org.openjfx:javafx-fxml:17.0.2'
 
+    // Testes
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+
+    // Para testar JavaFX
+    testImplementation 'org.testfx:testfx-junit5:4.0.16-alpha'
 }
+
+
+
 
 test {
     useJUnitPlatform()
