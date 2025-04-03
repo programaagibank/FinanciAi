@@ -3,7 +3,6 @@ package financiai.financiai.controller;
 import financiai.financiai.model.*;
 import financiai.financiai.services.*;
 import financiai.financiai.dao.*;
-import financiai.financiai.dao.ParcelasDAO;
 import financiai.financiai.util.Conexao;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,14 +12,11 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class FinanciamentoController {
     @FXML private TextField nomeClienteField;
@@ -28,13 +24,12 @@ public class FinanciamentoController {
     @FXML private TextField rendaClienteField;
     @FXML private TextField valorImovelField;
     @FXML private TextField valorEntradaField;
+    @FXML private TextField taxaJurosField;
     @FXML private TextField prazoField;
     @FXML private ChoiceBox<String> tipoImovelBox;
     @FXML private ChoiceBox<String> tipoFinanciamentoBox;
     @FXML private Label resultadoLabel;
     @FXML private Label statusBancoLabel;
-    @FXML private ChoiceBox<String> bancoBox;// Certifique-se que esta declaração existe
-    @FXML private Label taxaJurosLabel;
 
     private Stage primaryStage;
     private boolean bancoPronto = false;
@@ -42,7 +37,6 @@ public class FinanciamentoController {
     private Imovel imovel;
     private Financiamento financiamento;
     private List<Parcela> parcelas;
-    private final Map<String, Double> taxasBancos = new HashMap<>();
 
     @FXML
     public void initialize() {
@@ -50,42 +44,13 @@ public class FinanciamentoController {
             tipoImovelBox.getItems().addAll("Casa", "Apartamento");
             tipoFinanciamentoBox.getItems().addAll("SAC", "Price");
             // Inicialize primeiro os itens do ChoiceBox
-            bancoBox.getItems().clear();
-            bancoBox.getItems().addAll("ITAU", "AGIBANK","FINANCIAI_BANK");
-
-            // Configure um valor padrão para evitar null
-            bancoBox.setValue("FINANCIAI_BANK");
-
-            // Configure as taxas (como já está no seu código)
-            taxasBancos.put("ITAU", 0.08);
-            taxasBancos.put("AGIBANK", 0.09);
-
-            // Adicione o listener para atualizar a taxa
-            bancoBox.setOnAction(event -> atualizarTaxaJuros());
-
-            // Debug (pode remover depois)
-            System.out.println("BancoBox inicializado com: " + bancoBox.getItems());
 
         } catch (Exception e) {
             System.err.println("Erro ao inicializar bancoBox: " + e.getMessage());
             e.printStackTrace();
         }
-
-        bancoBox.setOnAction(event -> atualizarTaxaJuros());
         verificarEstruturaBanco();
     }
-
-
-
-    private void atualizarTaxaJuros() {
-        String bancoSelecionado = bancoBox.getValue();
-        if (bancoSelecionado != null && taxasBancos.containsKey(bancoSelecionado)) {
-            taxaJurosLabel.setText(String.format("Taxa de Juros: %.2f%%", taxasBancos.get(bancoSelecionado) * 100));
-        } else {
-            taxaJurosLabel.setText("Taxa de Juros: -");
-        }
-    }
-
 
     private void verificarEstruturaBanco() {
         statusBancoLabel.setText("Verificando banco de dados...");
@@ -163,15 +128,8 @@ public class FinanciamentoController {
             dados.renda = Double.parseDouble(rendaClienteField.getText().replace(",", "."));
             dados.valorImovel = Double.parseDouble(valorImovelField.getText().replace(",", "."));
             dados.valorEntrada = Double.parseDouble(valorEntradaField.getText().replace(",", "."));
+            dados.taxaJuros = Double.parseDouble(taxaJurosField.getText().replace(",", ".")) / 100;
             dados.prazo = Integer.parseInt(prazoField.getText());
-
-            // Obter o banco selecionado e definir a taxa fixa
-            String bancoSelecionado = bancoBox.getValue();
-            if (bancoSelecionado == null || !taxasBancos.containsKey(bancoSelecionado)) {
-                throw new IllegalArgumentException("Banco não selecionado ou inválido");
-            }
-            dados.taxaJuros = taxasBancos.get(bancoSelecionado); // Agora pega direto do mapa
-
             dados.tipoImovel = TipoImovel.valueOf(tipoImovelBox.getValue().toUpperCase());
             dados.tipoAmortizacao = TipoAmortizacao.valueOf(tipoFinanciamentoBox.getValue().toUpperCase());
         } catch (Exception e) {
@@ -180,7 +138,6 @@ public class FinanciamentoController {
         return dados;
     }
 
-
     private boolean validarCampos() {
         // Validação de campos vazios
         if (nomeClienteField.getText().isEmpty() ||
@@ -188,7 +145,7 @@ public class FinanciamentoController {
                 rendaClienteField.getText().isEmpty() ||
                 valorImovelField.getText().isEmpty() ||
                 valorEntradaField.getText().isEmpty() ||
-                bancoBox.getValue() == null ||  // Corrigido: Verifica se um banco foi selecionado
+                taxaJurosField.getText().isEmpty() ||
                 prazoField.getText().isEmpty() ||
                 tipoImovelBox.getValue() == null ||
                 tipoFinanciamentoBox.getValue() == null) {
@@ -210,13 +167,8 @@ public class FinanciamentoController {
             double renda = Double.parseDouble(rendaClienteField.getText().replace(",", "."));
             double valorImovel = Double.parseDouble(valorImovelField.getText().replace(",", "."));
             double valorEntrada = Double.parseDouble(valorEntradaField.getText().replace(",", "."));
+            double taxaJuros = Double.parseDouble(taxaJurosField.getText().replace(",", "."));
             int prazo = Integer.parseInt(prazoField.getText());
-
-            Double taxaJuros = taxasBancos.get(bancoBox.getValue());
-            if (taxaJuros == null) {
-                mostrarAlerta("Erro", "Selecione um banco válido");
-                return false;
-            }
 
             if (renda <= 0 || valorImovel <= 0 || valorEntrada < 0 || taxaJuros <= 0 || prazo <= 0) {
                 mostrarAlerta("Erro", "Valores devem ser maiores que zero");
@@ -341,10 +293,11 @@ public class FinanciamentoController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/simulacaoView.fxml"));
             Parent root = loader.load();
+            // Para carregar a view de parcelas
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/parcelaView.fxml"));
 
             ResultPageController controller = loader.getController();
-            String bancoSelecionado = (bancoBox != null) ? bancoBox.getValue() : "Nenhum";
-            controller.setDadosFinanciamento(financiamento, cliente, imovel, parcelas, bancoSelecionado);
+            controller.setDadosFinanciamento(financiamento, cliente, imovel, parcelas);
 
             Stage stage = (Stage) nomeClienteField.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -406,14 +359,12 @@ public class FinanciamentoController {
         rendaClienteField.clear();
         valorImovelField.clear();
         valorEntradaField.clear();
+        taxaJurosField.clear();
         prazoField.clear();
         tipoImovelBox.setValue(null);
         tipoFinanciamentoBox.setValue(null);
-        bancoBox.setValue(null);
-        taxaJurosLabel.setText("Taxa de Juros: -");
         resultadoLabel.setText("");
     }
-
 
     public void setPrimaryStage(Stage stage) {
         this.primaryStage = stage;

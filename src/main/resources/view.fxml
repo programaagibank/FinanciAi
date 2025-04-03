@@ -37,6 +37,9 @@
         <Label text="Valor de Entrada:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
         <TextField fx:id="valorEntradaField" prefHeight="25.0" prefWidth="326.0" promptText="Digite o valor de entrada" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
+        <Label text="Taxa de Juros (% ao mês):" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <TextField fx:id="taxaJurosField" promptText="Digite a taxa de juros" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
         <Label text="Prazo (meses):" GridPane.columnIndex="0" GridPane.rowIndex="6" />
         <TextField fx:id="prazoField" promptText="Digite o prazo" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
@@ -45,11 +48,6 @@
 
         <Label text="Tipo de Financiamento:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
         <ChoiceBox fx:id="tipoFinanciamentoBox" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-
-        <Label text="Banco:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
-        <ChoiceBox fx:id="bancoBox" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-
-        <Label fx:id="taxaJurosLabel" text="Taxa de Juros: -" GridPane.columnIndex="1" GridPane.rowIndex="10" />
 
         <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />

@@ -29,15 +29,13 @@ public class ResultPageController {
     private Cliente cliente;
     private Imovel imovel;
     private List<Parcela> parcelas;
-    private String bancoSelecionado;
 
     public void setDadosFinanciamento(Financiamento financiamento, Cliente cliente, Imovel imovel,
-                                      List<Parcela> parcelas, String bancoSelecionado) {
+                                      List<Parcela> parcelas) {
         this.financiamento = financiamento;
         this.cliente = cliente;
         this.imovel = imovel;
         this.parcelas = parcelas;
-        this.bancoSelecionado = bancoSelecionado;
         exibirResultados();
     }
 
@@ -92,11 +90,8 @@ public class ResultPageController {
     @FXML
     private void gerarContrato() {
         try {
-            if (bancoSelecionado == null || bancoSelecionado.isEmpty()) {
-                throw new IllegalArgumentException("Nenhum banco foi selecionado para o contrato");
-            }
 
-            ContratoFinanciamentoPDF.gerarContratoPDF(financiamento, cliente, imovel, bancoSelecionado);
+            ContratoFinanciamentoPDF.gerarContratoPDF(financiamento, cliente, imovel);
             mostrarAlerta(Alert.AlertType.INFORMATION,
                     "Sucesso",
                     "Contrato gerado com sucesso!\nO arquivo foi salvo na pasta de documentos.");

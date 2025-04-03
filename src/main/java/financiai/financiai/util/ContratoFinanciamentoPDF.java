@@ -43,11 +43,11 @@ public class ContratoFinanciamentoPDF {
     }
 
     public static void gerarContratoPDF(Financiamento financiamento, Cliente cliente,
-                                        Imovel imovel, String nomeBanco) throws Exception {
+                                        Imovel imovel) throws Exception {
         Document documento = new Document();
         try {
             // Parameter validation
-            if (cliente == null || financiamento == null || imovel == null || nomeBanco == null) {
+            if (cliente == null || financiamento == null || imovel == null) {
                 throw new IllegalArgumentException("Parameters cannot be null");
             }
 
@@ -114,10 +114,6 @@ public class ContratoFinanciamentoPDF {
                 cellTexto.setPadding(5);
 
                 // Add text content
-                Paragraph cabecalhoBanco = new Paragraph(nomeBanco.toUpperCase(), fonteCabecalho);
-                cabecalhoBanco.setAlignment(Element.ALIGN_CENTER);
-                cellTexto.addElement(cabecalhoBanco);
-
                 Paragraph enderecoBanco = new Paragraph("Rua das Finanças, 123, São Paulo - SP", fontePequena);
                 enderecoBanco.setAlignment(Element.ALIGN_CENTER);
                 cellTexto.addElement(enderecoBanco);
@@ -141,10 +137,6 @@ public class ContratoFinanciamentoPDF {
                 System.err.println("ERROR: Could not load image. Reason: " + e.getMessage());
 
                 // Fallback - header without image
-                Paragraph cabecalhoBanco = new Paragraph(nomeBanco.toUpperCase(), fonteCabecalho);
-                cabecalhoBanco.setAlignment(Element.ALIGN_CENTER);
-                documento.add(cabecalhoBanco);
-
                 Paragraph enderecoBanco = new Paragraph("Rua das Finanças, 123, São Paulo - SP", fontePequena);
                 enderecoBanco.setAlignment(Element.ALIGN_CENTER);
                 documento.add(enderecoBanco);
@@ -202,7 +194,7 @@ public class ContratoFinanciamentoPDF {
 
             // 1. Proposal Object
             adicionarItemNumerado(documento, "1", "Objeto da Proposta",
-                    "A " + nomeBanco + " oferece a você, " + cliente.getNome() + ", um financiamento no valor de R$ " +
+                    "A FinanciAí" + " oferece a você, " + cliente.getNome() + ", um financiamento no valor de R$ " +
                             String.format("%.2f", financiamento.getValorFinanciado()) + " (" + converterNumero(financiamento.getValorFinanciado()) + "), para ser " +
                             "utilizado como parte do pagamento do imóvel adquirido. O valor total do imóvel é de R$ " +
                             String.format("%.2f", imovel.getValorImovel()) + " (" + converterNumero(imovel.getValorImovel()) + "), e o " +
@@ -261,19 +253,19 @@ public class ContratoFinanciamentoPDF {
 
             // 3. Guarantees and Payment
             adicionarItemNumerado(documento, "3", "Garantias e Pagamento",
-                    "Para garantir a segurança do financiamento, o imóvel adquirido será dado em alienação fiduciária à " +
-                            nomeBanco + " até a quitação integral do financiamento. Um carnê será fornecido para facilitar os pagamentos.",
+                    "Para garantir a segurança do financiamento, o imóvel adquirido será dado em alienação fiduciária à FinanciAí " +
+                            " até a quitação integral do financiamento. Um carnê será fornecido para facilitar os pagamentos.",
                     fonteNegrito, fonteTexto);
 
             // 4. Default Conditions
             adicionarItemNumerado(documento, "4", "Condições de Inadimplência",
-                    "Caso haja atraso no pagamento das parcelas, a " + nomeBanco + " poderá tomar as medidas cabíveis, " +
+                    "Caso haja atraso no pagamento das parcelas, a FinanciAí poderá tomar as medidas cabíveis, " +
                             "incluindo cobrança de encargos moratórios e protesto da Nota Promissória correspondente ao saldo devedor.",
                     fonteNegrito, fonteTexto);
 
             // 5. Early Settlement
             adicionarItemNumerado(documento, "5", "Liquidação Antecipada",
-                    "Se desejar liquidar o financiamento antes do prazo estabelecido, será necessária a anuência expressa da " + nomeBanco + ".",
+                    "Se desejar liquidar o financiamento antes do prazo estabelecido, será necessária a anuência expressa da FinanciAí.",
                     fonteNegrito, fonteTexto);
 
             // 6. Jurisdiction
@@ -290,10 +282,6 @@ public class ContratoFinanciamentoPDF {
             documento.add(assinatura);
 
             documento.add(Chunk.NEWLINE);
-
-            Paragraph nomeBancoAssinatura = new Paragraph(nomeBanco, fonteNegrito);
-            nomeBancoAssinatura.setAlignment(Element.ALIGN_CENTER);
-            documento.add(nomeBancoAssinatura);
 
             Paragraph enderecoBancoAssinatura = new Paragraph("Rua das Finanças, 123, São Paulo - SP", fontePequena);
             enderecoBancoAssinatura.setAlignment(Element.ALIGN_CENTER);
