@@ -119,9 +119,9 @@ public class ContratoFinanciamentoPDF {
             // 1. Objeto da Proposta
             adicionarItemNumerado(documento, "1", "Objeto da Proposta",
                     "A " + nomeBanco + " oferece a você, " + cliente.getNome() + ", um financiamento no valor de R$ " +
-                            String.format("%.2f", financiamento.getValorFinanciado()) + " (" + valorPorExtenso(financiamento.getValorFinanciado()) + "), para ser " +
+                            String.format("%.2f", financiamento.getValorFinanciado()) + " (" + converterNumero(financiamento.getValorFinanciado()) + "), para ser " +
                             "utilizado como parte do pagamento do imóvel adquirido. O valor total do imóvel é de R$ " +
-                            String.format("%.2f", imovel.getValorImovel()) + " (" + valorPorExtenso(imovel.getValorImovel()) + "), e o " +
+                            String.format("%.2f", imovel.getValorImovel()) + " (" + converterNumero(imovel.getValorImovel()) + "), e o " +
                             "financiamento concedido ajudará a viabilizar sua aquisição de maneira facilitada.",
                     fonteNegrito, fonteTexto);
 
@@ -141,7 +141,7 @@ public class ContratoFinanciamentoPDF {
                             dataVencimento.getDayOfMonth() + " de " + nomeMes + " de " + dataVencimento.getYear() + ", " +
                             "e as demais vencendo no mesmo dia dos meses subsequentes. O valor total do financiamento, " +
                             "incluindo encargos e taxas, será de R$ " + String.format("%.2f", financiamento.getTotalPagar()) +
-                            " (" + valorPorExtenso(financiamento.getTotalPagar()) + ").",
+                            " (" + converterNumero(financiamento.getTotalPagar()) + ").",
                     fonteNegrito, fonteTexto);
 
 
@@ -265,7 +265,7 @@ public class ContratoFinanciamentoPDF {
         }
     }
 
-    private static String valorPorExtenso(double valor) {
+    private static String converterNumero(double valor) {
         try {
             if (valor < 0) {
                 return "[VALOR NEGATIVO]";
@@ -279,7 +279,7 @@ public class ContratoFinanciamentoPDF {
             String[] dezenas = {"", "dez", "vinte", "trinta", "quarenta",
                     "cinquenta", "sessenta", "setenta",
                     "oitenta", "noventa"};
-            String[] centenas = {"", "cem", "duzentos", "trezentos",
+            String[] centenas = {"", "cento", "duzentos", "trezentos",
                     "quatrocentos", "quinhentos", "seiscentos",
                     "setecentos", "oitocentos", "novecentos"};
 
@@ -290,28 +290,46 @@ public class ContratoFinanciamentoPDF {
             if (inteiro == 0 && centavos == 0) return "zero reais";
             if (inteiro == 1 && centavos == 0) return "um real";
             if (inteiro == 0 && centavos == 1) return "um centavo";
-            if (inteiro == 0 && centavos > 1)
-                return converterNumero(centavos, unidades, dez_a_dezenove, dezenas) + " centavos";
+            if (inteiro == 0 && centavos > 1) return converterNumero(centavos, unidades, dez_a_dezenove, dezenas) + " centavos";
 
             StringBuilder extenso = new StringBuilder();
 
-            // Parte inteira
-            if (inteiro > 0) {
+            // Parte inteira - milhares
+            if (inteiro >= 1000) {
+                int milhares = inteiro / 1000;
+                if (milhares == 1) {
+                    extenso.append("mil");
+                } else {
+                    extenso.append(converterNumero(milhares, unidades, dez_a_dezenove, dezenas, centenas)).append(" mil");
+                }
+                inteiro %= 1000;
+                if (inteiro > 0) {
+                    extenso.append(" e ");
+                }
+            }
+
+            // Parte inteira - centenas
+            if (inteiro >= 100) {
                 if (inteiro == 100) {
                     extenso.append("cem");
-                } else if (inteiro < 100) {
-                    extenso.append(converterNumero(inteiro, unidades, dez_a_dezenove, dezenas));
                 } else {
                     int centena = inteiro / 100;
-                    int resto = inteiro % 100;
-
                     extenso.append(centenas[centena]);
-                    if (resto > 0) {
-                        extenso.append(" e ").append(converterNumero(resto, unidades, dez_a_dezenove, dezenas));
-                    }
                 }
+                inteiro %= 100;
+                if (inteiro > 0) {
+                    extenso.append(" e ");
+                }
+            }
 
-                extenso.append(inteiro == 1 ? " real" : " reais");
+            // Parte inteira - dezenas e unidades
+            if (inteiro > 0) {
+                extenso.append(converterNumero(inteiro, unidades, dez_a_dezenove, dezenas));
+            }
+
+            // Adiciona "reais"
+            if (extenso.length() > 0) {
+                extenso.append(extenso.toString().contains("mil") && !extenso.toString().contains("e") ? " reais" : " reais");
             }
 
             // Parte decimal
@@ -342,5 +360,27 @@ public class ContratoFinanciamentoPDF {
         return extenso;
     }
 
+    private static String converterNumero(int valor, String[] unidades, String[] dez_a_dezenove,
+                                          String[] dezenas, String[] centenas) {
+        if (valor == 100) return "cem";
+
+        StringBuilder extenso = new StringBuilder();
+
+        // Centenas
+        if (valor >= 100) {
+            extenso.append(centenas[valor / 100]);
+            valor %= 100;
+            if (valor > 0) {
+                extenso.append(" e ");
+            }
+        }
+
+        // Dezenas e unidades
+        if (valor > 0) {
+            extenso.append(converterNumero(valor, unidades, dez_a_dezenove, dezenas));
+        }
+
+        return extenso.toString();
+    }
 
 }
