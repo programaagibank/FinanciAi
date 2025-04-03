@@ -51,10 +51,10 @@ public class FinanciamentoController {
             tipoFinanciamentoBox.getItems().addAll("SAC", "Price");
             // Inicialize primeiro os itens do ChoiceBox
             bancoBox.getItems().clear();
-            bancoBox.getItems().addAll("ITAU", "AGIBANK");
+            bancoBox.getItems().addAll("ITAU", "AGIBANK","FINANCIAI_BANK");
 
             // Configure um valor padrão para evitar null
-            bancoBox.setValue("AGIBANK");
+            bancoBox.setValue("FINANCIAI_BANK");
 
             // Configure as taxas (como já está no seu código)
             taxasBancos.put("ITAU", 0.08);

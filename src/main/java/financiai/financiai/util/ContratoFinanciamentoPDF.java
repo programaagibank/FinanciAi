@@ -9,11 +9,14 @@ import financiai.financiai.model.Cliente;
 import financiai.financiai.model.Financiamento;
 import financiai.financiai.model.Imovel;
 import financiai.financiai.model.Parcela;
+
+import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.Locale;
 import java.io.FileOutputStream;
 import java.util.List;
 import java.net.URL;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ContratoFinanciamentoPDF {
 
@@ -48,7 +51,10 @@ public class ContratoFinanciamentoPDF {
                 throw new IllegalArgumentException("Parameters cannot be null");
             }
 
-            String nomeArquivo = "Carta_Proposta_Financiamento_" + formatarCPF(cliente.getCpf()) + ".pdf";
+            LocalDate hoje = LocalDate.now();
+            String numeroProposta = "PROP-" + hoje.format(DateTimeFormatter.ofPattern("yyyyMMdd")) +
+                    "-" + String.format("%04d", ThreadLocalRandom.current().nextInt(10000));
+            String nomeArquivo = "Carta_Proposta_" + numeroProposta + "_" + formatarCPF(cliente.getCpf()) + ".pdf";
             PdfWriter.getInstance(documento, new FileOutputStream(nomeArquivo));
             documento.open();
 
