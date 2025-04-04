@@ -29,16 +29,16 @@
         <TextField fx:id="cpfClienteField" promptText="Digite seu CPF para registro ou consulta" styleClass="floating-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
         <Label text="Renda:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <TextField fx:id="rendaClienteField" promptText="Digite renda total em R$" styleClass="floating-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <TextField fx:id="rendaClienteField" promptText="Digite sua renda mensal em R$" styleClass="floating-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
         <Label text="Valor Imóvel:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-        <TextField fx:id="valorImovelField" promptText="Digite o valor do imovel em R$" styleClass="floating-field" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <TextField fx:id="valorImovelField" promptText="Digite o valor do imóvel em R$" styleClass="floating-field" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
         <Label text="Entrada:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
         <TextField fx:id="valorEntradaField" promptText="Digite o valor da entrada em R$" styleClass="floating-field" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
         <Label text="Taxa Juros:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-        <TextField fx:id="taxaJurosField" promptText="Digite o percentual da taxa" styleClass="floating-field" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <TextField fx:id="taxaJurosField" promptText="Digite o percentual da taxa ao ano" styleClass="floating-field" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
         <Label text="Prazo:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
         <TextField fx:id="prazoField" promptText="Digite o prazo (meses)" styleClass="floating-field" GridPane.columnIndex="1" GridPane.rowIndex="6" />
