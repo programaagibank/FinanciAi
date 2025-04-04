@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
@@ -39,10 +40,15 @@ public class FinanciamentoController {
 
     @FXML
     public void initialize() {
-        tipoImovelBox.getItems().addAll("Casa", "Apartamento");
-        tipoFinanciamentoBox.getItems().addAll("SAC", "Price");
+        try {
+            tipoImovelBox.getItems().addAll("Casa", "Apartamento");
+            tipoFinanciamentoBox.getItems().addAll("SAC", "Price");
+            // Inicialize primeiro os itens do ChoiceBox
 
-        // Verificar estrutura do banco ao iniciar
+        } catch (Exception e) {
+            System.err.println("Erro ao inicializar bancoBox: " + e.getMessage());
+            e.printStackTrace();
+        }
         verificarEstruturaBanco();
     }
 
@@ -63,7 +69,7 @@ public class FinanciamentoController {
             parcelasDAO.verificarTabela(conexao);
 
             bancoPronto = true;
-            statusBancoLabel.setText("Banco de dados pronto!");
+            statusBancoLabel.setText("");
         } catch (SQLException e) {
             bancoPronto = false;
             statusBancoLabel.setText("Erro no banco de dados!");
@@ -122,7 +128,9 @@ public class FinanciamentoController {
             dados.renda = Double.parseDouble(rendaClienteField.getText().replace(",", "."));
             dados.valorImovel = Double.parseDouble(valorImovelField.getText().replace(",", "."));
             dados.valorEntrada = Double.parseDouble(valorEntradaField.getText().replace(",", "."));
-            dados.taxaJuros = Double.parseDouble(taxaJurosField.getText().replace(",", ".")) / 100;
+            double taxaJurosAnual = Double.parseDouble(taxaJurosField.getText().replace(",", ".")) / 100;
+            double taxaJurosMensal = Math.pow(1 + taxaJurosAnual, 1.0 / 12) - 1;
+            dados.taxaJuros = taxaJurosMensal;
             dados.prazo = Integer.parseInt(prazoField.getText());
             dados.tipoImovel = TipoImovel.valueOf(tipoImovelBox.getValue().toUpperCase());
             dados.tipoAmortizacao = TipoAmortizacao.valueOf(tipoFinanciamentoBox.getValue().toUpperCase());
@@ -176,15 +184,15 @@ public class FinanciamentoController {
         return true;
     }
 
+
     private Financiamento calcularFinanciamento(DadosFinanciamento dados, Cliente cliente, Imovel imovel) {
         double valorFinanciado = dados.valorImovel - dados.valorEntrada;
+        parcelas = dados.tipoAmortizacao.calcularParcela(valorFinanciado, dados.taxaJuros, dados.prazo, dados.cpf);
 
-        double taxa_juros = dados.taxaJuros / 12;
-        parcelas = dados.tipoAmortizacao.calcularParcela(valorFinanciado, taxa_juros, dados.prazo, dados.cpf);
         double totalPagar = parcelas.stream().mapToDouble(Parcela::getValorParcela).sum();
 
         Financiamento financiamento = new Financiamento(
-                dados.prazo, taxa_juros, dados.tipoAmortizacao,
+                dados.prazo, dados.taxaJuros, dados.tipoAmortizacao,
                 dados.valorEntrada, valorFinanciado, totalPagar
         );
 
@@ -193,7 +201,9 @@ public class FinanciamentoController {
     }
 
     private void salvarFinanciamentoCompleto(Cliente cliente, Imovel imovel, Financiamento financiamento) {
-        try (Connection conexao = Conexao.conectar()) {
+        Connection conexao = null;
+        try {
+            conexao = Conexao.conectar();
             conexao.setAutoCommit(false);
 
             // 1. Cliente
@@ -219,20 +229,47 @@ public class FinanciamentoController {
 
             // 4. Parcelas
             ParcelasDAO parcelasDAO = new ParcelasDAO();
+
+            // Atualiza financiamento_id em todas as parcelas
             for (Parcela parcela : financiamento.getParcelas()) {
                 parcela.setFinanciamentoId(financiamento.getId());
-                parcelasDAO.adicionarParcela(parcela, conexao);
+            }
+
+            // Tenta usar inserção em lote via reflection
+            try {
+                Method metodoLote = ParcelasDAO.class.getDeclaredMethod("inserirLoteParcelas",
+                        List.class, Connection.class);
+                metodoLote.setAccessible(true);
+                metodoLote.invoke(parcelasDAO, financiamento.getParcelas(), conexao);
+            } catch (Exception e) {
+                // Fallback para inserção individual
+                for (Parcela parcela : financiamento.getParcelas()) {
+                    parcelasDAO.adicionarParcela(parcela, conexao);
+                }
             }
 
             conexao.commit();
-            System.out.println("Dados salvos com sucesso!");
-
         } catch (SQLException e) {
+            if (conexao != null) {
+                try {
+                    conexao.rollback();
+                } catch (SQLException ex) {
+                    mostrarAlerta("Erro no Rollback", "Falha ao reverter transação: " + ex.getMessage());
+                    ex.printStackTrace();
+                }
+            }
             mostrarAlerta("Erro no Banco", "Falha ao salvar: " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            if (conexao != null) {
+                try {
+                    conexao.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
-
     private static class DadosFinanciamento {
         String nome;
         String cpf;
