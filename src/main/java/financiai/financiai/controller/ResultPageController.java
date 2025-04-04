@@ -53,9 +53,9 @@ public class ResultPageController {
 
             // Preenche a tabela de parcelas
             StringBuilder sb = new StringBuilder();
-            sb.append("Nº Parcela\tValor (R$)\tAmortização (R$)\tJuros (R$)\tSaldo Devedor (R$)\n");
+            sb.append("Nº Parcela\t\t\tValor (R$)\t\t\tAmortização (R$)\t\t\tJuros (R$)\t\t\tSaldo Devedor (R$)\n");
             for (Parcela parcela : parcelas) {
-                sb.append(String.format("%d\t\t%.2f\t\t%.2f\t\t\t%.2f\t\t\t%.2f\n",
+                sb.append(String.format("\t%d\t\t\t\t%.2f\t\t\t\t%.2f\t\t\t\t%.2f\t\t\t\t%.2f\n",
                         parcela.getNumeroParcela(),
                         parcela.getValorParcela(),
                         parcela.getValorAmortizacao(),
@@ -64,7 +64,7 @@ public class ResultPageController {
             }
             tabelaParcelasArea.setText(sb.toString());
         } catch (Exception e) {
-            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Falha ao exibir resultados: " + e.getMessage());
+            mostrarAlerta(Alert.AlertType.ERROR, "Err", "Falha ao exibir resultados: " + e.getMessage());
         }
     }
 
