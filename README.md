@@ -126,7 +126,7 @@ Preencha os seguintes dados para realizar a simulação:
   - Prazo (em meses)
 
 - **Seleção**:
-  - Tipo de imóvel (residencial, comercial, etc.)
+  - Tipo de imóvel (casa ou apartamento.)
   - Sistema de amortização: `Price` ou `SAC`
 
 ---
