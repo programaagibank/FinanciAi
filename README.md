@@ -33,6 +33,12 @@ _Todos os cálculos são persistidos em banco MySQL para consulta posterior via 
 
 ## ⚙️ Funcionalidades
 
+✅ **Geração de PDF**
+- Gera um PDF com o detahamento das parcelas e um resumo do financiamento.
+
+✅ **Geração de proposta**
+- Gera uma proposta com base na simulação feita.
+
 ✅ **Simulação em Tempo Real**  
 - Cálculo automático de parcelas, juros e saldo devedor   
 
