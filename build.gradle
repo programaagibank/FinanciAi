@@ -14,7 +14,7 @@ repositories {
 }
 
 ext {
-    junitVersion = '5.10.2' // Use this variable consistently
+    junitVersion = '5.10.2'
     mockitoVersion = '5.3.1'
     javafxVersion = '21'
     gsonVersion = '2.10.1'
@@ -48,39 +48,28 @@ javafx {
 }
 
 dependencies {
-    // JUnit 5 (using ext.junitVersion)
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
 
-    // Mockito (using ext.mockitoVersion)
     testImplementation "org.mockito:mockito-core:${mockitoVersion}"
     testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
 
-    // JavaFX (already handled by the plugin, but explicit dependencies can be added if needed)
     implementation "org.openjfx:javafx-controls:${javafxVersion}"
     implementation "org.openjfx:javafx-fxml:${javafxVersion}"
 
-    // Gson
     implementation "com.google.code.gson:gson:${gsonVersion}"
 
-    // iTextPDF
     implementation "com.itextpdf:itextpdf:${itextpdfVersion}"
 
-    // MySQL Connector
     implementation "mysql:mysql-connector-java:${mysqlConnectorVersion}"
 
-    // JavaFX
     implementation 'org.openjfx:javafx-controls:17.0.2'
     implementation 'org.openjfx:javafx-fxml:17.0.2'
 
-    // Testes
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
 
-    // Para testar JavaFX
     testImplementation 'org.testfx:testfx-junit5:4.0.16-alpha'
-
-
 
 }
 

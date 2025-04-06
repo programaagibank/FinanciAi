@@ -45,7 +45,6 @@ public class ParcelaViewController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            // Você pode adicionar um alerta de erro aqui se desejar
         }
     }
 }

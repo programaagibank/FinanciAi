@@ -33,8 +33,6 @@ public class Financiamento {
         this.totalPagar = totalPagar;
     }
 
-    // Getters e Setters existentes...
-
     // Métodos para parcelas
     public List<Parcela> getParcelas() {
         return parcelas;
