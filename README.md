@@ -277,4 +277,4 @@ i_{\text{mensal}} = (1 + 0,085)^{1/12} - 1 \approx 0,68\% \text{ (ou 0,0068 em d
 ### Passos:
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/financiai.git
+   git clone https://github.com/programaagibank/FinanciAi.git
