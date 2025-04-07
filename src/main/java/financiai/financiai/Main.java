@@ -20,8 +20,8 @@ public class Main extends Application {
 
         // Configura a janela
         primaryStage.setScene(scene);
-        primaryStage.setWidth(645);
-        primaryStage.setHeight(700);
+        primaryStage.setWidth(575);
+        primaryStage.setHeight(800);
         primaryStage.setResizable(false);
         primaryStage.centerOnScreen();
         primaryStage.setTitle("Simulador de Financiamento");

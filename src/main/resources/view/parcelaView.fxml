@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import java.net.URL?>
-<VBox xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="financiai.financiai.controller.ParcelaViewController"
-      spacing="20" styleClass="root" alignment="CENTER">
+<VBox alignment="CENTER" spacing="20" styleClass="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financiai.financiai.controller.ParcelaViewController">
 
     <stylesheets>
         <URL value="@/financiai/financiai/css/style.css" />
     </stylesheets>
 
-    <Label text="Parcelas do Financiamento" styleClass="titulo" />
+    <!-- Título da tela -->
+    <Label styleClass="titulo" text="Parcelas do Financiamento" />
 
-    <TableView fx:id="tabelaParcelas" prefHeight="400" prefWidth="700">
+    <!-- Tabela de parcelas -->
+    <TableView fx:id="tabelaParcelas" prefHeight="700.0" prefWidth="700" styleClass="tabela-parcelas">
         <columns>
-            <TableColumn fx:id="colunaNumero" text="Parcela" prefWidth="80"/>
-            <TableColumn fx:id="colunaValor" text="Valor (R$)" prefWidth="120"/>
-            <TableColumn fx:id="colunaAmortizacao" text="Amortização (R$)" prefWidth="120"/>
-            <TableColumn fx:id="colunaJuros" text="Juros (R$)" prefWidth="120"/>
-            <TableColumn fx:id="colunaSaldo" text="Déficit (R$)" prefWidth="120"/>
+            <TableColumn fx:id="colunaNumero" prefWidth="80" styleClass="coluna-titulo" text="Parcela" />
+            <TableColumn fx:id="colunaValor" prefWidth="120" styleClass="coluna-titulo" text="Valor (R$)" />
+            <TableColumn fx:id="colunaAmortizacao" prefWidth="120" styleClass="coluna-titulo" text="Amortização (R$)" />
+            <TableColumn fx:id="colunaJuros" prefWidth="120" styleClass="coluna-titulo" text="Juros (R$)" />
+            <TableColumn fx:id="colunaSaldo" prefWidth="120" styleClass="coluna-titulo" text="Déficit (R$)" />
         </columns>
     </TableView>
 
-    <Button text="Voltar" onAction="#voltarParaPrincipal" styleClass="botao-primario" />
+    <!-- Botão voltar -->
+    <Button onAction="#voltarParaPrincipal" styleClass="botao-primario" text="Voltar" />
 </VBox>

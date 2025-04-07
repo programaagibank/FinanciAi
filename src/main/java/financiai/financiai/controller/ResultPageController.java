@@ -55,10 +55,9 @@ public class ResultPageController {
             StringBuilder sb = new StringBuilder();
             sb.append(String.format("%-10s %-18s %-20s %-20s %-20s%n",
                     "Parcela", "Valor (R$)", "Amortização (R$)", "Juros (R$)", "Déficit (R$)"));
-            sb.append("=".repeat(90)).append("\n");
 
             for (Parcela parcela : parcelas) {
-                sb.append(String.format("%-10d %-18.2f %-20.2f %-20.2f %-20.2f%n",
+                sb.append(String.format("%-10d %18.2f %20.2f %20.2f %20.2f%n",
                         parcela.getNumeroParcela(),
                         parcela.getValorParcela(),
                         parcela.getValorAmortizacao(),
@@ -66,6 +65,8 @@ public class ResultPageController {
                         parcela.getSaldoDevedor()));
             }
 
+            System.out.println(sb.toString());
+            
             tabelaParcelasArea.setText(sb.toString());
         } catch (Exception e) {
             mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Falha ao exibir resultados: " + e.getMessage());

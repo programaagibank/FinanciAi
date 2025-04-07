@@ -1,0 +1,83 @@
+.root {
+    -fx-background-color: #e3f2fd;
+    -fx-padding: 30;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.titulo-resultado {
+    -fx-text-fill: #0d47a1;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-padding-bottom: 20px;
+}
+
+.resumo-container {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #1976d2;
+    -fx-border-radius: 8;
+    -fx-padding: 20;
+}
+
+.subtitulo {
+    -fx-text-fill: #1976d2;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-padding-bottom: 15px;
+}
+
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #1565c0;
+    -fx-font-weight: bold;
+}
+
+.resultado-dado {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555555;
+}
+
+.tabela-parcelas {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #1976d2;
+    -fx-border-radius: 8;
+    -fx-padding: 10;
+    -fx-font-size: 13px;
+    -fx-text-fill: #333333;
+    -fx-effect: innershadow(gaussian, #1976d2, 10, 0.5, 0, 1);
+    -fx-alignment: top-left;
+}
+
+.botao-nova-simulacao {
+    -fx-background-color: #388e3c; /* Verde */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 10;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.botao-nova-simulacao:hover {
+    -fx-background-color: #2e7d32; /* Tom mais escuro de verde */
+}
+
+.botao-secundario {
+    -fx-background-color: #1565c0;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 10;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.botao-secundario:hover {
+    -fx-background-color: #0d47a1;
+}
+
+.status-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #388e3c;
+    -fx-font-style: italic;
+    -fx-padding-top: 20px;
+}
+
+

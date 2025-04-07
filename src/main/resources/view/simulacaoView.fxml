@@ -9,28 +9,31 @@
 <VBox alignment="TOP_CENTER" prefHeight="631.0" prefWidth="774.0" spacing="20" style="-fx-padding: 30; -fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financiai.financiai.controller.ResultPageController">
 
     <stylesheets>
-        <URL value="@/financiai/financiai/css/style.css" />
+        <URL value="@/financiai/financiai/css/simulacao.css" />
     </stylesheets>
 
+    <!-- Título do resultado -->
     <Label styleClass="titulo-resultado" text="RESULTADO DA SIMULAÇÃO" />
 
+    <!-- Resumo do Financiamento -->
     <GridPane hgap="10" prefHeight="192.0" prefWidth="268.0" styleClass="resumo-container" vgap="10">
         <Label prefHeight="22.0" prefWidth="722.0" styleClass="subtitulo" text="Resumo do Financiamento" GridPane.columnSpan="2" />
 
-        <Label text="Nome do Cliente:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <Label fx:id="resumoNomeCliente" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <!-- Labels de dados -->
+        <Label text="Nome do Cliente:" styleClass="label" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label fx:id="resumoNomeCliente" styleClass="resultado-dado" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-        <Label text="Valor Financiado:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <Label fx:id="resumoValorFinanciado" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label text="Valor Financiado:" styleClass="label" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label fx:id="resumoValorFinanciado" styleClass="resultado-dado" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-        <Label prefHeight="18.0" prefWidth="119.0" text="Parcelas:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-        <Label fx:id="resumoParcelas" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label text="Parcelas:" styleClass="label" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <Label fx:id="resumoParcelas" styleClass="resultado-dado" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-        <Label prefHeight="18.0" prefWidth="118.0" text="Valor da Parcela:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-        <Label fx:id="resumoValorParcela" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <Label text="Valor da Parcela:" styleClass="label" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <Label fx:id="resumoValorParcela" styleClass="resultado-dado" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-        <Label prefHeight="18.0" prefWidth="118.0" text="Total a Pagar:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-        <Label fx:id="resumoTotalPagar" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Label text="Total a Pagar:" styleClass="label" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <Label fx:id="resumoTotalPagar" styleClass="resultado-dado" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
         <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
@@ -46,27 +49,29 @@
         </rowConstraints>
     </GridPane>
 
+    <!-- Detalhamento das Parcelas -->
     <Label alignment="CENTER" prefHeight="33.0" prefWidth="272.0" styleClass="subtitulo" text="DETALHAMENTO DAS PARCELAS:" />
 
-    <TextArea fx:id="tabelaParcelasArea" editable="false" prefHeight="166.0" prefWidth="700.0" styleClass="tabela-parcelas" wrapText="true">
-      <font>
-         <Font name="Arial" size="11.0" />
-      </font></TextArea>
+    <TextArea fx:id="tabelaParcelasArea" editable="false" prefHeight="400.0" prefWidth="700.0" styleClass="tabela-parcelas" wrapText="true">
+        <font>
+            <Font name="Arial" size="11.0" />
+        </font>
+    </TextArea>
 
+    <!-- Botões -->
     <HBox alignment="CENTER" spacing="20">
-        <Button onAction="#gerarPDF" text="Exportar PDF">
-            <styleClass>
-                <String fx:value="botao-secundario" />
-            </styleClass>
+        <Button onAction="#gerarPDF" text="Exportar PDF" styleClass="botao-secundario">
             <tooltip>
                 <Tooltip text="Gerar relatório em PDF com os detalhes" />
             </tooltip>
         </Button>
         <Button fx:id="gerarContratoButton" onAction="#gerarContrato" styleClass="botao-secundario" text="Gerar Contrato" />
-        <Button onAction="#voltar" styleClass="botao-secundario" text="Nova Simulação" />
+        <Button onAction="#voltar" styleClass="botao-nova-simulacao" text="Nova Simulação" />
     </HBox>
 
+    <!-- Resultado final -->
     <HBox alignment="CENTER" spacing="10">
         <Label fx:id="simulacaoResultLabel" styleClass="status-label" />
     </HBox>
+
 </VBox>
