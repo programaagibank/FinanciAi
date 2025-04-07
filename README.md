@@ -34,7 +34,7 @@ _Todos os cálculos são persistidos em banco MySQL para consulta posterior via 
 ## ⚙️ Funcionalidades
 
 ✅ **Geração de PDF**
-- Gera um PDF com o detahamento das parcelas e um resumo do financiamento.
+- Gera um PDF com o detalhamento das parcelas e um resumo do financiamento.
 
 ✅ **Geração de proposta**
 - Gera uma proposta com base na simulação feita.
