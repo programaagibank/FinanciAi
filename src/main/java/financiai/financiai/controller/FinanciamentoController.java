@@ -176,6 +176,9 @@ public class FinanciamentoController {
                 mostrarAlerta("Erro", "Valores devem ser maiores que zero");
                 return false;
             }
+            if (valorEntrada < valorImovel * 0.2) {
+                throw new IllegalArgumentException("O valor de entrada deve ser no mínimo 20% do valor do imóvel.");
+            }
         } catch (NumberFormatException e) {
             mostrarAlerta("Erro", "Valores numéricos inválidos");
             return false;
@@ -183,7 +186,6 @@ public class FinanciamentoController {
 
         return true;
     }
-
 
     private Financiamento calcularFinanciamento(DadosFinanciamento dados, Cliente cliente, Imovel imovel) {
         double valorFinanciado = dados.valorImovel - dados.valorEntrada;
