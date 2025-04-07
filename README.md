@@ -262,7 +262,7 @@ i_{\text{mensal}} = (1 + 0,085)^{1/12} - 1 \approx 0,68\% \text{ (ou 0,0068 em d
 
 ### 5. Total a Pagar
 ```math
-\text{Total} = \sum_{k=1}^{360} (\text{Amortização} + \text{Juros}_k) = 240.000 + 180.000 = R\$ 535507,09
+\text{Total} = \sum_{k=1}^{360} (\text{Amortização} + \text{Juros}_k) = R\$ 535507,09
 ```
 
 ---
