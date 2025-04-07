@@ -26,7 +26,6 @@ public class Cliente {
         cpf = cpf.replaceAll("[^0-9]", "");
         return cpf.length() == 11; // Validação básica
     }
-    // Getters e Setters
 
 
     public String getCpf() {

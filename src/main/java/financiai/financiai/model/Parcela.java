@@ -43,7 +43,6 @@ public class Parcela {
         return saldoDevedor.get();
     }
 
-     // Getters e Setters
     public int getFinanciamentoId() {
         return financiamentoId;
     }

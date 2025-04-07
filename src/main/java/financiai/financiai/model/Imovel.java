@@ -15,7 +15,6 @@ public class Imovel {
         this.valorImovel = valorImovel;
     }
 
-    // Getters e Setters
     public int getId() {
         return id;
     }
