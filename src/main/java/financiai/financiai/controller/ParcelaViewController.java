@@ -29,6 +29,12 @@ public class ParcelaViewController {
         colunaAmortizacao.setCellValueFactory(new PropertyValueFactory<>("valorAmortizacao"));
         colunaJuros.setCellValueFactory(new PropertyValueFactory<>("valorJuros"));
         colunaSaldo.setCellValueFactory(new PropertyValueFactory<>("saldoDevedor"));
+
+        colunaNumero.setPrefWidth(30);
+        colunaValor.setPrefWidth(100);
+        colunaAmortizacao.setPrefWidth(100);
+        colunaJuros.setPrefWidth(100);
+        colunaSaldo.setPrefWidth(100);
     }
 
     public void setParcelas(List<Parcela> parcelas) {
@@ -48,3 +54,4 @@ public class ParcelaViewController {
         }
     }
 }
+

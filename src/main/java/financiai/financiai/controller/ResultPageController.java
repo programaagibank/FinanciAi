@@ -51,22 +51,27 @@ public class ResultPageController {
             // Exibe status da simulação
             simulacaoResultLabel.setText("Simulação concluída com sucesso!");
 
-            // Preenche a tabela de parcelas
+            // Preenche a tabela de parcelas no TextArea com colunas alinhadas
             StringBuilder sb = new StringBuilder();
-            sb.append("Nº Parcela\t\t\tValor (R$)\t\t\tAmortização (R$)\t\t\tJuros (R$)\t\t\tSaldo Devedor (R$)\n");
+            sb.append(String.format("%-10s %-18s %-20s %-20s %-20s%n",
+                    "Parcela", "Valor (R$)", "Amortização (R$)", "Juros (R$)", "Déficit (R$)"));
+            sb.append("=".repeat(90)).append("\n");
+
             for (Parcela parcela : parcelas) {
-                sb.append(String.format("\t%d\t\t\t\t%.2f\t\t\t\t%.2f\t\t\t\t%.2f\t\t\t\t%.2f\n",
+                sb.append(String.format("%-10d %-18.2f %-20.2f %-20.2f %-20.2f%n",
                         parcela.getNumeroParcela(),
                         parcela.getValorParcela(),
                         parcela.getValorAmortizacao(),
                         parcela.getValorJuros(),
                         parcela.getSaldoDevedor()));
             }
+
             tabelaParcelasArea.setText(sb.toString());
         } catch (Exception e) {
-            mostrarAlerta(Alert.AlertType.ERROR, "Err", "Falha ao exibir resultados: " + e.getMessage());
+            mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Falha ao exibir resultados: " + e.getMessage());
         }
     }
+
 
     @FXML
     private void gerarPDF() {

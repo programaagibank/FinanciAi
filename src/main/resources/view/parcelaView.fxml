@@ -14,13 +14,13 @@
 
     <Label text="Parcelas do Financiamento" styleClass="titulo" />
 
-    <TableView fx:id="tabelaParcelas" prefHeight="400" prefWidth="600">
+    <TableView fx:id="tabelaParcelas" prefHeight="400" prefWidth="700">
         <columns>
-            <TableColumn fx:id="colunaNumero" text="Nº Parcela" prefWidth="80"/>
+            <TableColumn fx:id="colunaNumero" text="Parcela" prefWidth="80"/>
             <TableColumn fx:id="colunaValor" text="Valor (R$)" prefWidth="120"/>
             <TableColumn fx:id="colunaAmortizacao" text="Amortização (R$)" prefWidth="120"/>
             <TableColumn fx:id="colunaJuros" text="Juros (R$)" prefWidth="120"/>
-            <TableColumn fx:id="colunaSaldo" text="Saldo Devedor (R$)" prefWidth="120"/>
+            <TableColumn fx:id="colunaSaldo" text="Déficit (R$)" prefWidth="120"/>
         </columns>
     </TableView>
 
