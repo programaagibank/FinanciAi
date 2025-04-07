@@ -191,6 +191,15 @@ public class FinanciamentoController {
         double valorFinanciado = dados.valorImovel - dados.valorEntrada;
         parcelas = dados.tipoAmortizacao.calcularParcela(valorFinanciado, dados.taxaJuros, dados.prazo, dados.cpf);
 
+        double limiteParcela = dados.renda * 0.3;
+
+        boolean algumaParcelaUltrapassa = parcelas.stream()
+                .anyMatch(parcela -> parcela.getValorParcela() > limiteParcela);
+
+        if (algumaParcelaUltrapassa) {
+            throw new IllegalArgumentException("O valor de alguma parcela ultrapassa 30% da renda mensal.");
+        }
+
         double totalPagar = parcelas.stream().mapToDouble(Parcela::getValorParcela).sum();
 
         Financiamento financiamento = new Financiamento(
@@ -201,6 +210,7 @@ public class FinanciamentoController {
         financiamento.setParcelas(parcelas);
         return financiamento;
     }
+
 
     private void salvarFinanciamentoCompleto(Cliente cliente, Imovel imovel, Financiamento financiamento) {
         Connection conexao = null;
