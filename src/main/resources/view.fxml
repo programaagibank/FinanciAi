@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="TOP_CENTER" prefHeight="600" prefWidth="800" spacing="20" styleClass="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financiai.financiai.controller.FinanciamentoController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="400.0" prefWidth="800" spacing="20" styleClass="root" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financiai.financiai.controller.FinanciamentoController">
 
     <stylesheets>
         <URL value="@financiai/financiai/css/view.css" />

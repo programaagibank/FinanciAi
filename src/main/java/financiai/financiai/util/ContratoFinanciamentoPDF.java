@@ -20,7 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class ContratoFinanciamentoPDF {
 
-    // Helper methods for table cells
+
     private static void adicionarCelulaCabecalho(PdfPTable tabela, String texto, Font fonte, BaseColor corFundo) {
         PdfPCell cell = new PdfPCell(new Phrase(texto, fonte));
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -58,7 +58,7 @@ public class ContratoFinanciamentoPDF {
             PdfWriter.getInstance(documento, new FileOutputStream(nomeArquivo));
             documento.open();
 
-            // Font definitions
+
             Font fonteTituloPrincipal = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
             Font fonteCabecalho = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD);
             Font fonteTexto = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
@@ -68,52 +68,50 @@ public class ContratoFinanciamentoPDF {
             Font fonteCabecalhoTabela = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.WHITE);
             BaseColor corFundoCabecalho = new BaseColor(0, 102, 204); // Dark blue
 
-            // ==============================================
-            // HEADER WITH IMAGE - WORKING VERSION
-            // ==============================================
-            try {
-                // 1. Load image robustly
-                Image imagemLogo;
-                String imagePath = "/images/Luxury Modern Real Estate.png"; // Path relative to resources folder
 
-                // Try loading from classpath (recommended for Java projects)
+            try {
+
+                Image imagemLogo;
+                String imagePath = "/images/Luxury Modern Real Estate.png";
+
+
                 URL imgUrl = ContratoFinanciamentoPDF.class.getResource(imagePath);
                 if (imgUrl != null) {
                     imagemLogo = Image.getInstance(imgUrl);
                 } else {
-                    // If not found in classpath, try filesystem path
+
                     imagemLogo = Image.getInstance("src/main/resources" + imagePath);
 
                 }
 
-                // 2. Configure image
+
                 imagemLogo.scaleToFit(80, 80); // Image size
                 imagemLogo.setAlignment(Image.ALIGN_CENTER);
 
-                // 3. Create 2-column table
+
                 PdfPTable tabelaCabecalho = new PdfPTable(2);
                 tabelaCabecalho.setWidthPercentage(100);
                 tabelaCabecalho.setSpacingAfter(10f);
 
-                // Set column proportions (30% image, 70% text)
+
                 float[] columnWidths = {30f, 70f};
                 tabelaCabecalho.setWidths(columnWidths);
 
-                // 4. Image cell
+
                 PdfPCell cellImagem = new PdfPCell(imagemLogo, true);
                 cellImagem.setBorder(Rectangle.NO_BORDER);
                 cellImagem.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cellImagem.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cellImagem.setPadding(5);
 
-                // 5. Text cell
+
                 PdfPCell cellTexto = new PdfPCell();
                 cellTexto.setBorder(Rectangle.NO_BORDER);
                 cellTexto.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cellTexto.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cellTexto.setPadding(5);
 
-                // Add text content
+
                 Paragraph enderecoBanco = new Paragraph("Rua das Finanças, 123, São Paulo - SP", fontePequena);
                 enderecoBanco.setAlignment(Element.ALIGN_CENTER);
                 cellTexto.addElement(enderecoBanco);
@@ -126,17 +124,17 @@ public class ContratoFinanciamentoPDF {
                 telefoneBanco.setAlignment(Element.ALIGN_CENTER);
                 cellTexto.addElement(telefoneBanco);
 
-                // Add cells to table
+
                 tabelaCabecalho.addCell(cellImagem);
                 tabelaCabecalho.addCell(cellTexto);
 
-                // Add table to document
+
                 documento.add(tabelaCabecalho);
 
             } catch (Exception e) {
                 System.err.println("ERROR: Could not load image. Reason: " + e.getMessage());
 
-                // Fallback - header without image
+
                 Paragraph enderecoBanco = new Paragraph("Rua das Finanças, 123, São Paulo - SP", fontePequena);
                 enderecoBanco.setAlignment(Element.ALIGN_CENTER);
                 documento.add(enderecoBanco);
@@ -150,19 +148,17 @@ public class ContratoFinanciamentoPDF {
                 documento.add(telefoneBanco);
             }
 
-            // ==============================================
-            // REST OF THE DOCUMENT (ORIGINAL CONTENT)
-            // ==============================================
+
             documento.add(Chunk.NEWLINE);
 
-            // Main title
+
             Paragraph titulo = new Paragraph("CARTA PROPOSTA DE FINANCIAMENTO", fonteTituloPrincipal);
             titulo.setAlignment(Element.ALIGN_CENTER);
             documento.add(titulo);
 
             documento.add(Chunk.NEWLINE);
 
-            // Recipient
+
             Paragraph para = new Paragraph("PARA:", fonteNegrito);
             documento.add(para);
 
@@ -174,14 +170,14 @@ public class ContratoFinanciamentoPDF {
 
             documento.add(Chunk.NEWLINE);
 
-            // Greeting
+
             Paragraph saudacao = new Paragraph("Prezado(a) " +
                     (cliente.getNome() != null ? cliente.getNome() : "Cliente") + ",", fonteTexto);
             documento.add(saudacao);
 
             documento.add(Chunk.NEWLINE);
 
-            // Introduction
+
             Paragraph introducao = new Paragraph(
                     "Temos o prazer de apresentar nossa proposta de financiamento para a aquisição do " +
                             (imovel.getTipoImovel() != null ? imovel.getTipoImovel() : "[TIPO DE IMÓVEL]") +
@@ -192,7 +188,7 @@ public class ContratoFinanciamentoPDF {
 
             documento.add(Chunk.NEWLINE);
 
-            // 1. Proposal Object
+
             adicionarItemNumerado(documento, "1", "Objeto da Proposta",
                     "A FinanciAí" + " oferece a você, " + cliente.getNome() + ", um financiamento no valor de R$ " +
                             String.format("%.2f", financiamento.getValorFinanciado()) + " (" + converterNumero(financiamento.getValorFinanciado()) + "), para ser " +
@@ -201,7 +197,7 @@ public class ContratoFinanciamentoPDF {
                             "financiamento concedido ajudará a viabilizar sua aquisição de maneira facilitada.",
                     fonteNegrito, fonteTexto);
 
-            // 2. Financing Conditions
+
             LocalDate dataAtual = LocalDate.now();
             LocalDate dataVencimento = LocalDate.of(dataAtual.plusMonths(1).getYear(), dataAtual.plusMonths(1).getMonthValue(), 5);
 
@@ -216,7 +212,7 @@ public class ContratoFinanciamentoPDF {
                             " (" + converterNumero(financiamento.getTotalPagar()) + ").",
                     fonteNegrito, fonteTexto);
 
-            // INSTALLMENT TABLE
+
             documento.add(new Paragraph("\nTabela de Parcelas:", fonteClausula));
 
             PdfPTable tabelaParcelas = new PdfPTable(5);
@@ -224,14 +220,14 @@ public class ContratoFinanciamentoPDF {
             tabelaParcelas.setSpacingBefore(10f);
             tabelaParcelas.setSpacingAfter(10f);
 
-            // Table headers
+
             adicionarCelulaCabecalho(tabelaParcelas, "Parcela", fonteCabecalhoTabela, corFundoCabecalho);
             adicionarCelulaCabecalho(tabelaParcelas, "Valor (R$)", fonteCabecalhoTabela, corFundoCabecalho);
             adicionarCelulaCabecalho(tabelaParcelas, "Amortização (R$)", fonteCabecalhoTabela, corFundoCabecalho);
             adicionarCelulaCabecalho(tabelaParcelas, "Juros (R$)", fonteCabecalhoTabela, corFundoCabecalho);
             adicionarCelulaCabecalho(tabelaParcelas, "Saldo Devedor (R$)", fonteCabecalhoTabela, corFundoCabecalho);
 
-            // Table body
+
             List<Parcela> parcelas = financiamento.getParcelas();
             if (parcelas != null && !parcelas.isEmpty()) {
                 for (Parcela parcela : parcelas) {
@@ -251,24 +247,24 @@ public class ContratoFinanciamentoPDF {
             documento.add(tabelaParcelas);
             documento.add(Chunk.NEWLINE);
 
-            // 3. Guarantees and Payment
+
             adicionarItemNumerado(documento, "3", "Garantias e Pagamento",
                     "Para garantir a segurança do financiamento, o imóvel adquirido será dado em alienação fiduciária à FinanciAí " +
                             " até a quitação integral do financiamento. Um carnê será fornecido para facilitar os pagamentos.",
                     fonteNegrito, fonteTexto);
 
-            // 4. Default Conditions
+
             adicionarItemNumerado(documento, "4", "Condições de Inadimplência",
                     "Caso haja atraso no pagamento das parcelas, a FinanciAí poderá tomar as medidas cabíveis, " +
                             "incluindo cobrança de encargos moratórios e protesto da Nota Promissória correspondente ao saldo devedor.",
                     fonteNegrito, fonteTexto);
 
-            // 5. Early Settlement
+
             adicionarItemNumerado(documento, "5", "Liquidação Antecipada",
                     "Se desejar liquidar o financiamento antes do prazo estabelecido, será necessária a anuência expressa da FinanciAí.",
                     fonteNegrito, fonteTexto);
 
-            // 6. Jurisdiction
+
             adicionarItemNumerado(documento, "6", "Foro de Eleição",
                     "Para dirimir quaisquer dúvidas, fica eleito o foro da comarca de São Paulo/SP.",
                     fonteNegrito, fonteTexto);
@@ -276,7 +272,7 @@ public class ContratoFinanciamentoPDF {
             documento.add(Chunk.NEWLINE);
             documento.add(Chunk.NEWLINE);
 
-            // Signature
+
             Paragraph assinatura = new Paragraph("Atenciosamente,", fonteTexto);
             assinatura.setAlignment(Element.ALIGN_CENTER);
             documento.add(assinatura);
@@ -307,14 +303,14 @@ public class ContratoFinanciamentoPDF {
                                               Font fonteNegrito, Font fonteTexto) throws DocumentException {
         Paragraph item = new Paragraph();
 
-        // Number and title in bold
+
         Chunk numChunk = new Chunk(numero + ". ", fonteNegrito);
         Chunk tituloChunk = new Chunk(titulo, fonteNegrito);
         item.add(numChunk);
         item.add(tituloChunk);
         documento.add(item);
 
-        // Normal text
+
         Paragraph textoParagrafo = new Paragraph(texto, fonteTexto);
         documento.add(textoParagrafo);
 
@@ -353,7 +349,7 @@ public class ContratoFinanciamentoPDF {
             int inteiro = (int) Math.floor(valor);
             int centavos = (int) Math.round((valor - inteiro) * 100);
 
-            // Special cases
+
             if (inteiro == 0 && centavos == 0) return "zero reais";
             if (inteiro == 1 && centavos == 0) return "um real";
             if (inteiro == 0 && centavos == 1) return "um centavo";
@@ -361,7 +357,7 @@ public class ContratoFinanciamentoPDF {
 
             StringBuilder extenso = new StringBuilder();
 
-            // Integer part - thousands
+
             if (inteiro >= 1000) {
                 int milhares = inteiro / 1000;
                 if (milhares == 1) {
@@ -375,7 +371,7 @@ public class ContratoFinanciamentoPDF {
                 }
             }
 
-            // Integer part - hundreds
+
             if (inteiro >= 100) {
                 if (inteiro == 100) {
                     extenso.append("cem");
@@ -389,17 +385,17 @@ public class ContratoFinanciamentoPDF {
                 }
             }
 
-            // Integer part - tens and units
+
             if (inteiro > 0) {
                 extenso.append(converterNumero(inteiro, unidades, dez_a_dezenove, dezenas));
             }
 
-            // Add "reais"
+
             if (extenso.length() > 0) {
                 extenso.append(extenso.toString().contains("mil") && !extenso.toString().contains("e") ? " reais" : " reais");
             }
 
-            // Decimal part
+
             if (centavos > 0) {
                 if (extenso.length() > 0) {
                     extenso.append(" e ");
@@ -433,7 +429,7 @@ public class ContratoFinanciamentoPDF {
 
         StringBuilder extenso = new StringBuilder();
 
-        // Hundreds
+
         if (valor >= 100) {
             extenso.append(centenas[valor / 100]);
             valor %= 100;
@@ -442,7 +438,7 @@ public class ContratoFinanciamentoPDF {
             }
         }
 
-        // Tens and units
+
         if (valor > 0) {
             extenso.append(converterNumero(valor, unidades, dez_a_dezenove, dezenas));
         }
