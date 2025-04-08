@@ -22,7 +22,6 @@ public class Cliente {
     }
 
     private boolean validarCPF(String cpf) {
-        // Implementação da validação de CPF
         cpf = cpf.replaceAll("[^0-9]", "");
         return cpf.length() == 11; // Validação básica
     }

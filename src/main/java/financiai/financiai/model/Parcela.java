@@ -22,7 +22,7 @@ public class Parcela {
         this.cpf = cpf.replaceAll("[^0-9]", "");
     }
 
-    // Getters para as propriedades (necessários para o TableView)
+
     public int getNumeroParcela() {
         return numeroParcela.get();
     }

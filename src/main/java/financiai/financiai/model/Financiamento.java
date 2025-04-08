@@ -16,10 +16,10 @@ public class Financiamento {
     private TipoAmortizacao tipoAmortizacao;
     private double totalPagar;
     private LocalDate dataSimulacao;
-    private List<Parcela> parcelas; // Novo atributo para armazenar as parcelas
+    private List<Parcela> parcelas;
 
     public Financiamento() {
-        this.parcelas = new ArrayList<>(); // Inicializa a lista
+        this.parcelas = new ArrayList<>();
     }
 
     public Financiamento(int prazo, Double taxaJuros, TipoAmortizacao tipoAmortizacao,
@@ -33,7 +33,7 @@ public class Financiamento {
         this.totalPagar = totalPagar;
     }
 
-    // Métodos para parcelas
+
     public List<Parcela> getParcelas() {
         return parcelas;
     }
@@ -42,12 +42,11 @@ public class Financiamento {
         this.parcelas = parcelas;
     }
 
-    // Método para adicionar uma parcela individual
+
     public void adicionarParcela(Parcela parcela) {
         this.parcelas.add(parcela);
     }
 
-    // Restante dos getters e setters...
     public int getId() {
         return id;
     }

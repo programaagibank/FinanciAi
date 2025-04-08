@@ -15,7 +15,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view.fxml"));
         Parent root = fxmlLoader.load();
 
-        // Cria a cena antes de mostrar
+
         Scene scene = new Scene(root);
 
         // Configura a janela
@@ -30,7 +30,7 @@ public class Main extends Application {
         FinanciamentoController controller = fxmlLoader.getController();
         controller.setPrimaryStage(primaryStage);
 
-        // Exibe a janela
+
         primaryStage.show();
     }
 
